@@ -1,0 +1,19 @@
+@import "@miw/styles/abstracts/abstracts";
+
+.container {
+  max-width: fit-content;
+  height: calc(100vh - 6rem);
+  margin-inline: auto;
+
+  .title {
+    margin-bottom: 2rem;
+    color: $secondary;
+  }
+  .josnContainer {
+    background-color: $secondary10;
+    padding: 5rem;
+    border-radius: 1.6rem;
+    color: $primary70;
+    border: 5px solid $secondary30;
+  }
+}

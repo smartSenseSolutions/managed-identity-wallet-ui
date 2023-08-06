@@ -1,0 +1,36 @@
+@import "@miw/styles/abstracts/abstracts";
+
+.container {
+  .header {
+    padding: 5rem 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      color: $secondary;
+    }
+  }
+  .paginationContainer {
+    width: fit-content;
+    margin-top: 2rem;
+    margin-inline: auto;
+  }
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  min-width: 30%;
+  .title {
+    text-transform: capitalize;
+    color: $secondary;
+  }
+
+  //   @include respond("tab") {
+  //     background-color: red;
+  //   }
+}
+
+.bodyContainer {
+  color: $secondary40;
+  //   background-color: $primary10;
+}

@@ -1,0 +1,37 @@
+@mixin BlueShade(
+  $top: 0,
+  $left: auto,
+  $right: auto,
+  $width: 25%,
+  $height: 80%
+) {
+  border-radius: 45.3rem;
+  opacity: 0.5;
+  background: $secondary;
+  filter: blur(250px);
+  position: absolute;
+  left: $left;
+  top: $top;
+  right: $right;
+  width: $width;
+  height: $height;
+}
+
+@mixin GreenShade(
+  $top: 0,
+  $left: auto,
+  $right: auto,
+  $width: 25%,
+  $height: 80%
+) {
+  border-radius: 45.3rem;
+  opacity: 0.5;
+  background: $primary;
+  filter: blur(250px);
+  position: absolute;
+  left: $left;
+  top: $top;
+  right: $right;
+  width: $width;
+  height: $height;
+}
