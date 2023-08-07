@@ -1,3 +1,4 @@
 import { getDidDocument } from "@miw/APIs/DidManagement.api";
+import { postCreateWallet, getWalletList } from "./VcManagement.api";
 
-export default { getDidDocument };
+export { getDidDocument, postCreateWallet, getWalletList };

@@ -4,7 +4,17 @@
     },
     "WALLET":{
         "CREATE":{
-            "DEMO":"Demo"
+            "NAME":"Name",
+            "BPN":"bpn",
+            "NAME_PLACEHOLDER":"Company ABC",
+            "BPN_PLACEHOLDER":"BPNL000000000001",
+            "CREATE_WALLET":"Create Wallet"
         }
+    },
+    "VC_MANAGEMENT":{
+        "ISSUER":"Issue Credential",
+        "MEMBERSHIP":"Issue MemberShip",
+        "FRAMEWORK":"Issue Framework",
+        "DOSMANTLER":"Issue Dismantler"
     }
 }

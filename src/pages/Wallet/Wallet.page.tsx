@@ -8,18 +8,34 @@ import StyledWallet from "./Wallet.module.scss";
 type Props = {};
 const WalletAccordianHeader = ({
   title,
-  type,
+  createdAt,
+  didDocument,
 }: {
   title: string;
-  type: string;
+  createdAt: string;
+  didDocument: object;
 }) => {
+  const openNewTabWithDidDocuments = () => {
+    const jsonString = JSON.stringify(didDocument, null, 2);
+    const newTab = window.open();
+    if (newTab) {
+      newTab.document.body.innerHTML = "<pre>" + jsonString + "</pre>";
+    } else {
+      alert("The new tab was blocked. Please allow pop-ups for this website.");
+    }
+  };
+
   return (
     <div className={StyledWallet.headerContainer}>
       <h3 className={StyledWallet.title}>{title}</h3>
-      <p className={StyledWallet.type}>{type}</p>
+      {/* <p className={StyledWallet.type}>{createdAt}</p> */}
+      <Button onClick={openNewTabWithDidDocuments}>Show DID docs</Button>
     </div>
   );
 };
+{
+  /* TODO: need to inject option for did document  */
+}
 
 const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
   return (
@@ -80,7 +96,8 @@ const Wallet = (props: Props) => {
                   accordionHeader={
                     <WalletAccordianHeader
                       title={wallet.name}
-                      type={wallet.didDocument.verificationMethod[0].type}
+                      didDocument={wallet}
+                      createdAt={wallet.didDocument.verificationMethod[0].type}
                     />
                   }
                   accordionBody={<WalleteDetails didJson={wallet} />}

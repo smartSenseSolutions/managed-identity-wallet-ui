@@ -1,6 +1,6 @@
 import { DidDocumentType, UserResponse } from "@miw/models";
 import { ApiResponse } from "@miw/types/common";
-import { get } from "@miw/utils/ApiManager";
+import { get, post } from "@miw/utils/ApiManager";
 import ENDPOINTS from "@miw/utils/endpoints";
 import { parseAPI } from "@miw/utils/helper";
 
@@ -17,4 +17,8 @@ export const getWalletList = (templateParams: {
   //     sortBy,
   //   };
   return get(parseAPI(ENDPOINTS.getWallets, templateParams));
+};
+
+export const postCreateWallet = (param: { bpn: string; name: string }) => {
+  return post(ENDPOINTS.postCreateWallet, param);
 };

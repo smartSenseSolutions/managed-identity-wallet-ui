@@ -10,6 +10,7 @@
   background: $secondary;
   filter: blur(250px);
   position: absolute;
+  z-index: -1;
   left: $left;
   top: $top;
   right: $right;
@@ -31,7 +32,23 @@
   position: absolute;
   left: $left;
   top: $top;
+  z-index: -1;
   right: $right;
   width: $width;
   height: $height;
+}
+@mixin respond($breakPoint) {
+  @if $breakPoint ==macbook {
+    @media screen and (min-width: 1367px) and (max-width: 1500px) {
+      // 75 em
+
+      @content;
+    }
+  }
+
+  @if $breakPoint ==Laptop {
+    @media (max-width: 1366px) {
+      @content;
+    }
+  }
 }

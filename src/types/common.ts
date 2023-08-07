@@ -23,4 +23,10 @@ export type IconType = {
   props?: any;
 };
 
+export type itemsProps = {
+  id: number;
+  value: string | number;
+  label: string;
+};
+
 export type CatchErrorType = ApiResponse<null>;

@@ -38,16 +38,16 @@ function App() {
 
   const MenuList = [
     {
-      tabName: "DID management",
+      tabName: "My Wallet",
       tabValue: ROUTES.DID_MGMT,
     },
     {
-      tabName: "VC management",
-      tabValue: ROUTES.VC,
+      tabName: "Wallet",
+      tabValue: ROUTES.WALLET,
     },
     {
-      tabName: "wallet",
-      tabValue: ROUTES.WALLET,
+      tabName: "VC Management",
+      tabValue: ROUTES.VC,
     },
   ];
   const onTabClick = (e: MouseEvent, item) => {

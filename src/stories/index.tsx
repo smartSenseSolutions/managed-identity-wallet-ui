@@ -6,7 +6,7 @@ import CustomInput from "./components/CustomInput";
 import Dialog from "./components/Dialog";
 import Grid from "./components/Grid/Grid.component";
 import Label from "./components/Label";
-
+import ThreeDotItemMenu from "./components/ThreeDotMenu";
 export {
   Appbar,
   Button,
@@ -16,4 +16,5 @@ export {
   Grid,
   Label,
   Pagination,
+  ThreeDotItemMenu,
 };
