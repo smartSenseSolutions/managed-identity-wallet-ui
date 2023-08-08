@@ -91,11 +91,24 @@ export function returnParsedJson(jsonObject: any) {
 
 export const parseAPI = (
   template: string,
-  templateParams: { [key: string]: string | number | boolean }
+  templateParams: { [key: string]: string | number | boolean },
+  queryParams?: { [key: string]: string | number | boolean | undefined }
 ) => {
   let url = template;
   for (const key of Object.keys(templateParams)) {
     url = url.replace(`:${key}`, `${templateParams[key]}`);
   }
+
+  if (queryParams) {
+    const queryString = Object.keys(queryParams)
+      .filter((key) => queryParams[key] !== undefined)
+      .map((key) => `${key}=${queryParams[key]}`)
+      .join("&");
+
+    if (queryString) {
+      url += `?${queryString}`;
+    }
+  }
+
   return url;
 };

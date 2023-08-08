@@ -91,6 +91,7 @@ const IssueDismantler = ({ onClose }: Props) => {
               </Field>
 
               <Button
+                isLoading={submitting}
                 disabled={submitting || !values.bpn || !values.name}
                 type="submit"
               >

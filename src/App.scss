@@ -38,8 +38,10 @@
     filter: blur(250px);
     position: absolute;
     left: auto;
+    z-index: -1;
     top: auto;
     right: 0;
+    height: 50%;
     width: 25%;
     bottom: 10rem;
     height: 40%;
@@ -54,6 +56,9 @@
     position: absolute;
     left: 0;
     top: 10%;
+    z-index: -1;
+    height: 50%;
+
     right: auto;
     width: 25%;
     height: 40%;

@@ -26,11 +26,40 @@ export const postCreateWallet = (param: { bpn: string; name: string }) => {
 export const getWalletByRoot = (templateParam: {
   // holderId: string;
   // vcType: string;
-  page: string | number;
+  size: string | number;
+  pageNumber: string | number;
   sortColumn: string;
   sortBy: string;
 }) => {
-  return get(parseAPI(ENDPOINTS.getWalletByRoot, templateParam));
+  const queryParams = {};
+
+  if (templateParam.size) {
+    queryParams["size"] = templateParam.size;
+  }
+  if (templateParam.pageNumber) {
+    queryParams["pageNumber"] = templateParam.pageNumber;
+  }
+  if (templateParam.sortColumn) {
+    queryParams["sortColumn"] = templateParam.sortColumn;
+  }
+  if (templateParam.sortBy) {
+    queryParams["sortBy"] = templateParam.sortBy;
+  }
+
+  return get(parseAPI(ENDPOINTS.getWalletByRoot, {}, queryParams));
+};
+
+export const postIssueGenericCredential = (
+  templateParam: { holderDid: string },
+  param: object
+) => {
+  const queryParams = {};
+
+  if (templateParam.holderDid) {
+    queryParams["holderDid"] = templateParam.holderDid;
+  }
+
+  return post(parseAPI(ENDPOINTS.postIssueWallet, {}, queryParams), param);
 };
 export const postIssueMembership = (param: { bpn: string }) => {
   return post(ENDPOINTS.postIssueMembership, param);
@@ -49,4 +78,11 @@ export const postIssueDismantler = (param: {
   allowedVehicleBrands: string[];
 }) => {
   return post(ENDPOINTS.postIssueDismantler, param);
+};
+
+export const postValidateCreds = (
+  templateParam: { withCreds: string },
+  param: object
+) => {
+  return post(parseAPI(ENDPOINTS.postValidateCreds, templateParam), param);
 };

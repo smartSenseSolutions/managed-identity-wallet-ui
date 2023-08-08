@@ -1,25 +1,24 @@
-import { Button, CustomInput, Label } from "@miw/stories";
+import { Button, CustomInput, CustomTextArea, Label } from "@miw/stories";
 import React from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
-import Styled from "./CreateWallete.module.scss";
+import Styled from "./IssueGenericCreds.module.scss";
 import { postCreateWallet } from "@miw/APIs";
+import { postIssueGenericCredential } from "@miw/APIs/VcManagement.api";
 
-type Props = {};
+type Props = { onClose: () => void };
 
-const CreateWallete = (props: Props) => {
+const IssueGenericCreds = ({ onClose }: Props) => {
   const { t } = useTranslation();
 
   const handleCreateWallet = (formValues) => {
-    if (!!formValues.bpn && formValues.name) {
-      const param = {
-        bpn: formValues.bpn,
-        name: formValues.name,
-      };
-      postCreateWallet(param).then((res) => {
-        console.log(res);
-      });
-    }
+    const param = formValues.json;
+    postIssueGenericCredential({ holderDid: formValues.bpn }, param).then(
+      (res) => {
+        onClose();
+      }
+    );
+    // }
   };
   return (
     <div className={Styled.createContainer}>
@@ -38,7 +37,6 @@ const CreateWallete = (props: Props) => {
                   <div className={Styled.formControl}>
                     <Label isRequired htmlFor={"bpn"}>
                       {t("WALLET.CREATE.BPN")}
-                      {/* bpn */}
                     </Label>
                     <div className={Styled.inputSelect}>
                       <CustomInput
@@ -56,34 +54,24 @@ const CreateWallete = (props: Props) => {
                   </div>
                 )}
               </Field>
-              <Field name={"name"}>
+              <Field name={"json"}>
                 {({ input, meta }) => (
                   <div className={Styled.formControl}>
-                    <Label isRequired htmlFor={"name"}>
-                      {t("WALLET.CREATE.NAME")}
-                      {/* name */}
+                    <Label isRequired htmlFor={"json"}>
+                      JSON Data
                     </Label>
                     <div className={Styled.inputSelect}>
-                      <CustomInput
+                      <CustomTextArea
                         {...input}
-                        fullWidth
-                        classname="name"
-                        type="text"
-                        required
-                        placeholder={t("WALLET.CREATE.NAME_PLACEHOLDER")}
-                        id="name"
-                        error={(meta.error && meta.touched) || false}
-                        helperText={meta.error && meta.touched && meta.error}
+                        id="json"
+                        placeholder={"Enter Json Data"}
                       />
                     </div>
                   </div>
                 )}
               </Field>
 
-              <Button
-                disabled={submitting || !values.bpn || !values.name}
-                type="submit"
-              >
+              <Button disabled={submitting || !values.json} type="submit">
                 {t("WALLET.CREATE.CREATE_WALLET")}
               </Button>
             </form>
@@ -94,4 +82,4 @@ const CreateWallete = (props: Props) => {
   );
 };
 
-export default CreateWallete;
+export default IssueGenericCreds;

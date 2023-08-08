@@ -1,0 +1,27 @@
+.container {
+  padding: 5rem 0;
+  .header {
+    padding: 0 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .headerRight {
+      display: flex;
+    }
+  }
+}
+
+.headerContainer {
+  display: flex;
+  width: calc(100% - 3rem);
+
+  & > * {
+    flex: 1;
+  }
+  .buttonGroup {
+    flex: unset;
+    display: flex;
+    gap: 1rem;
+  }
+}

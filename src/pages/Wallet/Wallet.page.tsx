@@ -8,11 +8,13 @@ import StyledWallet from "./Wallet.module.scss";
 type Props = {};
 export const WalletAccordianHeader = ({
   title,
-  createdAt,
+  did,
+  bpn,
   didDocument,
 }: {
   title: string;
-  createdAt: string;
+  did: string;
+  bpn: string;
   didDocument: object;
 }) => {
   const openNewTabWithDidDocuments = () => {
@@ -28,7 +30,8 @@ export const WalletAccordianHeader = ({
   return (
     <div className={StyledWallet.headerContainer}>
       <h3 className={StyledWallet.title}>{title}</h3>
-      <p className={StyledWallet.type}>{createdAt}</p>
+      <p className={StyledWallet.type}>{bpn}</p>
+      <p className={StyledWallet.type}>{did}</p>
       <Button onClick={openNewTabWithDidDocuments}>Show DID docs</Button>
     </div>
   );
@@ -44,8 +47,17 @@ export const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
   );
 };
 const Wallet = (props: Props) => {
+  const currentPageNumber = 0;
+
   const [walletList, setWalletList] = useState<WalletProps[]>(null);
   const [isCreateWalletOpen, setIsCreateWalletOpen] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
+  const [searchInput, setSearchInput] = useState("");
+  const [currentSelectedPage, setCurrentSelectedPage] =
+    useState<number>(currentPageNumber);
+  useEffect(() => {
+    callGetWallet();
+  }, []);
   const callGetWallet = () => {
     const param = {
       page: 0,
@@ -54,14 +66,14 @@ const Wallet = (props: Props) => {
       sortBy: "desc",
     };
     getWalletList(param).then((res) => {
+      setTotalCount(res.totalElements);
       setWalletList(res.content);
     });
   };
 
-  useEffect(() => {
-    callGetWallet();
-  }, []);
-
+  const handleChangePagination = (value: number) => {
+    setCurrentSelectedPage(value);
+  };
   return (
     <section className={StyledWallet.container}>
       <div className={StyledWallet.header}>
@@ -94,7 +106,8 @@ const Wallet = (props: Props) => {
                     <WalletAccordianHeader
                       title={wallet.name}
                       didDocument={wallet}
-                      createdAt={wallet.didDocument.verificationMethod[0].type}
+                      bpn={wallet.bpn}
+                      did={wallet.did}
                     />
                   }
                   accordionBody={<WalleteDetails didJson={wallet} />}
@@ -106,7 +119,11 @@ const Wallet = (props: Props) => {
           )}
           {walletList?.length > 5 && (
             <div className={StyledWallet.paginationContainer}>
-              <Pagination />
+              <Pagination
+                rowCount={totalCount}
+                onChangePage={(e) => handleChangePagination(e)}
+                currentPage={currentSelectedPage}
+              />
             </div>
           )}
         </div>

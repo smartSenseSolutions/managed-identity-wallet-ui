@@ -19,7 +19,15 @@
 .headerContainer {
   display: flex;
   justify-content: space-between;
-  min-width: 30%;
+  align-items: center;
+  width: calc(100% - 3rem);
+  gap: 2rem;
+  & > * {
+    flex: 1;
+  }
+  & > :last-child {
+    flex: unset;
+  }
   .title {
     text-transform: capitalize;
     color: $secondary;

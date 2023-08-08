@@ -6,9 +6,9 @@ import Styled from "./IssueFramework.module.scss";
 import { postCreateWallet } from "@miw/APIs";
 import { postIssueFramework } from "@miw/APIs/VcManagement.api";
 
-type Props = { onClick: () => void };
+type Props = { onClose: () => void };
 
-const IssueFramework = ({ onClick }: Props) => {
+const IssueFramework = ({ onClose }: Props) => {
   const { t } = useTranslation();
   const credentialType = [
     { label: "BehaviorTwinCredential", value: "BehaviorTwinCredential" },
@@ -28,7 +28,7 @@ const IssueFramework = ({ onClick }: Props) => {
         "contract-version": "1.0.0",
       };
       postIssueFramework(param).then((res) => {
-        onClick();
+        onClose();
       });
     }
   };
@@ -91,6 +91,7 @@ const IssueFramework = ({ onClick }: Props) => {
               </Field>
 
               <Button
+                isLoading={submitting}
                 disabled={
                   submitting ||
                   !values.holderIdentifier ||

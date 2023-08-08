@@ -81,6 +81,7 @@ const CreateWallete = (props: Props) => {
               </Field>
 
               <Button
+                isLoading={submitting}
                 disabled={submitting || !values.bpn || !values.name}
                 type="submit"
               >

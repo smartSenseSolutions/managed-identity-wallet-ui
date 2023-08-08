@@ -1,4 +1,3 @@
-import { Pagination } from "@mui/material";
 import CustomAccordian from "./components/Accordion";
 import Appbar from "./components/AppBar";
 import Button from "./components/Button";
@@ -11,11 +10,14 @@ import CustomSelect from "./components/CustomSelect";
 import ChipsComponent from "./components/Chips";
 import InputWithChipComponent from "./components/InputWithChip";
 import IconButton from "./components/IconButton";
+import CustomTextArea from "./components/CustomTextArea";
+import Pagination from "./components/Pagination";
 export {
   Appbar,
   Button,
   CustomAccordian,
   ChipsComponent,
+  CustomTextArea,
   CustomInput,
   CustomSelect,
   Dialog,
