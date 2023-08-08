@@ -16,39 +16,39 @@
 1. Clone the Project.
 2. Ask for .npmrc file from any frontend teammate and put that at the root directory.
 3. Install dependencies using following command in the **ROOT** directory:
-    ```console
-    yarn
-    ```
+   ```console
+   yarn
+   ```
 4. Now there are following use cases to work on the project: Choose carefully and follow steps for particular option
-    - A.
-      You want to just work on customer portal for development:
-        1. Open terminal and type below command.
-        ```console
-         yarn start
-        ```
-    - B.
-      You want to just develop the **components**:
-        1. You want storybook to view that component so fire below command in terminal 1.
-        ```console
-        yarn storybook
-        ```
-        2. You also want to view that component with temporary integration so fire below command in terminal 2.
-        ```console
-         yarn start
-        ```
-    - C.
-      You want to just check production build.
-        1. Fire below command in terminal and it will build and preview with give URL.
-        ```console
-         yarn check
-        ```
-    - D.
-      You want to create production/staging build of customer portal and use that build
-        1. Build the project
-        ```console
-        yarn build
-        ```
-        2. Go to dist where you can see all the build chunks
+   - A.
+     You want to just work on customer portal for development:
+     1. Open terminal and type below command.
+     ```console
+      yarn start
+     ```
+   - B.
+     You want to just develop the **components**:
+     1. You want storybook to view that component so fire below command in terminal 1.
+     ```console
+     yarn storybook
+     ```
+     2. You also want to view that component with temporary integration so fire below command in terminal 2.
+     ```console
+      yarn start
+     ```
+   - C.
+     You want to just check production build.
+     1. Fire below command in terminal and it will build and preview with give URL.
+     ```console
+      yarn check
+     ```
+   - D.
+     You want to create production/staging build of customer portal and use that build
+     1. Build the project
+     ```console
+     yarn build
+     ```
+     2. Go to dist where you can see all the build chunks
 
 ## Variable Naming Convention
 
@@ -76,13 +76,13 @@ As we know we are going to import multiple things in every file(screen,component
 1. Create Folder where folder name is in **PascalCase**
 2. Create **4** Files under that folder which should be named and contains as per the following:
 
-    i. [ComponentName].component.tsx : This contains component related code. Use functional component. Do default export for that component.
+   i. [ComponentName].component.tsx : This contains component related code. Use functional component. Do default export for that component.
 
-    ii. [ComponentName].styled.tsx : This will contain all the styled related logic, used with styled-components.
+   ii. [ComponentName].styled.tsx : This will contain all the styled related logic, used with styled-components.
 
-    iii. [ComponentName].stories.tsx : This will contain storybook related template to render that particular component.
+   iii. [ComponentName].stories.tsx : This will contain storybook related template to render that particular component.
 
-    iv. index.ts : This file will import the component from [ComponentName].component.tsx and do the default export for that component.
+   iv. index.ts : This file will import the component from [ComponentName].component.tsx and do the default export for that component.
 
 3. You can check same component by integrating in packages/component-kit/src/App.tsx.
 
@@ -105,7 +105,7 @@ Consider below folders inside src/ of customer-portal
 1. APIs: This folder contains all the APIs we wanted call in the form of simple exported function so that we can reuse it accross the screens.
 2. chunks: This folder will contain routes, redirection routes and public, private bifurcated routes.
 
-    **Note**: Adding here anything will affect overall bundle size.
+   **Note**: Adding here anything will affect overall bundle size.
 
 3. components: This folder will contain all the components used by Application. For adding any new component add that component to component-kit and if required customization then import that component inside this folder with same structure and then do customize the component.
 
@@ -117,7 +117,7 @@ Consider below folders inside src/ of customer-portal
 
 7. routes: This folder will contain all the different type of hoc route component.
 
-    **Note**: Here we don't need any modification/addition right now.
+   **Note**: Here we don't need any modification/addition right now.
 
 8. pages: This folder will contain all the screen used accross the application. For adding new screen, follow the process of 'Adding new screen'.
 
@@ -153,7 +153,7 @@ Consider below folders inside src/ of customer-portal
 
 7. '.env' : This file contains environment variables used accross the application
 
-    **Note** : Please add envionment variable in capital only with underscore as space.
+   **Note** : Please add envionment variable in capital only with underscore as space.
 
 8. index.html: HTML Entrypoint for the application.
 
@@ -161,9 +161,9 @@ Consider below folders inside src/ of customer-portal
 
 1. Create new folder 'your_screen_name' under 'pages' folder.
 2. Create two files named as:
-    1. 'your_screen_name'.component.tsx and write any example template. (**Hint**: You can use rfce if you have react snippet extension installed).
-    2. 'your_screen_name'.module.scss file for writing up styles and import like we have in Dashboard.screen.tsx on line 9.
-    3. index.ts : Import above componet here and do the default export.
+   1. 'your_screen_name'.component.tsx and write any example template. (**Hint**: You can use rfce if you have react snippet extension installed).
+   2. 'your_screen_name'.module.scss file for writing up styles and import like we have in Dashboard.screen.tsx on line 9.
+   3. index.ts : Import above componet here and do the default export.
 3. Now to add that screen to route, follow below steps mentioned in 'Adding new route' section.
 
 ## Adding new route
@@ -179,13 +179,13 @@ Process for adding new component:
 1. Create Folder where folder name is in **PascalCase**
 2. Create **4** Files under that folder which should be named and contains as per the following:
 
-    i. [ComponentName].component.tsx : This contains component related code. Use functional component. Do default export for that component.
+   i. [ComponentName].component.tsx : This contains component related code. Use functional component. Do default export for that component.
 
-    ii. [ComponentName].styled.tsx : This will contain all the styled related logic, used with styled-components.
+   ii. [ComponentName].styled.tsx : This will contain all the styled related logic, used with styled-components.
 
-    iii. [ComponentName].stories.tsx : This will contain storybook related template to render that particular component.
+   iii. [ComponentName].stories.tsx : This will contain storybook related template to render that particular component.
 
-    iv. index.ts : This file will import the component from [ComponentName].component.tsx and do the default export for that component.
+   iv. index.ts : This file will import the component from [ComponentName].component.tsx and do the default export for that component.
 
 ## Adding new context
 
@@ -194,9 +194,9 @@ Process for adding any new context:
 1. Create Folder where folder name is in **PascalCase**
 2. Create two files inside that folder:
 
-    i. [ContextName].context.tsx, where context name should be in **PascalCase**, which contains all the context related logic.
+   i. [ContextName].context.tsx, where context name should be in **PascalCase**, which contains all the context related logic.
 
-    ii. Add index.ts file which imports and exports(named) context.
+   ii. Add index.ts file which imports and exports(named) context.
 
 ## Adding new hook
 
@@ -231,6 +231,7 @@ For static analysis we have configured below tools,
 1. ESLint - Recommened plugins and rules
 2. Prettier - Code Formatting basic rules
 3. Husky and Lint Staged - Checking linting before any commit
+<!--
 
 # Git Workflow
 
@@ -238,19 +239,19 @@ For static analysis we have configured below tools,
 
 1. Checkout to latest release branch. For now current release branch is 'release/4.0.1'. To checkout to following branch, I will fire below command in my terminal.
 
-    ```
-    git fetch -p
-    ```
+   ```
+   git fetch -p
+   ```
 
-    ```
-    git checkout release/4.0.1
-    ```
+   ```
+   git checkout release/4.0.1
+   ```
 
 2. I will create my new branch. To create new branch, we will be firing below command in my terminal.
 
-    ```
-    git checkout -b feature/<JIRA_FETAURE_KEY>
-    ```
+   ```
+   git checkout -b feature/<JIRA_FETAURE_KEY>
+   ```
 
 3. When we complete my feature and wanted to deploy that feature in DEV Envrionment, at that time, We will create Merge Request (Pull Request) from that feature branch to development.
 4. When we complete our developer testing and wanted to deploy the same in QA environment for QA Testing, We will create Merge Request from that feature branch to QA.
@@ -261,19 +262,19 @@ When we have merge conflicts while creating PR from feature branch to developmen
 
 1. Create separate branch from feature branch with following name
 
-    ```
-    git checkout feature/<JIRA_FEATURE_KEY>_Merge
-    ```
+   ```
+   git checkout feature/<JIRA_FEATURE_KEY>_Merge
+   ```
 
 2. Will be merging development with below command.
-    ```
-    git merge origin development
-    ```
+   ```
+   git merge origin development
+   ```
 3. Will resolve merge conflicts in my local machine using VS Code.
 4. Will do Push my changes to origin with following branch.
-    ```
-    git push origin feature/<JIRA_FEATURE_KEY>_Merge
-    ```
+   ```
+   git push origin feature/<JIRA_FEATURE_KEY>_Merge
+   ```
 5. Will Do Merge request (Pull Request) from newly created branch to development.
 
 ## Resolving Bugs
@@ -282,13 +283,13 @@ When we want to resolve any bugs, we want to follow below mentioned steps.
 
 1. Checkout to QA branch.
 2. Take latest code of QA
-    ```
-    git pull origin qa
-    ```
+   ```
+   git pull origin qa
+   ```
 3. Checkout to New branch with following command:
-    ```
-    git checkout -b Bug/<JIRA_BUG_KEY>
-    ```
+   ```
+   git checkout -b Bug/<JIRA_BUG_KEY>
+   ```
 4. Resolve bug.
 5. Do PR from Bug Branch to QA branch.
-6. Do PR from Bug Branch to Development branch.
+6. Do PR from Bug Branch to Development branch. -->
