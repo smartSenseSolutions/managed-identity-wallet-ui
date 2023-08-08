@@ -22,3 +22,31 @@ export const getWalletList = (templateParams: {
 export const postCreateWallet = (param: { bpn: string; name: string }) => {
   return post(ENDPOINTS.postCreateWallet, param);
 };
+
+export const getWalletByRoot = (templateParam: {
+  // holderId: string;
+  // vcType: string;
+  page: string | number;
+  sortColumn: string;
+  sortBy: string;
+}) => {
+  return get(parseAPI(ENDPOINTS.getWalletByRoot, templateParam));
+};
+export const postIssueMembership = (param: { bpn: string }) => {
+  return post(ENDPOINTS.postIssueMembership, param);
+};
+export const postIssueFramework = (param: {
+  holderIdentifier: string;
+  type: string;
+  "contract-template": string;
+  "contract-version": string;
+}) => {
+  return post(ENDPOINTS.postIssueFramework, param);
+};
+export const postIssueDismantler = (param: {
+  bpn: string;
+  activityType: string;
+  allowedVehicleBrands: string[];
+}) => {
+  return post(ENDPOINTS.postIssueDismantler, param);
+};

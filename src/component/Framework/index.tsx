@@ -1,3 +1,3 @@
-import CreateWallete from "./CreateWallete.component";
+import IssueFramework from "./IssueFramework.component";
 
-export default CreateWallete;
+export default IssueFramework;

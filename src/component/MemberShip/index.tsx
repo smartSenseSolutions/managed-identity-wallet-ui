@@ -1,3 +1,3 @@
-import CreateWallete from "./CreateWallete.component";
+import IssueMembership from "./IssueMembership.component";
 
-export default CreateWallete;
+export default IssueMembership;

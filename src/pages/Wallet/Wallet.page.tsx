@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import StyledWallet from "./Wallet.module.scss";
 
 type Props = {};
-const WalletAccordianHeader = ({
+export const WalletAccordianHeader = ({
   title,
   createdAt,
   didDocument,
@@ -28,16 +28,13 @@ const WalletAccordianHeader = ({
   return (
     <div className={StyledWallet.headerContainer}>
       <h3 className={StyledWallet.title}>{title}</h3>
-      {/* <p className={StyledWallet.type}>{createdAt}</p> */}
+      <p className={StyledWallet.type}>{createdAt}</p>
       <Button onClick={openNewTabWithDidDocuments}>Show DID docs</Button>
     </div>
   );
 };
-{
-  /* TODO: need to inject option for did document  */
-}
 
-const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
+export const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
   return (
     <div className={StyledWallet.bodyContainer}>
       <pre className={StyledWallet.jsonContainer}>

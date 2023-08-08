@@ -1,3 +1,3 @@
-import CreateWallete from "./CreateWallete.component";
+import IssueDismantler from "./IssueDismantler.component";
 
-export default CreateWallete;
+export default IssueDismantler;

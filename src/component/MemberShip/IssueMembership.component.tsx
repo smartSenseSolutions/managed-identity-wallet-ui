@@ -1,23 +1,24 @@
-import { Button, CustomInput, Label } from "@miw/stories";
 import React from "react";
+import { Button, CustomInput, Label } from "@miw/stories";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
-import Styled from "./CreateWallete.module.scss";
+import Styled from "./IssueMembership.module.scss";
 import { postCreateWallet } from "@miw/APIs";
+import { postIssueMembership } from "@miw/APIs/VcManagement.api";
 
-type Props = {};
+type Props = { onClose: () => void };
 
-const CreateWallete = (props: Props) => {
+const IssueMembership = ({ onClose }: Props) => {
   const { t } = useTranslation();
 
   const handleCreateWallet = (formValues) => {
-    if (!!formValues.bpn && formValues.name) {
+    if (!!formValues.bpn) {
       const param = {
         bpn: formValues.bpn,
-        name: formValues.name,
       };
-      postCreateWallet(param).then((res) => {
-        console.log(res);
+      postIssueMembership(param).then((res) => {
+        // TODO: NEED TO IMPLEMENT TOAST MSG HERE
+        onClose();
       });
     }
   };
@@ -26,6 +27,7 @@ const CreateWallete = (props: Props) => {
       <Form
         onSubmit={handleCreateWallet}
         render={({ handleSubmit, values, submitting }) => {
+          console.log(values.bpn);
           return (
             <form
               onSubmit={handleSubmit}
@@ -38,7 +40,6 @@ const CreateWallete = (props: Props) => {
                   <div className={Styled.formControl}>
                     <Label isRequired htmlFor={"bpn"}>
                       {t("WALLET.CREATE.BPN")}
-                      {/* bpn */}
                     </Label>
                     <div className={Styled.inputSelect}>
                       <CustomInput
@@ -56,34 +57,8 @@ const CreateWallete = (props: Props) => {
                   </div>
                 )}
               </Field>
-              <Field name={"name"}>
-                {({ input, meta }) => (
-                  <div className={Styled.formControl}>
-                    <Label isRequired htmlFor={"name"}>
-                      {t("WALLET.CREATE.NAME")}
-                      {/* name */}
-                    </Label>
-                    <div className={Styled.inputSelect}>
-                      <CustomInput
-                        {...input}
-                        fullWidth
-                        classname="name"
-                        type="text"
-                        required
-                        placeholder={t("WALLET.CREATE.NAME_PLACEHOLDER")}
-                        id="name"
-                        error={(meta.error && meta.touched) || false}
-                        helperText={meta.error && meta.touched && meta.error}
-                      />
-                    </div>
-                  </div>
-                )}
-              </Field>
 
-              <Button
-                disabled={submitting || !values.bpn || !values.name}
-                type="submit"
-              >
+              <Button disabled={submitting || !values.bpn} type="submit">
                 {t("WALLET.CREATE.CREATE_WALLET")}
               </Button>
             </form>
@@ -94,4 +69,4 @@ const CreateWallete = (props: Props) => {
   );
 };
 
-export default CreateWallete;
+export default IssueMembership;

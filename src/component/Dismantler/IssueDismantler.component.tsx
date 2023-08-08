@@ -1,23 +1,25 @@
-import { Button, CustomInput, Label } from "@miw/stories";
+import { Button, CustomInput, InputWithChip, Label } from "@miw/stories";
 import React from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
-import Styled from "./CreateWallete.module.scss";
+import Styled from "./IssueDismantler.module.scss";
 import { postCreateWallet } from "@miw/APIs";
+import { postIssueDismantler } from "@miw/APIs/VcManagement.api";
 
-type Props = {};
+type Props = { onClose: () => void };
 
-const CreateWallete = (props: Props) => {
+const IssueDismantler = ({ onClose }: Props) => {
   const { t } = useTranslation();
 
   const handleCreateWallet = (formValues) => {
     if (!!formValues.bpn && formValues.name) {
       const param = {
         bpn: formValues.bpn,
-        name: formValues.name,
+        activityType: "vehicleDismantle",
+        allowedVehicleBrands: formValues.allowedVehicleBrands,
       };
-      postCreateWallet(param).then((res) => {
-        console.log(res);
+      postIssueDismantler(param).then((res) => {
+        onClose();
       });
     }
   };
@@ -56,24 +58,32 @@ const CreateWallete = (props: Props) => {
                   </div>
                 )}
               </Field>
-              <Field name={"name"}>
+              <Field name={"allowedVehicleBrands"}>
                 {({ input, meta }) => (
                   <div className={Styled.formControl}>
-                    <Label isRequired htmlFor={"name"}>
-                      {t("WALLET.CREATE.NAME")}
-                      {/* name */}
+                    <Label isRequired htmlFor={"allowedVehicleBrands"}>
+                      Allowed Vehicle Brands
                     </Label>
                     <div className={Styled.inputSelect}>
-                      <CustomInput
+                      <InputWithChip
+                        onBeforeAdd={() => true}
                         {...input}
-                        fullWidth
-                        classname="name"
-                        type="text"
-                        required
-                        placeholder={t("WALLET.CREATE.NAME_PLACEHOLDER")}
-                        id="name"
-                        error={(meta.error && meta.touched) || false}
-                        helperText={meta.error && meta.touched && meta.error}
+                        id={"allowedVehicleBrands"}
+                        defaultValue={input.value}
+                        onDelete={(e) => {
+                          input.onChange(
+                            input?.value.filter((item) => item !== e)
+                          );
+                        }}
+                        onAdd={(e) => {
+                          input.onChange([...input.value, e]);
+                        }}
+                        placeholder={"Enter multiple Name"}
+                        width={"100%"}
+                        fullWidth={true}
+                        onChange={(e) => {
+                          input.onChange(e);
+                        }}
                       />
                     </div>
                   </div>
@@ -94,4 +104,4 @@ const CreateWallete = (props: Props) => {
   );
 };
 
-export default CreateWallete;
+export default IssueDismantler;
