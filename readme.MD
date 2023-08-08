@@ -4,22 +4,23 @@
 
 1. Node with version >= v14.18.2
 2. Yarn (Package Manager) >=1.22
+<!--
 
 ## Project Setup for Devops
 
 1. Clone the project
 2. Ask for .npmrc from team member.
-3. Run dockerfile
+3. Run dockerfile -->
 
 ## Project Setup
 
 1. Clone the Project.
-2. Ask for .npmrc file from any frontend teammate and put that at the root directory.
-3. Install dependencies using following command in the **ROOT** directory:
+<!-- 2. Ask for .npmrc file from any frontend teammate and put that at the root directory. -->
+2. Install dependencies using following command in the **ROOT** directory:
    ```console
    yarn
    ```
-4. Now there are following use cases to work on the project: Choose carefully and follow steps for particular option
+3. Now there are following use cases to work on the project: Choose carefully and follow steps for particular option
    - A.
      You want to just work on customer portal for development:
      1. Open terminal and type below command.
