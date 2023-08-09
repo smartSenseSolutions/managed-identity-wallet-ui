@@ -12,7 +12,9 @@ import InputWithChipComponent from "./components/InputWithChip";
 import IconButton from "./components/IconButton";
 import CustomTextArea from "./components/CustomTextArea";
 import Pagination from "./components/Pagination";
+import Alert from "./components/Alert";
 export {
+  Alert,
   Appbar,
   Button,
   CustomAccordian,

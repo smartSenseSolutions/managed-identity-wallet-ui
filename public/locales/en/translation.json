@@ -1,6 +1,13 @@
 {
     "LABELS": {
-        "MIW": "MIW"
+        "MIW": "MIW",
+        "DELETE":"Delete"
+    },
+    "TABS":{
+        "MY_WALLET":"My Wallet",
+        "WALLET":"Wallet",
+        "VC_MGMT":"VC Management",
+        "MY_CREDS":"My Credential"
     },
     "WALLET":{
         "CREATE":{
@@ -15,6 +22,13 @@
         "ISSUER":"Issue Credential",
         "MEMBERSHIP":"Issue MemberShip",
         "FRAMEWORK":"Issue Framework",
-        "DOSMANTLER":"Issue Dismantler"
+        "DOSMANTLER":"Issue Dismantler",
+        "VALIDATE":"validate",
+        "CREATE_PRESENTATION":"Create Presentation",
+        "REVOKE":"Revoke"
+    },
+    "MY_CREDS":{
+            "TITLE":"My Credential"
     }
+
 }

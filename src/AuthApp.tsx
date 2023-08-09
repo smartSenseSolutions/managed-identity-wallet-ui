@@ -13,6 +13,7 @@ import { parseToken, setBrowserSession } from "./utils/AuthHelper";
 import DidManagement from "./pages/Didmanagement";
 import VcManagemanegement from "./pages/VcMAnagement";
 import Wallet from "./pages/Wallet";
+import MyCredentials from "./pages/MyCredentials";
 
 const AuthApp = () => {
   const auth = useKeycloak();
@@ -55,6 +56,7 @@ const AuthApp = () => {
             <Route path={ROUTES.DID_MGMT} element={<DidManagement />} />
             <Route path={ROUTES.VC} element={<VcManagemanegement />} />
             <Route path={ROUTES.WALLET} element={<Wallet />} />
+            <Route path={ROUTES.MY_CREDS} element={<MyCredentials />} />
           </Routes>
         )
       ) : (

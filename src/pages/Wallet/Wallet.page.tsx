@@ -1,4 +1,4 @@
-import { getWalletList } from "@miw/APIs/VcManagement.api";
+import { getWalletDetails, getWalletList } from "@miw/APIs/VcManagement.api";
 import { CreateWallete } from "@miw/component";
 import { WalletProps } from "@miw/models";
 import { Button, CustomAccordian, Dialog, Pagination } from "@miw/stories";
@@ -18,13 +18,14 @@ export const WalletAccordianHeader = ({
   didDocument: object;
 }) => {
   const openNewTabWithDidDocuments = () => {
-    const jsonString = JSON.stringify(didDocument, null, 2);
-    const newTab = window.open();
-    if (newTab) {
-      newTab.document.body.innerHTML = "<pre>" + jsonString + "</pre>";
-    } else {
-      alert("The new tab was blocked. Please allow pop-ups for this website.");
-    }
+    // const JSON= getWalletDetails(bpn)
+    // const jsonString = JSON.stringify(didDocument, null, 2);
+    window.open(`${import.meta.env.VITE_API_BASE}api/didDocuments/${bpn}`);
+    // if (newTab) {
+    //   newTab.document.body.innerHTML = "<pre>" + jsonString + "</pre>";
+    // } else {
+    //   alert("The new tab was blocked. Please allow pop-ups for this website.");
+    // }
   };
 
   return (
@@ -77,7 +78,7 @@ const Wallet = (props: Props) => {
   return (
     <section className={StyledWallet.container}>
       <div className={StyledWallet.header}>
-        <h2 className={StyledWallet.title}>Wallet</h2>
+        <h2 className={StyledWallet.title}>Wallets</h2>
         <Button
           startIcon={"+"}
           variant="closed"

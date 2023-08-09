@@ -1,6 +1,10 @@
 import React, { Component, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { getWalletByRoot, postValidateCreds } from "@miw/APIs/VcManagement.api";
+import {
+  getWalletByRoot,
+  postRevokeCreds,
+  postValidateCreds,
+} from "@miw/APIs/VcManagement.api";
 import {
   IssueDismantler,
   IssueFramework,
@@ -17,8 +21,9 @@ import {
   Pagination,
   ThreeDotItemMenu,
 } from "@miw/stories";
-// import { WalletAccordianHeader, WalleteDetails } from "../Wallet/Wallet.page";
 import StyledVcMgmt from "./VcManagemanegement.module.scss";
+import { formatDate, getUTCOfsetToZero } from "@miw/utils/helper";
+import CreartePresentation from "@miw/component/CreatePresentation";
 
 type Props = {};
 const RenderHeaderActionDialogue = ({ didDocument }) => {
@@ -39,10 +44,13 @@ const RenderHeaderActionDialogue = ({ didDocument }) => {
     });
   };
   return (
-    <div className="dialogecontainer">
+    <div className="dialogecontainer" onClick={(e) => e.stopPropagation()}>
       <CustomSelect
         value={withCreds}
-        onChange={(e) => setWithCreds(e)}
+        onChange={(e) => {
+          e.stopPropagation();
+          setWithCreds(e);
+        }}
         closeMenuOnSelect={true}
         isSearchable={true}
         required
@@ -70,11 +78,19 @@ const WalletAccordianHeader = ({
   didDocument: object;
 }) => {
   const [isOpenDialoge, setIsOpenDialoge] = useState(false);
+  const [isOpenPresentDialoge, setIsOpenPresentDialoge] = useState(false);
+  const { t } = useTranslation();
   const handleValidateCredential = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault();
     setIsOpenDialoge(true);
+  };
+
+  const handleRevokeCreds = () => {
+    const param = didDocument;
+    postRevokeCreds(param).then((res) => {
+      // console.log(res);
+    });
   };
 
   return (
@@ -82,22 +98,46 @@ const WalletAccordianHeader = ({
       <h3 className={StyledVcMgmt.title}>{title}</h3>
       <p className={StyledVcMgmt.type}>{type}</p>
 
-      <p className={StyledVcMgmt.type}>{createdAt}</p>
-      <div className={StyledVcMgmt.buttonGroup}>
-        <Button onClick={(e) => handleValidateCredential(e)}>validate</Button>
-        <Button onClick={""}>Create Presentation</Button>
-        <Button onClick={""}>Revoke</Button>
+      <p className={StyledVcMgmt.type}>
+        {formatDate(getUTCOfsetToZero(createdAt), "yyyy-MM-dd | hh:mm:ss")}
+      </p>
+      <div
+        className={StyledVcMgmt.buttonGroup}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Button onClick={(e) => handleValidateCredential(e)}>
+          {t("VC_MANAGEMENT.VALIDATE")}
+        </Button>
+        <Button onClick={() => setIsOpenPresentDialoge(true)}>
+          {t("VC_MANAGEMENT.CREATE_PRESENTATION")}
+        </Button>
+        <Button onClick={handleRevokeCreds}>{t("VC_MANAGEMENT.REVOKE")}</Button>
       </div>
-      <Dialog
-        isOpen={isOpenDialoge}
-        showFooter={false}
-        header="Create Wallet"
-        key={"Create Wallet"}
-        content={<RenderHeaderActionDialogue didDocument={didDocument} />}
-        // minHeight="30rem"
-        isShowCloseIcon
-        onClose={() => setIsOpenDialoge(false)}
-      />
+      <div
+        className={StyledVcMgmt.dialogue}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Dialog
+          isOpen={isOpenDialoge}
+          showFooter={false}
+          header="Validate"
+          key={"Validate"}
+          content={<RenderHeaderActionDialogue didDocument={didDocument} />}
+          // minHeight="30rem"
+          isShowCloseIcon
+          onClose={() => setIsOpenDialoge(false)}
+        />
+        <Dialog
+          isOpen={isOpenPresentDialoge}
+          showFooter={false}
+          header="Create Presentation"
+          key={"Create Presentation"}
+          content={<CreartePresentation didDocument={didDocument} />}
+          // minHeight="30rem"
+          isShowCloseIcon
+          onClose={() => setIsOpenPresentDialoge(false)}
+        />
+      </div>
     </div>
   );
 };
@@ -242,7 +282,10 @@ const VcManagemanegement = (props: Props) => {
       <Dialog
         isOpen={issueCertificateDialogue !== null}
         showFooter={false}
-        header="Create Wallet"
+        header={
+          menuItems.find((item) => item.value === issueCertificateDialogue)
+            ?.label
+        }
         key={"Create Wallet"}
         content={<RenderDialogue />}
         minHeight="30rem"

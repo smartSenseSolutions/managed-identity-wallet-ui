@@ -7,6 +7,7 @@ export const ROUTES = {
   DID_MGMT: "/did",
   VC: "/vc",
   WALLET: "wallet",
+  MY_CREDS: "mycreds",
 };
 
 export const RADIX_PARAMETER = {

@@ -8,6 +8,7 @@ import {
   SELECTED_ENTITY_LOCAL_STORAGE_KEY,
 } from "./constant";
 import { isBuildingUsingVite } from "./Envirement";
+import { format } from "date-fns";
 
 export const redirectToLogin = () => {
   location.replace(`${REDIRECT_LOGIN}`);
@@ -111,4 +112,18 @@ export const parseAPI = (
   }
 
   return url;
+};
+
+export const getUTCOfsetToZero = (localDateTimeString: string) => {
+  const localDateTime = new Date(localDateTimeString);
+  const utcTime =
+    localDateTime.getTime() + localDateTime.getTimezoneOffset() * 60 * 1000;
+  const utcDateTime = new Date(utcTime);
+  return utcDateTime;
+};
+export const formatDate = (
+  inputDate,
+  formatType: "MM/dd/yyyy" | "dd/MM/yyyy" | "yyyy/MM/dd" | string
+) => {
+  return format(new Date(inputDate), formatType);
 };

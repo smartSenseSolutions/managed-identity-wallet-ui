@@ -12,6 +12,9 @@ import { ROUTES } from "./utils/constant";
 import "./i18n";
 import "./App.scss";
 import { useUser } from "./hooks";
+import { useTranslation } from "react-i18next";
+import "react-toastify/dist/ReactToastify.css";
+import { StyledToastContainer } from "./stories/components/Alert/Alert.styled";
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -26,6 +29,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 
 function App() {
   const auth = useKeycloak();
+  const { t } = useTranslation();
   const currentLocation = window.location.pathname;
   const navigate = useNavigate();
 
@@ -38,16 +42,20 @@ function App() {
 
   const MenuList = [
     {
-      tabName: "My Wallet",
+      tabName: t("TABS.MY_WALLET"),
       tabValue: ROUTES.DID_MGMT,
     },
     {
-      tabName: "Wallet",
+      tabName: t("TABS.WALLET"),
       tabValue: ROUTES.WALLET,
     },
     {
-      tabName: "VC Management",
+      tabName: t("TABS.VC_MGMT"),
       tabValue: ROUTES.VC,
+    },
+    {
+      tabName: t("TABS.MY_CREDS"),
+      tabValue: ROUTES.MY_CREDS,
     },
   ];
   const onTabClick = (e: MouseEvent, item) => {
@@ -75,6 +83,12 @@ function App() {
             />
 
             <AuthApp />
+            <StyledToastContainer
+              draggable={false}
+              closeButton={false}
+              pauseOnFocusLoss
+              pauseOnHover
+            />
           </>
         )}
       </ErrorBoundary>

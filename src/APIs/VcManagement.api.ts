@@ -19,6 +19,13 @@ export const getWalletList = (templateParams: {
   return get(parseAPI(ENDPOINTS.getWallets, templateParams));
 };
 
+export const getWalletDetails = (bpn: string) => {
+  const templateParam = {
+    identifier: bpn,
+  };
+  return get(parseAPI(ENDPOINTS.getWalletDetails, templateParam));
+};
+
 export const postCreateWallet = (param: { bpn: string; name: string }) => {
   return post(ENDPOINTS.postCreateWallet, param);
 };
@@ -85,4 +92,15 @@ export const postValidateCreds = (
   param: object
 ) => {
   return post(parseAPI(ENDPOINTS.postValidateCreds, templateParam), param);
+};
+export const createPresentation = (templateParam: { withCreds: string }) => {
+  const queryParams = {};
+  if (templateParam.withCreds) {
+    queryParams["withCreds"] = templateParam.withCreds;
+  }
+  return get(ENDPOINTS.postCreatePresantation);
+};
+
+export const postRevokeCreds = (param) => {
+  return post(ENDPOINTS.revokeCreds, param);
 };
