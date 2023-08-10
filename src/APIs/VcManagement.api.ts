@@ -31,8 +31,8 @@ export const postCreateWallet = (param: { bpn: string; name: string }) => {
 };
 
 export const getWalletByRoot = (templateParam: {
-  // holderId: string;
-  // vcType: string;
+  holderId: string;
+  vcType: string;
   size: string | number;
   pageNumber: string | number;
   sortColumn: string;
@@ -51,6 +51,12 @@ export const getWalletByRoot = (templateParam: {
   }
   if (templateParam.sortBy) {
     queryParams["sortBy"] = templateParam.sortBy;
+  }
+  if (templateParam.holderId) {
+    queryParams["holderIdentifier"] = templateParam.holderId;
+  }
+  if (templateParam.vcType) {
+    queryParams["type"] = templateParam.vcType;
   }
 
   return get(parseAPI(ENDPOINTS.getWalletByRoot, {}, queryParams));

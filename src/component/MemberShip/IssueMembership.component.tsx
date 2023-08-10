@@ -1,25 +1,35 @@
-import React from "react";
-import { Button, CustomInput, Label } from "@miw/stories";
+import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
-import Styled from "./IssueMembership.module.scss";
-import { postCreateWallet } from "@miw/APIs";
 import { postIssueMembership } from "@miw/APIs/VcManagement.api";
+import { Button, CustomInput, Label } from "@miw/stories";
+import { getAlert } from "@miw/hooks";
+import Styled from "./IssueMembership.module.scss";
 
 type Props = { onClose: () => void };
 
 const IssueMembership = ({ onClose }: Props) => {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCreateWallet = (formValues) => {
+    setIsLoading(true);
     if (!!formValues.bpn) {
       const param = {
         bpn: formValues.bpn,
       };
-      postIssueMembership(param).then((res) => {
-        // TODO: NEED TO IMPLEMENT TOAST MSG HERE
-        onClose();
-      });
+      postIssueMembership(param)
+        .then((res) => {
+          getAlert("success", t("VC_MANAGEMENT.CREDENTIAL_ISSUED_MSG"));
+
+          onClose();
+        })
+        .catch((error) => {
+          getAlert("error", error?.detail);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
   return (
@@ -27,7 +37,6 @@ const IssueMembership = ({ onClose }: Props) => {
       <Form
         onSubmit={handleCreateWallet}
         render={({ handleSubmit, values, submitting }) => {
-          console.log(values.bpn);
           return (
             <form
               onSubmit={handleSubmit}
@@ -58,7 +67,11 @@ const IssueMembership = ({ onClose }: Props) => {
                 )}
               </Field>
 
-              <Button disabled={submitting || !values.bpn} type="submit">
+              <Button
+                disabled={submitting || !values.bpn}
+                type="submit"
+                isLoading={isLoading}
+              >
                 {t("WALLET.CREATE.CREATE_WALLET")}
               </Button>
             </form>

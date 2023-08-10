@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import StyledWallet from "./Wallet.module.scss";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
+import { RECORDS_PER_PAGE } from "@miw/utils/constant";
 
 type Props = {};
 export const WalletAccordianHeader = ({
@@ -62,12 +63,12 @@ const Wallet = (props: Props) => {
     useState<number>(currentPageNumber);
   useEffect(() => {
     callGetWallet();
-  }, []);
+  }, [currentSelectedPage]);
   const callGetWallet = () => {
     setIsWalletLoading(true);
     const param = {
-      page: 0,
-      size: "2147483647",
+      page: currentSelectedPage,
+      size: RECORDS_PER_PAGE,
       sortColumn: "createdAt",
       sortBy: "desc",
     };
@@ -82,7 +83,7 @@ const Wallet = (props: Props) => {
   };
 
   const handleChangePagination = (value: number) => {
-    setCurrentSelectedPage(value);
+    setCurrentSelectedPage(value - 1);
   };
   return (
     <section className={StyledWallet.container}>
@@ -99,9 +100,12 @@ const Wallet = (props: Props) => {
         </Button>
       </div>
       <div className={StyledWallet.walleteBody}>
-        {/* <div className={StyledWallet.walletListHeader}>
-
-        </div> */}
+        <div className={StyledWallet.tHeader}>
+          <h3 className="thead">Credential ID</h3>
+          <h3 className="thead">Type</h3>
+          <h3 className="thead">Creadted Date</h3>
+          <h3 className="thead"></h3>
+        </div>
         {isWalletLoading ? (
           <div className="generalLoadingBar">
             <CircularProgress size="30px" />
@@ -132,12 +136,12 @@ const Wallet = (props: Props) => {
             ) : (
               <h3>{t("LABELS.NO_DATA_FOUND")}</h3>
             )}
-            {walletList?.length > 5 && (
+            {totalCount > 5 && (
               <div className={StyledWallet.paginationContainer}>
                 <Pagination
                   rowCount={totalCount}
                   onChangePage={(e) => handleChangePagination(e)}
-                  currentPage={currentSelectedPage}
+                  currentPage={currentSelectedPage + 1}
                 />
               </div>
             )}
@@ -147,7 +151,7 @@ const Wallet = (props: Props) => {
       <Dialog
         isOpen={isCreateWalletOpen}
         showFooter={false}
-        header="Create Wallet"
+        header={t("WALLET.CREATE.CREATE_WALLET")}
         key={"Create Wallet"}
         content={
           <CreateWallete

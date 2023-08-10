@@ -2,7 +2,7 @@
     "LABELS": {
         "MIW": "MIW",
         "DELETE":"Delete",
-        "NO_DATA_FOUND":"no data found"
+        "NO_DATA_FOUND":"No data found"
     },
     "TABS":{
         "MY_WALLET":"My Wallet",
@@ -28,7 +28,9 @@
         "DOSMANTLER":"Issue Dismantler",
         "VALIDATE":"validate",
         "CREATE_PRESENTATION":"Create Presentation",
-        "REVOKE":"Revoke"
+        "REVOKE":"Revoke",
+        "CREDENTIAL_ISSUED_MSG":"Credential issued successfully",
+        "CREDENTIAL_ISSUE_ERR":"An error occured while generating credential"
     },
     "MY_CREDS":{
             "TITLE":"My Credential"

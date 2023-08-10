@@ -1,23 +1,30 @@
 import { Button, CustomInput, CustomTextArea, Label } from "@miw/stories";
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
-import Styled from "./IssueGenericCreds.module.scss";
-import { postCreateWallet } from "@miw/APIs";
 import { postIssueGenericCredential } from "@miw/APIs/VcManagement.api";
+import Styled from "./IssueGenericCreds.module.scss";
+import { getAlert } from "@miw/hooks";
 
 type Props = { onClose: () => void };
 
 const IssueGenericCreds = ({ onClose }: Props) => {
   const { t } = useTranslation();
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleCreateWallet = (formValues) => {
+    setIsLoading(true);
     const param = formValues.json;
-    postIssueGenericCredential({ holderDid: formValues.bpn }, param).then(
-      (res) => {
+    postIssueGenericCredential({ holderDid: formValues.bpn }, param)
+      .then((res) => {
+        getAlert("success", t("VC_MANAGEMENT.CREDENTIAL_ISSUED_MSG"));
         onClose();
-      }
-    );
+      })
+      .catch((err) => {
+        getAlert("error", err.detail);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     // }
   };
   return (
@@ -71,7 +78,11 @@ const IssueGenericCreds = ({ onClose }: Props) => {
                 )}
               </Field>
 
-              <Button disabled={submitting || !values.json} type="submit">
+              <Button
+                disabled={submitting || !values.json}
+                type="submit"
+                isLoading={isLoading}
+              >
                 {t("WALLET.CREATE.CREATE_WALLET")}
               </Button>
             </form>

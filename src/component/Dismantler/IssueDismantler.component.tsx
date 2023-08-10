@@ -1,26 +1,36 @@
 import { Button, CustomInput, InputWithChip, Label } from "@miw/stories";
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
 import Styled from "./IssueDismantler.module.scss";
 import { postCreateWallet } from "@miw/APIs";
 import { postIssueDismantler } from "@miw/APIs/VcManagement.api";
+import { getAlert } from "@miw/hooks";
 
 type Props = { onClose: () => void };
 
 const IssueDismantler = ({ onClose }: Props) => {
   const { t } = useTranslation();
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleCreateWallet = (formValues) => {
-    if (!!formValues.bpn && formValues.name) {
+    if (!!formValues.bpn && formValues.allowedVehicleBrands) {
+      setIsLoading(true);
       const param = {
         bpn: formValues.bpn,
         activityType: "vehicleDismantle",
         allowedVehicleBrands: formValues.allowedVehicleBrands,
       };
-      postIssueDismantler(param).then((res) => {
-        onClose();
-      });
+      postIssueDismantler(param)
+        .then((res) => {
+          onClose();
+          getAlert("success", t("VC_MANAGEMENT.CREDENTIAL_ISSUED_MSG"));
+        })
+        .catch((err) => {
+          getAlert("error", err.detail);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
   return (
@@ -89,10 +99,9 @@ const IssueDismantler = ({ onClose }: Props) => {
                   </div>
                 )}
               </Field>
-
               <Button
-                isLoading={submitting}
-                disabled={submitting || !values.bpn || !values.name}
+                isLoading={isLoading}
+                disabled={!values.bpn || !values.allowedVehicleBrands}
                 type="submit"
               >
                 {t("WALLET.CREATE.CREATE_WALLET")}

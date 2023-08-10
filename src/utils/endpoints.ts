@@ -16,7 +16,7 @@ const ENDPOINTS = {
   getWalletDetails: `${API}didDocuments/:identifier`,
   postCreatePresantation: `${API}presentations`,
   getCredentails: `${API}credentials`,
-  deleteCredentials: `${API}credentials?id=:ID`,
+  deleteCredentials: `${API}credentials`,
   revokeCreds: `${API}credentials/revoke`,
 };
 

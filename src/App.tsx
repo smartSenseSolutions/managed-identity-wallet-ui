@@ -40,24 +40,37 @@ function App() {
   const isKeycloakLoading =
     auth.initialized === undefined || auth.initialized === false;
 
-  const MenuList = [
-    // {
-    //   tabName: t("TABS.MY_WALLET"),
-    //   tabValue: ROUTES.DID_MGMT,
-    // },
-    {
-      tabName: t("TABS.WALLET"),
-      tabValue: ROUTES.WALLET,
-    },
-    {
-      tabName: t("TABS.VC_MGMT"),
-      tabValue: ROUTES.VC,
-    },
-    {
-      tabName: t("TABS.MY_CREDS"),
-      tabValue: ROUTES.MY_CREDS,
-    },
-  ];
+  const MenuList =
+    userDetails?.BPN === import.meta.env?.VITE_ROOT_BPN
+      ? [
+          {
+            tabName: t("TABS.MY_WALLET"),
+            tabValue: ROUTES.ROOT,
+          },
+          {
+            tabName: t("TABS.WALLET"),
+            tabValue: ROUTES.WALLET,
+          },
+          {
+            tabName: t("TABS.VC_MGMT"),
+            tabValue: ROUTES.VC,
+          },
+          {
+            tabName: t("TABS.MY_CREDS"),
+            tabValue: ROUTES.MY_CREDS,
+          },
+        ]
+      : [
+          {
+            tabName: t("TABS.MY_WALLET"),
+            tabValue: ROUTES.ROOT,
+          },
+
+          {
+            tabName: t("TABS.MY_CREDS"),
+            tabValue: ROUTES.MY_CREDS,
+          },
+        ];
   const onTabClick = (e: MouseEvent, item) => {
     if (typeof item.tabValue === "string") {
       navigate(`${item.tabValue}`);

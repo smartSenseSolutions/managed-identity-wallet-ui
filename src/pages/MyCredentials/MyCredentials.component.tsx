@@ -1,13 +1,12 @@
 import { Button, CustomAccordian, Pagination } from "@miw/stories";
+import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 // import { WalletAccordianHeader, WalleteDetails } from "../Wallet/Wallet.page";
-
 import { WalletProps } from "@miw/models";
-import StyledCredentials from "../Wallet/Wallet.module.scss";
 import { deleteCredential, getCredentials } from "@miw/APIs/MyCredentials.api";
 import { useUser } from "@miw/hooks";
-import { useTranslation } from "react-i18next";
 import { formatDate, getUTCOfsetToZero } from "@miw/utils/helper";
+import StyledCredentials from "../Wallet/Wallet.module.scss";
 
 type Props = {};
 
@@ -29,7 +28,7 @@ const WalletAccordianHeader = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
-    deleteCredential(didDocument.id).then((res) => {
+    deleteCredential({ id: encodeURIComponent(didDocument.id) }).then((res) => {
       postDeleteAPI();
     });
   };
@@ -38,7 +37,7 @@ const WalletAccordianHeader = ({
       <h3 className={StyledCredentials.title}>{title}</h3>
       <p className={StyledCredentials.type}>{type}</p>
       <p className={StyledCredentials.type}>
-        {formatDate(getUTCOfsetToZero(issueDate), "yyyy-MM-dd | hh:mm:ss")}
+        {formatDate(getUTCOfsetToZero(issueDate), "yyyy-MM-dd | HH:mm:ss")}
       </p>
       <Button onClick={handleDeleteCreds}>{t("LABELS.DELETE")}</Button>
     </div>
@@ -64,14 +63,12 @@ const MyCredentials = (props: Props) => {
     },
   } = useUser();
   const [walletList, setWalletList] = useState<WalletProps[]>(null);
-  const [isCreateWalletOpen, setIsCreateWalletOpen] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [currentSelectedPage, setCurrentSelectedPage] =
     useState<number>(currentPageNumber);
   useEffect(() => {
     callGetMyWallet();
-    console.log(BPN);
   }, []);
   const callGetMyWallet = () => {
     const param = {
@@ -83,14 +80,13 @@ const MyCredentials = (props: Props) => {
       sortBy: "desc",
     };
     getCredentials(param).then((res) => {
-      console.log(res);
       setTotalCount(res.totalElements);
       setWalletList(res.content);
     });
   };
 
   const handleChangePagination = (value: number) => {
-    setCurrentSelectedPage(value);
+    setCurrentSelectedPage(value - 1);
   };
   return (
     <section className={StyledCredentials.container}>
@@ -98,10 +94,13 @@ const MyCredentials = (props: Props) => {
         <h2 className={StyledCredentials.title}>{t("MY_CREDS.TITLE")}</h2>
       </div>
       <div className={StyledCredentials.walleteBody}>
-        {/* <div className={StyledCredentials.walletListHeader}>
-
-        </div> */}
         <div className={StyledCredentials.listContainer}>
+          <div className={StyledCredentials.tHeader}>
+            <h3 className="thead">Credential ID</h3>
+            <h3 className="thead">Type</h3>
+            <h3 className="thead">Creadted Date</h3>
+            <h3 className="thead"></h3>
+          </div>
           {walletList ? (
             walletList.map((wallet, index) => {
               return (
@@ -129,14 +128,14 @@ const MyCredentials = (props: Props) => {
               );
             })
           ) : (
-            <h3>no data found</h3>
+            <h3>{t("LABELS.NO_DATA_FOUND")}</h3>
           )}
-          {walletList?.length > 5 && (
+          {totalCount > 5 && (
             <div className={StyledCredentials.paginationContainer}>
               <Pagination
                 rowCount={totalCount}
                 onChangePage={(e) => handleChangePagination(e)}
-                currentPage={currentSelectedPage}
+                currentPage={currentSelectedPage + 1}
               />
             </div>
           )}

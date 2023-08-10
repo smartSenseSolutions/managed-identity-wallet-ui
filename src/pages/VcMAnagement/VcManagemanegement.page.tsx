@@ -42,7 +42,7 @@ const RenderHeaderActionDialogue = ({ didDocument }) => {
     const param = didDocument;
 
     postValidateCreds({ withCreds: withCreds.value }, param).then((res) => {
-      console.log(res);
+      // console.log(res);
     });
   };
   return (
@@ -105,7 +105,7 @@ const WalletAccordianHeader = ({
       <p className={StyledVcMgmt.type}>{type}</p>
 
       <p className={StyledVcMgmt.type}>
-        {formatDate(getUTCOfsetToZero(createdAt), "yyyy-MM-dd | hh:mm:ss")}
+        {formatDate(getUTCOfsetToZero(createdAt), "yyyy-MM-dd | HH:mm:ss")}
       </p>
       <div
         className={StyledVcMgmt.buttonGroup}
@@ -163,7 +163,8 @@ const VcManagemanegement = (props: Props) => {
   const currentPageNumber = 0;
   const [walletList, setWalletList] = useState<WalletProps[]>(null);
   const [totalCount, setTotalCount] = useState(0);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchBPN, setSearchBPN] = useState("");
+  const [searchType, setSearchType] = useState("");
   const [isCredentialLoading, setIsCredentialLoading] = useState(false);
   const [currentSelectedPage, setCurrentSelectedPage] =
     useState<number>(currentPageNumber);
@@ -189,13 +190,13 @@ const VcManagemanegement = (props: Props) => {
     setIssueCertificateDialogue(clickedItem.value);
   };
   const handleChangePagination = (value: number) => {
-    setCurrentSelectedPage(value);
+    setCurrentSelectedPage(value - 1);
   };
   const callGetWalletsByRoot = () => {
     setIsCredentialLoading(true);
     const param = {
-      // holderId: "BPNL000000000001",
-      // vcType: "SummaryCredential",
+      holderId: searchBPN,
+      vcType: searchType,
       pageNumber: `${currentSelectedPage}`,
       size: 10,
       sortColumn: "createdAt",
@@ -212,7 +213,7 @@ const VcManagemanegement = (props: Props) => {
   };
   useEffect(() => {
     callGetWalletsByRoot();
-  }, [currentSelectedPage]);
+  }, [currentSelectedPage, searchType, searchBPN]);
 
   const RenderDialogue = () => {
     if (issueCertificateDialogue) {
@@ -234,13 +235,13 @@ const VcManagemanegement = (props: Props) => {
           List of credential issued by Root Wallet
         </h2>
         <div className={StyledVcMgmt.headerRight}>
-          <CustomInput
+          {/* <CustomInput
             id={"SearchFilter"}
             placeholder="Search Here.."
             onChange={(e) => {
               setSearchInput(e);
             }}
-          />
+          /> */}
           <ThreeDotItemMenu
             menuItems={menuItems}
             handleItemClick={handleMenuClick}
@@ -251,13 +252,35 @@ const VcManagemanegement = (props: Props) => {
         {/* <div className={StyledVcMgmt.walletListHeader}>
 
         </div> */}
+        <div className={StyledVcMgmt.tHeader}>
+          <div>
+            <h3 className="thead">Credential ID</h3>
+            <CustomInput
+              value={searchBPN}
+              placeholder="search Credential...."
+              onChange={(e) => setSearchBPN(e)}
+              id={"credentialId"}
+            />
+          </div>
+          <div>
+            <h3 className="thead">Type</h3>
+            <CustomInput
+              value={searchType}
+              placeholder="search Type...."
+              onChange={(e) => setSearchType(e)}
+              id={"credentialId"}
+            />
+          </div>
+          <h3 className="thead">Creadted Date</h3>
+          <h3 className="thead"></h3>
+        </div>
         {isCredentialLoading ? (
           <div className="generalLoadingBar">
             <CircularProgress size="30px" />
           </div>
         ) : (
           <div className={StyledVcMgmt.listContainer}>
-            {walletList ? (
+            {walletList?.length > 1 ? (
               walletList.map((wallet, index) => {
                 return (
                   <CustomAccordian
@@ -283,14 +306,14 @@ const VcManagemanegement = (props: Props) => {
                 );
               })
             ) : (
-              <h3>no data found</h3>
+              <h3>{t("LABELS.NO_DATA_FOUND")}</h3>
             )}
             {totalCount > 5 && (
               <div className={StyledVcMgmt.paginationContainer}>
                 <Pagination
                   rowCount={totalCount}
                   onChangePage={(e) => handleChangePagination(e)}
-                  currentPage={currentSelectedPage}
+                  currentPage={currentSelectedPage + 1}
                 />
               </div>
             )}
@@ -306,7 +329,7 @@ const VcManagemanegement = (props: Props) => {
         }
         key={"Create Wallet"}
         content={<RenderDialogue />}
-        minHeight="30rem"
+        // minHeight="30rem"
         isShowCloseIcon
         onClose={() => setIssueCertificateDialogue(null)}
       />

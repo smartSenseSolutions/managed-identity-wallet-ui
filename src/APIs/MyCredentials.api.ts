@@ -32,11 +32,12 @@ export const getCredentials = (templateParam: {
   return get(parseAPI(ENDPOINTS.getCredentails, {}, queryParams));
 };
 
-export const deleteCredential = (id: string) => {
-  const templateParam = {
-    ID: id,
-  };
-  return deleteAPI(parseAPI(ENDPOINTS.deleteCredentials, templateParam));
+export const deleteCredential = (templateParam: { id: string }) => {
+  const queryParams = {};
+  if (templateParam.id) {
+    queryParams["id"] = templateParam.id;
+  }
+  return deleteAPI(parseAPI(ENDPOINTS.deleteCredentials, {}, queryParams));
 };
 export const getMyCreds = (identifier: string) => {
   const templateParam = {

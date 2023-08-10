@@ -14,6 +14,9 @@
       padding: 0.5rem 1rem;
       color: $primary70;
     }
+    th {
+      text-transform: capitalize;
+    }
   }
   .title {
     padding: 5rem 1rem 3rem;

@@ -1,15 +1,16 @@
+import React, { useState } from "react";
 import { Button, CustomInput, CustomSelect, Label } from "@miw/stories";
-import React from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
+import { postIssueFramework } from "@miw/APIs";
 import Styled from "./IssueFramework.module.scss";
-import { postCreateWallet } from "@miw/APIs";
-import { postIssueFramework } from "@miw/APIs/VcManagement.api";
+import { getAlert } from "@miw/hooks";
 
 type Props = { onClose: () => void };
 
 const IssueFramework = ({ onClose }: Props) => {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
   const credentialType = [
     { label: "BehaviorTwinCredential", value: "BehaviorTwinCredential" },
     { label: "PcfCredential", value: "PcfCredential" },
@@ -20,6 +21,7 @@ const IssueFramework = ({ onClose }: Props) => {
   ];
   const handleCreateWallet = (formValues) => {
     if (!!formValues.holderIdentifier && formValues.credentialType) {
+      setIsLoading(true);
       const param = {
         holderIdentifier: formValues.holderIdentifier,
         type: formValues.credentialType.value,
@@ -27,9 +29,18 @@ const IssueFramework = ({ onClose }: Props) => {
           "https://public.catena-x.org/contracts/traceabilty.v1.pdf",
         "contract-version": "1.0.0",
       };
-      postIssueFramework(param).then((res) => {
-        onClose();
-      });
+      postIssueFramework(param)
+        .then((res) => {
+          getAlert("success", t("VC_MANAGEMENT.CREDENTIAL_ISSUED_MSG"));
+          onClose();
+        })
+        .catch((err) => {
+          getAlert("error", err.detail);
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
   return (
@@ -91,7 +102,7 @@ const IssueFramework = ({ onClose }: Props) => {
               </Field>
 
               <Button
-                isLoading={submitting}
+                isLoading={isLoading}
                 disabled={
                   submitting ||
                   !values.holderIdentifier ||
