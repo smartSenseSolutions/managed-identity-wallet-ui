@@ -1,8 +1,39 @@
 import styled from "styled-components";
-import { IconButton } from "@mui/material";
 
 export const StyledHeaderContainer = styled.div`
-  background: #1d1d1b;
+  background: ${({ theme }) => theme.colors.white};
+  box-shadow: 0px 2px 10px #c4c4c4;
+`;
+
+export const StyledBrandLogo = styled.h1`
+  cursor: pointer;
+  position: relative;
+`;
+
+export const StyledListItem = styled.p`
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  font-weight: 500;
+  &::after {
+    content: "";
+    position: absolute;
+    height: 0.2rem;
+    width: 0;
+    bottom: -0.5rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    background: ${({ theme }) => theme.colors.primary};
+  }
+  :hover {
+    ::after {
+      width: 100%;
+    }
+  }
 `;
 
 export const StyledHeader = styled.div`
@@ -11,7 +42,7 @@ export const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: white;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const StyledHeaderLeft = styled.div`
@@ -67,7 +98,7 @@ export const StyledHeaderLeft = styled.div`
 `;
 
 export const StyledHeaderLogo = styled.div`
-  color: white;
+  color: ${({ theme }) => theme.colors.secondary}; ;
 `;
 
 export const StyledHeaderRight = styled.div`

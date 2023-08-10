@@ -2,13 +2,19 @@
     "LABELS": {
         "MIW": "MIW",
         "DELETE":"Delete",
-        "NO_DATA_FOUND":"No data found"
+        "NO_DATA_FOUND":"No data found",
+        "LOGOUT":"logout"
     },
     "TABS":{
         "MY_WALLET":"My Wallet",
         "WALLET":"Wallet",
         "VC_MGMT":"VC Management",
         "MY_CREDS":"My Credential"
+    },
+    "HEADER":{
+        "CRED_ID":"Credential ID",
+        "TYPE":"Type",
+        "CREATED_AT":"Creadted Date"
     },
     "WALLET":{
         "CREATE":{

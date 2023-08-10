@@ -1,11 +1,9 @@
-import { DidDocumentType, UserResponse } from "@miw/models";
-import { ApiResponse } from "@miw/types/common";
 import { deleteAPI, get } from "@miw/utils/ApiManager";
 import ENDPOINTS from "@miw/utils/endpoints";
 import { parseAPI } from "@miw/utils/helper";
 
 export const getCredentials = (templateParam: {
-  // holderId: string;
+  holderId: string;
   type: string;
   size: string | number;
   pageNumber: string | number;
@@ -13,20 +11,19 @@ export const getCredentials = (templateParam: {
   sortBy: string;
 }) => {
   const queryParams = {};
-  if (templateParam.type) {
-    queryParams["type"] = templateParam.type;
-  }
-  if (templateParam.size) {
-    queryParams["size"] = templateParam.size;
-  }
-  if (templateParam.pageNumber) {
-    queryParams["pageNumber"] = templateParam.pageNumber;
-  }
-  if (templateParam.sortColumn) {
-    queryParams["sortColumn"] = templateParam.sortColumn;
-  }
-  if (templateParam.sortBy) {
-    queryParams["sortBy"] = templateParam.sortBy;
+  const validParams = [
+    "issuerIdentifier",
+    "type",
+    "size",
+    "pageNumber",
+    "sortColumn",
+    "sortBy",
+  ];
+
+  for (const param of validParams) {
+    if (templateParam[param]) {
+      queryParams[param] = templateParam[param];
+    }
   }
 
   return get(parseAPI(ENDPOINTS.getCredentails, {}, queryParams));

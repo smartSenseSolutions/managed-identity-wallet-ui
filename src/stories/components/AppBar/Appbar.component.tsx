@@ -1,14 +1,14 @@
-import React, { useRef, useState } from "react";
-import { IconButton, Menu } from "@mui/material";
+import React from "react";
+import { IconButton } from "@mui/material";
 import Keycloak from "keycloak-js";
-// import ThemeIcons from "../../../ThemeIcons";
 import {
   StyledHeaderContainer,
   StyledHeader,
   StyledHeaderLeft,
   StyledHeaderLogo,
   StyledHeaderRight,
-  StyleUserProfile,
+  StyledBrandLogo,
+  StyledListItem,
 } from "./Appbar.styled";
 import {
   ACCESS_TOKEN_KEY,
@@ -16,10 +16,8 @@ import {
 } from "@miw/utils/constant";
 import { removeFromStore } from "@miw/utils/helper";
 import { useKeycloak } from "@react-keycloak/web";
-// import ProfileMenu from "../ProfileMenu";
-// import Avatar from "../Avatar";
-// import { HEADER_NAVIGATION_ITEM_ID } from "@assessment/util/constants";
-// import { getFirstLatterOfString } from "@assessment/util/helper";
+import Button from "../Button";
+import { useTranslation } from "react-i18next";
 
 type AppMenu = {
   tabIcon?: JSX.Element;
@@ -48,35 +46,9 @@ const Appbar = ({
   appMenu,
   onHeaderItemClick,
   selectedTab,
-}: // profileDetails,
-AppbarPropMenu) => {
+}: AppbarPropMenu) => {
   const auth = useKeycloak();
-
-  // const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  // const myProfileMenuButton = useRef();
-
-  // const toggleMyProfileMenu = () => {
-  //   setProfileMenuOpen((i) => !i);
-  // };
-  // const onMyProfileMenuClick = () => {
-  //   setProfileMenuOpen(false);
-  // };
-  // const renderMyProfileMenu = (
-  //   <Menu
-  //     anchorEl={myProfileMenuButton.current}
-  //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
-  //     keepMounted
-  //     transformOrigin={{ horizontal: "right", vertical: "top" }}
-  //     open={profileMenuOpen}
-  //     onClose={toggleMyProfileMenu}
-  //     sx={{ mt: "50px" }}
-  //     onClick={onMyProfileMenuClick}
-  //     classes={{ paper: "myProfilePaper", list: "customMenuListHeader" }}
-  //   >
-  //     <ProfileMenu profileDetails={profileDetails} auth={keyclockAuth} />
-  //   </Menu>
-  // );
-
+  const { t } = useTranslation();
   const handleLogOut = () => {
     auth.keycloak.logout({ redirectUri: window.location.origin });
     removeFromStore(ACCESS_TOKEN_KEY);
@@ -86,14 +58,14 @@ AppbarPropMenu) => {
       <StyledHeader>
         <StyledHeaderLeft>
           <StyledHeaderLogo>
-            <IconButton className="headerIcon">MIW</IconButton>
+            <StyledBrandLogo>{t("LABELS.MIW")}</StyledBrandLogo>
           </StyledHeaderLogo>
 
           <ul>
             {appMenu.map((menu, index) => {
               return (
                 <li key={index}>
-                  <IconButton
+                  <StyledListItem
                     id={HEADER_NAVIGATION_ITEM_ID}
                     onClick={(e) => {
                       onHeaderItemClick(e, menu);
@@ -102,14 +74,14 @@ AppbarPropMenu) => {
                   >
                     {menu.tabIcon}
                     {menu.tabName}
-                  </IconButton>
+                  </StyledListItem>
                 </li>
               );
             })}
           </ul>
         </StyledHeaderLeft>
         <StyledHeaderRight>
-          <button onClick={handleLogOut}>logout</button>
+          <Button onClick={handleLogOut}>{t("LABELS.LOGOUT")}</Button>
         </StyledHeaderRight>
       </StyledHeader>
     </StyledHeaderContainer>

@@ -4,7 +4,7 @@
   margin: 0 auto;
   .formSection {
     .formControl {
-      display: flex;
+      // display: flex;
       align-items: center;
       margin-bottom: 2.5rem;
 
@@ -19,6 +19,7 @@
 
       label {
         // width: 22.5%;
+        padding-bottom: 1rem;
 
         // @include respond("Laptop") {
         //   width: 25%;

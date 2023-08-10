@@ -1,14 +1,20 @@
-import { Button, CustomAccordian, Pagination } from "@miw/stories";
-import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
-// import { WalletAccordianHeader, WalleteDetails } from "../Wallet/Wallet.page";
+import { CircularProgress } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { Button, CustomAccordian, CustomInput, Pagination } from "@miw/stories";
 import { WalletProps } from "@miw/models";
 import { deleteCredential, getCredentials } from "@miw/APIs/MyCredentials.api";
-import { useUser } from "@miw/hooks";
+import { RECORDS_PER_PAGE } from "@miw/utils/constant";
 import { formatDate, getUTCOfsetToZero } from "@miw/utils/helper";
 import StyledCredentials from "../Wallet/Wallet.module.scss";
 
-type Props = {};
+type Props = {
+  title: string;
+  type: string;
+  issueDate: string;
+  didDocument: object;
+  postDeleteAPI: () => void;
+};
 
 const WalletAccordianHeader = ({
   title,
@@ -16,13 +22,7 @@ const WalletAccordianHeader = ({
   issueDate,
   didDocument,
   postDeleteAPI,
-}: {
-  title: string;
-  type: string;
-  issueDate: string;
-  didDocument: object;
-  postDeleteAPI: () => void;
-}) => {
+}: Props) => {
   const { t } = useTranslation();
   const handleDeleteCreds = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -54,35 +54,40 @@ const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
   );
 };
 
-const MyCredentials = (props: Props) => {
+const MyCredentials = () => {
   const currentPageNumber = 0;
   const { t } = useTranslation();
-  const {
-    state: {
-      userDetails: { BPN },
-    },
-  } = useUser();
   const [walletList, setWalletList] = useState<WalletProps[]>(null);
   const [totalCount, setTotalCount] = useState(0);
-  const [searchInput, setSearchInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchBPN, setSearchBPN] = useState("");
+  const [searchType, setSearchType] = useState("");
   const [currentSelectedPage, setCurrentSelectedPage] =
     useState<number>(currentPageNumber);
+
   useEffect(() => {
     callGetMyWallet();
-  }, []);
+  }, [searchBPN, currentSelectedPage, searchType]);
+
   const callGetMyWallet = () => {
+    setIsLoading(true);
     const param = {
-      // holderId: "BPNL000000000001",
-      // type: "SummaryCredential",
+      issuerIdentifier: searchBPN,
+      type: searchType,
       pageNumber: `${currentSelectedPage}`,
-      size: 10,
+      size: RECORDS_PER_PAGE,
       sortColumn: "createdAt",
       sortBy: "desc",
     };
-    getCredentials(param).then((res) => {
-      setTotalCount(res.totalElements);
-      setWalletList(res.content);
-    });
+
+    getCredentials(param)
+      .then((res) => {
+        setTotalCount(res.totalElements);
+        setWalletList(res.content);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleChangePagination = (value: number) => {
@@ -94,14 +99,34 @@ const MyCredentials = (props: Props) => {
         <h2 className={StyledCredentials.title}>{t("MY_CREDS.TITLE")}</h2>
       </div>
       <div className={StyledCredentials.walleteBody}>
-        <div className={StyledCredentials.listContainer}>
-          <div className={StyledCredentials.tHeader}>
-            <h3 className="thead">Credential ID</h3>
-            <h3 className="thead">Type</h3>
-            <h3 className="thead">Creadted Date</h3>
-            <h3 className="thead"></h3>
+        <div className={StyledCredentials.tHeader}>
+          <div>
+            <h3 className="thead">{t("HEADER.CRED_ID")}</h3>
+            <CustomInput
+              value={searchBPN}
+              placeholder="Search Credential...."
+              onChange={(e) => setSearchBPN(e)}
+              id={"credentialId"}
+            />
           </div>
-          {walletList ? (
+          <div>
+            <h3 className="thead">{t("HEADER.TYPE")}</h3>
+            <CustomInput
+              value={searchType}
+              placeholder="Search Type...."
+              onChange={(e) => setSearchType(e)}
+              id={"credentialId"}
+            />
+          </div>
+          <h3 className="thead">{t("HEADER.CREATED_AT")}</h3>
+          <h3 className="thead"></h3>
+        </div>
+        <div className={StyledCredentials.listContainer}>
+          {isLoading ? (
+            <div className="tableLoading">
+              <CircularProgress size="30px" />
+            </div>
+          ) : walletList?.length > 0 ? (
             walletList.map((wallet, index) => {
               return (
                 <CustomAccordian
@@ -128,7 +153,7 @@ const MyCredentials = (props: Props) => {
               );
             })
           ) : (
-            <h3>{t("LABELS.NO_DATA_FOUND")}</h3>
+            <h3 className={"no_data_found"}>{t("LABELS.NO_DATA_FOUND")}</h3>
           )}
           {totalCount > 5 && (
             <div className={StyledCredentials.paginationContainer}>

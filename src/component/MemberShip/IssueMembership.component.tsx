@@ -70,6 +70,7 @@ const IssueMembership = ({ onClose }: Props) => {
               <Button
                 disabled={submitting || !values.bpn}
                 type="submit"
+                fullWidth
                 isLoading={isLoading}
               >
                 {t("WALLET.CREATE.CREATE_WALLET")}
