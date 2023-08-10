@@ -1,7 +1,8 @@
 {
     "LABELS": {
         "MIW": "MIW",
-        "DELETE":"Delete"
+        "DELETE":"Delete",
+        "NO_DATA_FOUND":"no data found"
     },
     "TABS":{
         "MY_WALLET":"My Wallet",
@@ -16,7 +17,9 @@
             "NAME_PLACEHOLDER":"Company ABC",
             "BPN_PLACEHOLDER":"BPNL000000000001",
             "CREATE_WALLET":"Create Wallet"
-        }
+        },
+        "TITLE":"Wallets",
+        "CREATE_WALLET":"Create Wallet"
     },
     "VC_MANAGEMENT":{
         "ISSUER":"Issue Credential",

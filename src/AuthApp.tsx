@@ -52,8 +52,8 @@ const AuthApp = () => {
           </div>
         ) : (
           <Routes>
-            <Route path={ROUTES.ROOT} element={<Dashboard />} />
-            <Route path={ROUTES.DID_MGMT} element={<DidManagement />} />
+            <Route path={ROUTES.ROOT} element={<DidManagement />} />
+            {/* <Route path={ROUTES.DID_MGMT} element={<DidManagement />} /> */}
             <Route path={ROUTES.VC} element={<VcManagemanegement />} />
             <Route path={ROUTES.WALLET} element={<Wallet />} />
             <Route path={ROUTES.MY_CREDS} element={<MyCredentials />} />

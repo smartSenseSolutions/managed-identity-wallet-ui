@@ -4,12 +4,23 @@
   // max-width: fit-content;
   height: calc(100vh - 6rem);
   margin-inline: auto;
-
+  // margin-top: 5rem;
+  .table {
+    width: 50%;
+    margin-left: 2rem;
+    td,
+    th {
+      text-align: left;
+      padding: 0.5rem 1rem;
+      color: $primary70;
+    }
+  }
   .title {
     padding: 5rem 1rem 3rem;
     color: $secondary;
   }
   .josnContainer {
+    overflow-y: scroll;
     background-color: $secondary10;
     padding: 5rem;
     border-radius: 1.6rem;

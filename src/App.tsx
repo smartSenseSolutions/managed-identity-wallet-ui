@@ -41,10 +41,10 @@ function App() {
     auth.initialized === undefined || auth.initialized === false;
 
   const MenuList = [
-    {
-      tabName: t("TABS.MY_WALLET"),
-      tabValue: ROUTES.DID_MGMT,
-    },
+    // {
+    //   tabName: t("TABS.MY_WALLET"),
+    //   tabValue: ROUTES.DID_MGMT,
+    // },
     {
       tabName: t("TABS.WALLET"),
       tabValue: ROUTES.WALLET,

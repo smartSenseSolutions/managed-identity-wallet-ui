@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import {
   getWalletByRoot,
@@ -21,9 +22,10 @@ import {
   Pagination,
   ThreeDotItemMenu,
 } from "@miw/stories";
-import StyledVcMgmt from "./VcManagemanegement.module.scss";
 import { formatDate, getUTCOfsetToZero } from "@miw/utils/helper";
 import CreartePresentation from "@miw/component/CreatePresentation";
+import StyledVcMgmt from "./VcManagemanegement.module.scss";
+import { getAlert } from "@miw/hooks";
 
 type Props = {};
 const RenderHeaderActionDialogue = ({ didDocument }) => {
@@ -88,9 +90,13 @@ const WalletAccordianHeader = ({
 
   const handleRevokeCreds = () => {
     const param = didDocument;
-    postRevokeCreds(param).then((res) => {
-      // console.log(res);
-    });
+    postRevokeCreds(param)
+      .then((res) => {
+        getAlert("success", "Credential Revoked");
+      })
+      .catch((err) => {
+        getAlert("error", "There is an error occured");
+      });
   };
 
   return (
@@ -158,6 +164,7 @@ const VcManagemanegement = (props: Props) => {
   const [walletList, setWalletList] = useState<WalletProps[]>(null);
   const [totalCount, setTotalCount] = useState(0);
   const [searchInput, setSearchInput] = useState("");
+  const [isCredentialLoading, setIsCredentialLoading] = useState(false);
   const [currentSelectedPage, setCurrentSelectedPage] =
     useState<number>(currentPageNumber);
   const [issueCertificateDialogue, setIssueCertificateDialogue] =
@@ -185,6 +192,7 @@ const VcManagemanegement = (props: Props) => {
     setCurrentSelectedPage(value);
   };
   const callGetWalletsByRoot = () => {
+    setIsCredentialLoading(true);
     const param = {
       // holderId: "BPNL000000000001",
       // vcType: "SummaryCredential",
@@ -193,10 +201,14 @@ const VcManagemanegement = (props: Props) => {
       sortColumn: "createdAt",
       sortBy: "desc",
     };
-    getWalletByRoot(param).then((res) => {
-      setTotalCount(res.totalElements);
-      setWalletList(res.content);
-    });
+    getWalletByRoot(param)
+      .then((res) => {
+        setTotalCount(res.totalElements);
+        setWalletList(res.content);
+      })
+      .finally(() => {
+        setIsCredentialLoading(false);
+      });
   };
   useEffect(() => {
     callGetWalletsByRoot();
@@ -239,45 +251,51 @@ const VcManagemanegement = (props: Props) => {
         {/* <div className={StyledVcMgmt.walletListHeader}>
 
         </div> */}
-        <div className={StyledVcMgmt.listContainer}>
-          {walletList ? (
-            walletList.map((wallet, index) => {
-              return (
-                <CustomAccordian
-                  key={wallet.did}
-                  maxHeight={"fit-content"}
-                  id={wallet.did}
-                  ariaControls={""}
-                  expandIcon={undefined}
-                  accordionHeader={
-                    <WalletAccordianHeader
-                      title={
-                        wallet.credentialSubject[0]?.bpn
-                          ? wallet.credentialSubject[0]?.bpn
-                          : wallet.credentialSubject[0]?.holderIdentifier
-                      }
-                      didDocument={wallet}
-                      type={wallet?.type[1]}
-                      createdAt={wallet?.issuanceDate}
-                    />
-                  }
-                  accordionBody={<WalleteDetails didJson={wallet} />}
+        {isCredentialLoading ? (
+          <div className="generalLoadingBar">
+            <CircularProgress size="30px" />
+          </div>
+        ) : (
+          <div className={StyledVcMgmt.listContainer}>
+            {walletList ? (
+              walletList.map((wallet, index) => {
+                return (
+                  <CustomAccordian
+                    key={wallet.did}
+                    maxHeight={"fit-content"}
+                    id={wallet.did}
+                    ariaControls={""}
+                    expandIcon={undefined}
+                    accordionHeader={
+                      <WalletAccordianHeader
+                        title={
+                          wallet.credentialSubject[0]?.bpn
+                            ? wallet.credentialSubject[0]?.bpn
+                            : wallet.credentialSubject[0]?.holderIdentifier
+                        }
+                        didDocument={wallet}
+                        type={wallet?.type[1]}
+                        createdAt={wallet?.issuanceDate}
+                      />
+                    }
+                    accordionBody={<WalleteDetails didJson={wallet} />}
+                  />
+                );
+              })
+            ) : (
+              <h3>no data found</h3>
+            )}
+            {totalCount > 5 && (
+              <div className={StyledVcMgmt.paginationContainer}>
+                <Pagination
+                  rowCount={totalCount}
+                  onChangePage={(e) => handleChangePagination(e)}
+                  currentPage={currentSelectedPage}
                 />
-              );
-            })
-          ) : (
-            <h3>no data found</h3>
-          )}
-          {totalCount > 5 && (
-            <div className={StyledVcMgmt.paginationContainer}>
-              <Pagination
-                rowCount={totalCount}
-                onChangePage={(e) => handleChangePagination(e)}
-                currentPage={currentSelectedPage}
-              />
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <Dialog
         isOpen={issueCertificateDialogue !== null}

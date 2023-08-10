@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import { WalletProps } from "@miw/models";
 import StyledCredentials from "../Wallet/Wallet.module.scss";
-import { deleteCredential, getMyCreds } from "@miw/APIs/MyCredentials.api";
+import { deleteCredential, getCredentials } from "@miw/APIs/MyCredentials.api";
 import { useUser } from "@miw/hooks";
 import { useTranslation } from "react-i18next";
 import { formatDate, getUTCOfsetToZero } from "@miw/utils/helper";
@@ -82,7 +82,7 @@ const MyCredentials = (props: Props) => {
       sortColumn: "createdAt",
       sortBy: "desc",
     };
-    getMyCreds(param).then((res) => {
+    getCredentials(param).then((res) => {
       console.log(res);
       setTotalCount(res.totalElements);
       setWalletList(res.content);

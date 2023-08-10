@@ -93,12 +93,24 @@ export const postValidateCreds = (
 ) => {
   return post(parseAPI(ENDPOINTS.postValidateCreds, templateParam), param);
 };
-export const createPresentation = (templateParam: { withCreds: string }) => {
+export const createPresentation = (
+  templateParam: {
+    withCreds: string;
+    audience: string;
+  },
+  param: object
+) => {
   const queryParams = {};
   if (templateParam.withCreds) {
-    queryParams["withCreds"] = templateParam.withCreds;
+    queryParams["asJwt"] = templateParam.withCreds;
   }
-  return get(ENDPOINTS.postCreatePresantation);
+  if (templateParam.withCreds && templateParam.audience) {
+    queryParams["audience"] = templateParam.withCreds;
+  }
+  return post(
+    parseAPI(ENDPOINTS.postCreatePresantation, {}, queryParams),
+    param
+  );
 };
 
 export const postRevokeCreds = (param) => {

@@ -12,4 +12,12 @@ type DidDocumentType = {
   }[];
 };
 
-export type { DidDocumentType };
+type WalletType = {
+  name: string;
+  did: string;
+  bpn: string;
+  algorithm: string;
+  didDocument: DidDocumentType;
+};
+
+export type { DidDocumentType, WalletType };

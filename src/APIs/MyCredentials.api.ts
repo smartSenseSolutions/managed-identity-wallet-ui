@@ -4,7 +4,7 @@ import { deleteAPI, get } from "@miw/utils/ApiManager";
 import ENDPOINTS from "@miw/utils/endpoints";
 import { parseAPI } from "@miw/utils/helper";
 
-export const getMyCreds = (templateParam: {
+export const getCredentials = (templateParam: {
   // holderId: string;
   type: string;
   size: string | number;
@@ -37,4 +37,10 @@ export const deleteCredential = (id: string) => {
     ID: id,
   };
   return deleteAPI(parseAPI(ENDPOINTS.deleteCredentials, templateParam));
+};
+export const getMyCreds = (identifier: string) => {
+  const templateParam = {
+    identifier,
+  };
+  return get(parseAPI(ENDPOINTS.getMyCreds, templateParam));
 };

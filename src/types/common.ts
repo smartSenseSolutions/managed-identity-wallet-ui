@@ -28,5 +28,6 @@ export type itemsProps = {
   value: string | number;
   label: string;
 };
+export type LoadingType = "init" | "success" | "failure" | "loading";
 
 export type CatchErrorType = ApiResponse<null>;

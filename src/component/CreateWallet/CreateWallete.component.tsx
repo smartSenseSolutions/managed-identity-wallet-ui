@@ -1,24 +1,35 @@
 import { Button, CustomInput, Label } from "@miw/stories";
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
 import Styled from "./CreateWallete.module.scss";
 import { postCreateWallet } from "@miw/APIs";
+import { getAlert } from "@miw/hooks";
 
-type Props = {};
+type Props = { onClose: () => void };
 
-const CreateWallete = (props: Props) => {
+const CreateWallete = ({ onClose }: Props) => {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCreateWallet = (formValues) => {
+    setIsLoading(true);
     if (!!formValues.bpn && formValues.name) {
       const param = {
         bpn: formValues.bpn,
         name: formValues.name,
       };
-      postCreateWallet(param).then((res) => {
-        console.log(res);
-      });
+      postCreateWallet(param)
+        .then((res) => {
+          getAlert("info", "Wallet created successfully");
+          onClose();
+        })
+        .catch((err) => {
+          getAlert("error", "An error occured while creating wallet");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
   return (
@@ -81,7 +92,7 @@ const CreateWallete = (props: Props) => {
               </Field>
 
               <Button
-                isLoading={submitting}
+                isLoading={isLoading}
                 disabled={submitting || !values.bpn || !values.name}
                 type="submit"
               >
