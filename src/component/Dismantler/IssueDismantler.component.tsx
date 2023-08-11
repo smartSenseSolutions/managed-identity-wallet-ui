@@ -47,7 +47,7 @@ const IssueDismantler = ({ onClose }: Props) => {
             >
               <Field name={"bpn"}>
                 {({ input, meta }) => (
-                  <div className={Styled.formControl}>
+                  <div className={"formControl"}>
                     <Label isRequired htmlFor={"bpn"}>
                       {t("WALLET.CREATE.BPN")}
                       {/* bpn */}
@@ -70,7 +70,7 @@ const IssueDismantler = ({ onClose }: Props) => {
               </Field>
               <Field name={"allowedVehicleBrands"}>
                 {({ input, meta }) => (
-                  <div className={Styled.formControl}>
+                  <div className={"formControl"}>
                     <Label isRequired htmlFor={"allowedVehicleBrands"}>
                       Allowed Vehicle Brands
                     </Label>
@@ -103,6 +103,7 @@ const IssueDismantler = ({ onClose }: Props) => {
                 isLoading={isLoading}
                 disabled={!values.bpn || !values.allowedVehicleBrands}
                 type="submit"
+                fullWidth
               >
                 {t("VC_MANAGEMENT.ISSUE_CREDENTIAL")}
               </Button>

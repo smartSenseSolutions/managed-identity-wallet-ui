@@ -39,7 +39,7 @@ const ValidateCredential = ({ didDocument }) => {
             >
               <Field name={"withCreds"}>
                 {({ input, meta }) => (
-                  <div className={Styled.formControl}>
+                  <div className={"formControl"}>
                     <Label isRequired htmlFor={"withCreds"}>
                       withCredentialExpiryDate
                     </Label>

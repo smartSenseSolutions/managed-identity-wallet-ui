@@ -4,6 +4,9 @@ export const StyledHeaderContainer = styled.div`
   background: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 2px 10px #c4c4c4;
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 `;
 
 export const StyledBrandLogo = styled.h1`

@@ -57,7 +57,7 @@ const IssueFramework = ({ onClose }: Props) => {
             >
               <Field name={"holderIdentifier"}>
                 {({ input, meta }) => (
-                  <div className={Styled.formControl}>
+                  <div className={"formControl"}>
                     <Label isRequired htmlFor={"holderIdentifier"}>
                       holderIdentifier
                     </Label>

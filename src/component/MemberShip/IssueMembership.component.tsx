@@ -46,7 +46,7 @@ const IssueMembership = ({ onClose }: Props) => {
             >
               <Field name={"bpn"}>
                 {({ input, meta }) => (
-                  <div className={Styled.formControl}>
+                  <div className={"formControl"}>
                     <Label isRequired htmlFor={"bpn"}>
                       {t("WALLET.CREATE.BPN")}
                     </Label>

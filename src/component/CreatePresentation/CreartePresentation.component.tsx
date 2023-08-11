@@ -61,7 +61,7 @@ const CreartePresentation = ({ didDocument }: Props) => {
               >
                 <Field name={"withCreds"}>
                   {({ input, meta }) => (
-                    <div className={Styled.formControl}>
+                    <div className={"formControl"}>
                       <Label isRequired htmlFor={"withCreds"}>
                         As JWT
                       </Label>
@@ -85,7 +85,7 @@ const CreartePresentation = ({ didDocument }: Props) => {
                 {values?.withCreds?.value === "true" && (
                   <Field name={"audience"}>
                     {({ input, meta }) => (
-                      <div className={Styled.formControl}>
+                      <div className={"formControl"}>
                         <Label isRequired htmlFor={"audience"}>
                           Audience
                         </Label>

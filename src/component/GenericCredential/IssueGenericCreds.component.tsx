@@ -35,13 +35,13 @@ const IssueGenericCreds = ({ onClose }: Props) => {
           return (
             <form
               onSubmit={handleSubmit}
-              className={Styled.formSection}
+              className={"formSection"}
               autoComplete="off"
               noValidate
             >
               <Field name={"bpn"}>
                 {({ input, meta }) => (
-                  <div className={Styled.formControl}>
+                  <div className={"formControl"}>
                     <Label isRequired htmlFor={"bpn"}>
                       {t("WALLET.CREATE.BPN")}
                     </Label>
@@ -82,6 +82,7 @@ const IssueGenericCreds = ({ onClose }: Props) => {
                 disabled={submitting || !values.json}
                 type="submit"
                 isLoading={isLoading}
+                fullWidth
               >
                 {t("VC_MANAGEMENT.ISSUE_CREDENTIAL")}
               </Button>
