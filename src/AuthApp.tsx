@@ -1,19 +1,18 @@
 /**
  Copyright (c) 2023 MIW
  */
-import React, { useEffect, useState } from "react";
+import React, { lazy, useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 import useUser from "./hooks/useUser.hook";
-import Dashboard from "./pages/Dashboard";
 import { ROUTES } from "./utils/constant";
 import RedirectToLogin from "./pages/RedirectToLogin";
-import { CircularProgress } from "@mui/material";
 import { parseToken, setBrowserSession } from "./utils/AuthHelper";
-import DidManagement from "./pages/Didmanagement";
-import VcManagemanegement from "./pages/VcMAnagement";
-import Wallet from "./pages/Wallet";
-import MyCredentials from "./pages/MyCredentials";
+const DidManagement = lazy(() => import("./pages/Didmanagement"));
+const VcManagemanegement = lazy(() => import("./pages/VcMAnagement"));
+const Wallet = lazy(() => import("./pages/Wallet"));
+const MyCredentials = lazy(() => import("./pages/MyCredentials"));
 
 const AuthApp = () => {
   const auth = useKeycloak();

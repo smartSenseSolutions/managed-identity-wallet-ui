@@ -104,7 +104,7 @@ const IssueDismantler = ({ onClose }: Props) => {
                 disabled={!values.bpn || !values.allowedVehicleBrands}
                 type="submit"
               >
-                {t("WALLET.CREATE.CREATE_WALLET")}
+                {t("VC_MANAGEMENT.ISSUE_CREDENTIAL")}
               </Button>
             </form>
           );

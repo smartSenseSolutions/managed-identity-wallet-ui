@@ -111,7 +111,7 @@ export const createPresentation = (
     queryParams["asJwt"] = templateParam.withCreds;
   }
   if (templateParam.withCreds && templateParam.audience) {
-    queryParams["audience"] = templateParam.withCreds;
+    queryParams["audience"] = templateParam.audience;
   }
   return post(
     parseAPI(ENDPOINTS.postCreatePresantation, {}, queryParams),

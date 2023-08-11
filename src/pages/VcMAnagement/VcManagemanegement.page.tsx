@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Skeleton } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import {
   getWalletByRoot,
@@ -11,6 +11,7 @@ import {
   IssueFramework,
   IssueGenericCreds,
   IssueMembership,
+  ValidateCredential,
 } from "@miw/component";
 import { CertificateType, WalletProps } from "@miw/models";
 import {
@@ -22,52 +23,18 @@ import {
   Pagination,
   ThreeDotItemMenu,
 } from "@miw/stories";
-import { formatDate, getUTCOfsetToZero } from "@miw/utils/helper";
+import {
+  copyTextToClipboard,
+  formatDate,
+  getUTCOfsetToZero,
+} from "@miw/utils/helper";
 import CreartePresentation from "@miw/component/CreatePresentation";
-import StyledVcMgmt from "./VcManagemanegement.module.scss";
 import { getAlert } from "@miw/hooks";
+import { ARRAY_OF_TEN } from "@miw/utils/constant";
+import StyledVcMgmt from "./VcManagemanegement.module.scss";
 
 type Props = {};
-const RenderHeaderActionDialogue = ({ didDocument }) => {
-  const [withCreds, setWithCreds] = useState({
-    label: "False",
-    value: "false",
-  });
-  const credentialType = [
-    { label: "False", value: "false" },
-    { label: "True", value: "true" },
-  ];
 
-  const handleCallValidateCredential = () => {
-    const param = didDocument;
-
-    postValidateCreds({ withCreds: withCreds.value }, param).then((res) => {
-      // console.log(res);
-    });
-  };
-  return (
-    <div className="dialogecontainer" onClick={(e) => e.stopPropagation()}>
-      <CustomSelect
-        value={withCreds}
-        onChange={(e) => {
-          e.stopPropagation();
-          setWithCreds(e);
-        }}
-        closeMenuOnSelect={true}
-        isSearchable={true}
-        required
-        insideDialog={true}
-        isCreatable={false}
-        id={"credentialType"}
-        options={credentialType}
-        placeholder={"select"}
-      />
-      <Button fullWidth onClick={handleCallValidateCredential}>
-        Validate
-      </Button>
-    </div>
-  );
-};
 const WalletAccordianHeader = ({
   title,
   createdAt,
@@ -128,8 +95,7 @@ const WalletAccordianHeader = ({
           showFooter={false}
           header="Validate"
           key={"Validate"}
-          content={<RenderHeaderActionDialogue didDocument={didDocument} />}
-          // minHeight="30rem"
+          content={<ValidateCredential didDocument={didDocument} />}
           isShowCloseIcon
           onClose={() => setIsOpenDialoge(false)}
         />
@@ -139,7 +105,6 @@ const WalletAccordianHeader = ({
           header="Create Presentation"
           key={"Create Presentation"}
           content={<CreartePresentation didDocument={didDocument} />}
-          // minHeight="30rem"
           isShowCloseIcon
           onClose={() => setIsOpenPresentDialoge(false)}
         />
@@ -149,11 +114,22 @@ const WalletAccordianHeader = ({
 };
 
 export const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
+  const { t } = useTranslation();
+  const handleCopy = () => {
+    copyTextToClipboard(JSON.stringify(didJson, null, 2)).then(() => {
+      getAlert("info", t("LABELS.COPIED"));
+    });
+  };
   return (
     <div className={StyledVcMgmt.bodyContainer}>
       <pre className={StyledVcMgmt.jsonContainer}>
         {JSON.stringify(didJson, null, 2)}
       </pre>
+      <div className={StyledVcMgmt.copyButtonHolder}>
+        <Button variant="outlined" onClick={handleCopy}>
+          {t("LABELS.COPY_LABEL")}
+        </Button>
+      </div>
     </div>
   );
 };
@@ -231,17 +207,8 @@ const VcManagemanegement = (props: Props) => {
   return (
     <section className={StyledVcMgmt.container}>
       <div className={StyledVcMgmt.header}>
-        <h2 className={StyledVcMgmt.title}>
-          List of credential issued by Root Wallet
-        </h2>
+        <h2 className={StyledVcMgmt.title}>{t("VC_MANAGEMENT.TITLE")}</h2>
         <div className={StyledVcMgmt.headerRight}>
-          {/* <CustomInput
-            id={"SearchFilter"}
-            placeholder="Search Here.."
-            onChange={(e) => {
-              setSearchInput(e);
-            }}
-          /> */}
           <ThreeDotItemMenu
             menuItems={menuItems}
             handleItemClick={handleMenuClick}
@@ -249,15 +216,12 @@ const VcManagemanegement = (props: Props) => {
         </div>
       </div>
       <div className={StyledVcMgmt.walleteBody}>
-        {/* <div className={StyledVcMgmt.walletListHeader}>
-
-        </div> */}
         <div className={StyledVcMgmt.tHeader}>
           <div>
-            <h3 className="thead">Credential ID</h3>
+            <h3 className="thead">{t("VC_MANAGEMENT.CREDENTIAL_ID")}</h3>
             <CustomInput
               value={searchBPN}
-              placeholder="search Credential...."
+              placeholder="Search credential...."
               onChange={(e) => setSearchBPN(e)}
               id={"credentialId"}
             />
@@ -275,9 +239,16 @@ const VcManagemanegement = (props: Props) => {
           <h3 className="thead"></h3>
         </div>
         {isCredentialLoading ? (
-          <div className="generalLoadingBar">
-            <CircularProgress size="30px" />
-          </div>
+          ARRAY_OF_TEN.map((item) => {
+            return (
+              <Skeleton
+                style={{ marginBottom: "1px" }}
+                height={"5.1rem"}
+                animation="wave"
+                variant="rectangular"
+              />
+            );
+          })
         ) : (
           <div className={StyledVcMgmt.listContainer}>
             {walletList?.length > 1 ? (

@@ -1,6 +1,13 @@
 import React from "react";
-import { IconButton } from "@mui/material";
-import Keycloak from "keycloak-js";
+import { useKeycloak } from "@react-keycloak/web";
+import { useTranslation } from "react-i18next";
+import {
+  ACCESS_TOKEN_KEY,
+  HEADER_NAVIGATION_ITEM_ID,
+} from "@miw/utils/constant";
+import { removeFromStore } from "@miw/utils/helper";
+import Button from "../Button";
+
 import {
   StyledHeaderContainer,
   StyledHeader,
@@ -10,14 +17,6 @@ import {
   StyledBrandLogo,
   StyledListItem,
 } from "./Appbar.styled";
-import {
-  ACCESS_TOKEN_KEY,
-  HEADER_NAVIGATION_ITEM_ID,
-} from "@miw/utils/constant";
-import { removeFromStore } from "@miw/utils/helper";
-import { useKeycloak } from "@react-keycloak/web";
-import Button from "../Button";
-import { useTranslation } from "react-i18next";
 
 type AppMenu = {
   tabIcon?: JSX.Element;
@@ -29,17 +28,6 @@ type AppbarPropMenu = {
   appMenu: AppMenu;
   selectedTab: string;
   onHeaderItemClick: (e: MouseEvent, item) => void;
-  keyclockAuth: {
-    initialized: boolean;
-    keycloak: Keycloak;
-  };
-  profileDetails: {
-    email: string;
-    name?: string;
-    avatarUrl?: string;
-    role?: string;
-    title?: string;
-  };
 };
 
 const Appbar = ({

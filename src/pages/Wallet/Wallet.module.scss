@@ -10,6 +10,12 @@
       color: $secondary;
     }
   }
+  .listContainer {
+    max-height: calc(100vh - 30rem);
+    overflow: scroll;
+    background-color: $white;
+    border-radius: 0.8rem;
+  }
   .paginationContainer {
     width: fit-content;
     margin-top: 2rem;
@@ -27,6 +33,7 @@
     }
     & > :last-child {
       flex: unset;
+      width: 12rem;
     }
   }
 }
@@ -42,6 +49,11 @@
   & > :last-child {
     flex: unset;
   }
+  .buttonGroup {
+    flex: unset;
+    display: flex;
+    gap: 1rem;
+  }
   .title {
     text-transform: capitalize;
     color: $secondary;
@@ -54,5 +66,11 @@
 
 .bodyContainer {
   color: $secondary40;
+  position: relative;
   //   background-color: $primary10;
+  .copyButtonHolder {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }

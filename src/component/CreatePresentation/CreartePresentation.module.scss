@@ -2,4 +2,10 @@
   //   max-width: 75%;
   white-space: break-spaces;
   overflow-wrap: break-word;
+  position: relative;
+  .copyButtonHolder {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+  }
 }

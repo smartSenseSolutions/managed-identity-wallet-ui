@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Button, CustomAccordian, CustomInput, Pagination } from "@miw/stories";
+import {
+  Button,
+  CustomAccordian,
+  CustomInput,
+  Dialog,
+  Pagination,
+} from "@miw/stories";
 import { WalletProps } from "@miw/models";
 import { deleteCredential, getCredentials } from "@miw/APIs/MyCredentials.api";
 import { RECORDS_PER_PAGE } from "@miw/utils/constant";
-import { formatDate, getUTCOfsetToZero } from "@miw/utils/helper";
-import StyledCredentials from "../Wallet/Wallet.module.scss";
+import {
+  copyTextToClipboard,
+  formatDate,
+  getUTCOfsetToZero,
+} from "@miw/utils/helper";
+import { getAlert } from "@miw/hooks";
+import { CreartePresentation, ValidateCredential } from "@miw/component";
+import StyledHeader from "../VcMAnagement/VcManagemanegement.module.scss";
 
 type Props = {
   title: string;
@@ -24,32 +36,101 @@ const WalletAccordianHeader = ({
   postDeleteAPI,
 }: Props) => {
   const { t } = useTranslation();
+  const [isLopading, setIsLopading] = useState(false);
+  const [isOpenDialoge, setIsOpenDialoge] = useState(false);
+  const [isOpenPresentDialoge, setIsOpenPresentDialoge] = useState(false);
+  const handleValidateCredential = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setIsOpenDialoge(true);
+  };
   const handleDeleteCreds = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
-    deleteCredential({ id: encodeURIComponent(didDocument.id) }).then((res) => {
-      postDeleteAPI();
-    });
+    setIsLopading(true);
+    deleteCredential({ id: encodeURIComponent(didDocument.id) })
+      .then((res) => {
+        getAlert("success", res ? res : t("MY_CREDS.DELETE_SUCCESS"));
+        postDeleteAPI();
+      })
+      .catch((err) => {
+        getAlert(
+          "error",
+          err?.detail ? err.detail : t("MY_CREDS.DELETE_FAILURE")
+        );
+      })
+      .finally(() => {
+        setIsLopading(false);
+      });
   };
   return (
-    <div className={StyledCredentials.headerContainer}>
-      <h3 className={StyledCredentials.title}>{title}</h3>
-      <p className={StyledCredentials.type}>{type}</p>
-      <p className={StyledCredentials.type}>
+    <div className={StyledHeader.headerContainer}>
+      <h3 className={StyledHeader.title}>{title}</h3>
+      <p className={StyledHeader.type}>{type}</p>
+      <p className={StyledHeader.type}>
         {formatDate(getUTCOfsetToZero(issueDate), "yyyy-MM-dd | HH:mm:ss")}
       </p>
-      <Button onClick={handleDeleteCreds}>{t("LABELS.DELETE")}</Button>
+      <div
+        className={StyledHeader.buttonGroup}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Button onClick={(e) => handleValidateCredential(e)}>
+          {t("VC_MANAGEMENT.VALIDATE")}
+        </Button>
+        <Button onClick={() => setIsOpenPresentDialoge(true)}>
+          {t("VC_MANAGEMENT.CREATE_PRESENTATION")}
+        </Button>
+        <Button isLoading={isLopading} onClick={handleDeleteCreds}>
+          {t("LABELS.DELETE")}
+        </Button>
+      </div>
+      <div
+        className={StyledHeader.dialogue}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Dialog
+          isOpen={isOpenDialoge}
+          showFooter={false}
+          header="Validate"
+          key={"Validate"}
+          content={<ValidateCredential didDocument={didDocument} />}
+          // minHeight="30rem"
+          isShowCloseIcon
+          onClose={() => setIsOpenDialoge(false)}
+        />
+        <Dialog
+          isOpen={isOpenPresentDialoge}
+          showFooter={false}
+          header="Create Presentation"
+          key={"Create Presentation"}
+          content={<CreartePresentation didDocument={didDocument} />}
+          // minHeight="30rem"
+          isShowCloseIcon
+          onClose={() => setIsOpenPresentDialoge(false)}
+        />
+      </div>
     </div>
   );
 };
 
 const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
+  const { t } = useTranslation();
+  const handleCopy = () => {
+    copyTextToClipboard(JSON.stringify(didJson, null, 2)).then(() => {
+      getAlert("info", t("LABELS.COPIED"));
+    });
+  };
   return (
-    <div className={StyledCredentials.bodyContainer}>
-      <pre className={StyledCredentials.jsonContainer}>
+    <div className={StyledHeader.bodyContainer}>
+      <pre className={StyledHeader.jsonContainer}>
         {JSON.stringify(didJson, null, 2)}
       </pre>
+      <div className={StyledHeader.copyButtonHolder}>
+        <Button variant="outlined" onClick={handleCopy}>
+          {t("LABELS.COPY_LABEL")}
+        </Button>
+      </div>
     </div>
   );
 };
@@ -57,7 +138,7 @@ const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
 const MyCredentials = () => {
   const currentPageNumber = 0;
   const { t } = useTranslation();
-  const [walletList, setWalletList] = useState<WalletProps[]>(null);
+  const [walletList, setWalletList] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [searchBPN, setSearchBPN] = useState("");
@@ -94,12 +175,12 @@ const MyCredentials = () => {
     setCurrentSelectedPage(value - 1);
   };
   return (
-    <section className={StyledCredentials.container}>
-      <div className={StyledCredentials.header}>
-        <h2 className={StyledCredentials.title}>{t("MY_CREDS.TITLE")}</h2>
+    <section className={StyledHeader.container}>
+      <div className={StyledHeader.header}>
+        <h2 className={StyledHeader.title}>{t("MY_CREDS.TITLE")}</h2>
       </div>
-      <div className={StyledCredentials.walleteBody}>
-        <div className={StyledCredentials.tHeader}>
+      <div className={StyledHeader.walleteBody}>
+        <div className={StyledHeader.tHeader}>
           <div>
             <h3 className="thead">{t("HEADER.CRED_ID")}</h3>
             <CustomInput
@@ -121,7 +202,7 @@ const MyCredentials = () => {
           <h3 className="thead">{t("HEADER.CREATED_AT")}</h3>
           <h3 className="thead"></h3>
         </div>
-        <div className={StyledCredentials.listContainer}>
+        <div className={StyledHeader.listContainer}>
           {isLoading ? (
             <div className="tableLoading">
               <CircularProgress size="30px" />
@@ -156,7 +237,7 @@ const MyCredentials = () => {
             <h3 className={"no_data_found"}>{t("LABELS.NO_DATA_FOUND")}</h3>
           )}
           {totalCount > 5 && (
-            <div className={StyledCredentials.paginationContainer}>
+            <div className={StyledHeader.paginationContainer}>
               <Pagination
                 rowCount={totalCount}
                 onChangePage={(e) => handleChangePagination(e)}

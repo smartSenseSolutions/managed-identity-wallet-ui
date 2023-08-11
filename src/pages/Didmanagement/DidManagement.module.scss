@@ -29,5 +29,11 @@
     border-radius: 1.6rem;
     color: $primary70;
     border: 5px solid $secondary30;
+    position: relative;
+    .copyButtonHolder {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+    }
   }
 }

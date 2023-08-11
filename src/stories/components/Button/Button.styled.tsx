@@ -17,6 +17,7 @@ export const StyledButton = styled(Button)<ButtonPropTypes & ButtonProps>`
     color: ${({ theme, buttonTextColor }) =>
       buttonTextColor ? buttonTextColor : theme.colors.white};
     box-shadow: none;
+    font-weight: 500;
     white-space: nowrap;
     text-transform: capitalize;
 

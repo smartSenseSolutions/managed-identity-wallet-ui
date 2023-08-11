@@ -3,18 +3,20 @@ import styled from "styled-components";
 export const StyledHeaderContainer = styled.div`
   background: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 2px 10px #c4c4c4;
+  padding: 1rem 0;
 `;
 
 export const StyledBrandLogo = styled.h1`
   cursor: pointer;
   position: relative;
+  margin: 0;
 `;
 
 export const StyledListItem = styled.p`
   cursor: pointer;
   position: relative;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   &::after {
     content: "";
     position: absolute;
@@ -103,7 +105,7 @@ export const StyledHeaderLogo = styled.div`
 
 export const StyledHeaderRight = styled.div`
   display: flex;
-  alingn-items: center;
+  align-items: center;
   gap: 2.5rem;
 
   .MuiIconButton-root {

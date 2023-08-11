@@ -5,6 +5,8 @@ import { Button, CustomInput, CustomSelect, Label } from "@miw/stories";
 import { createPresentation } from "@miw/APIs";
 import { LoadingType } from "@miw/types/common";
 import Styled from "./CreartePresentation.module.scss";
+import { copyTextToClipboard } from "@miw/utils/helper";
+import { getAlert } from "@miw/hooks";
 type Props = { didDocument: object };
 
 const CreartePresentation = ({ didDocument }: Props) => {
@@ -22,7 +24,7 @@ const CreartePresentation = ({ didDocument }: Props) => {
     };
     const templateParams = {
       withCreds: formValues.withCreds.value,
-      audience: formValues.bpn,
+      audience: formValues.audience,
     };
     createPresentation(templateParams, param)
       .then((res) => {
@@ -33,6 +35,13 @@ const CreartePresentation = ({ didDocument }: Props) => {
         setIsFormSubmittin("failure");
       });
   };
+
+  const handleCopy = () => {
+    copyTextToClipboard(JSON.stringify(presentData, null, 2)).then(() => {
+      getAlert("info", t("LABELS.COPIED"));
+    });
+  };
+
   return (
     <div className={Styled.createContainer}>
       {isFormSubmittin !== "success" ? (
@@ -50,8 +59,7 @@ const CreartePresentation = ({ didDocument }: Props) => {
                   {({ input, meta }) => (
                     <div className={Styled.formControl}>
                       <Label isRequired htmlFor={"withCreds"}>
-                        {/* {t("WALLET.CREATE.BPN")} */}
-                        With Credential
+                        As JWT
                       </Label>
                       <div className={Styled.inputSelect}>
                         <CustomSelect
@@ -71,21 +79,21 @@ const CreartePresentation = ({ didDocument }: Props) => {
                   )}
                 </Field>
                 {values?.withCreds?.value === "true" && (
-                  <Field name={"bpn"}>
+                  <Field name={"audience"}>
                     {({ input, meta }) => (
                       <div className={Styled.formControl}>
-                        <Label isRequired htmlFor={"bpn"}>
-                          {t("WALLET.CREATE.BPN")}
+                        <Label isRequired htmlFor={"audience"}>
+                          Audience
                         </Label>
                         <div className={Styled.inputSelect}>
                           <CustomInput
                             {...input}
                             fullWidth
-                            classname="bpn"
+                            classname="audience"
                             placeholder={t("WALLET.CREATE.BPN_PLACEHOLDER")}
                             type="text"
                             required
-                            id="bpn"
+                            id="audience"
                             error={(meta.error && meta.touched) || false}
                             helperText={
                               meta.error && meta.touched && meta.error
@@ -96,17 +104,16 @@ const CreartePresentation = ({ didDocument }: Props) => {
                     )}
                   </Field>
                 )}
-                {/* {console.log(values?.withCreds?.value)} */}
                 <Button
                   disabled={
                     submitting || values?.withCreds?.value === "true"
-                      ? !values.bpn
+                      ? !values.audience
                       : false
                   }
                   type="submit"
                   isLoading={isFormSubmittin === "loading"}
                 >
-                  {t("WALLET.CREATE.CREATE_WALLET")}
+                  {t("VC_MANAGEMENT.CREATE_PRESENTATION")}
                 </Button>
               </form>
             );
@@ -114,6 +121,11 @@ const CreartePresentation = ({ didDocument }: Props) => {
         />
       ) : (
         <pre className={Styled.presantationHolder}>
+          <div className={Styled.copyButtonHolder}>
+            <Button variant="outlined" onClick={handleCopy}>
+              {t("LABELS.COPY_LABEL")}
+            </Button>
+          </div>
           {typeof presentData === "object"
             ? JSON.stringify(presentData, null, 1)
             : presentData}
