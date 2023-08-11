@@ -17,6 +17,9 @@ const CreartePresentation = ({ didDocument }: Props) => {
     { label: "False", value: "false" },
     { label: "True", value: "true" },
   ];
+  const defaultValue = {
+    withCreds: credsType[0],
+  };
   const handlePresentCreds = (formValues) => {
     setIsFormSubmittin("loading");
     const param = {
@@ -46,6 +49,7 @@ const CreartePresentation = ({ didDocument }: Props) => {
     <div className={Styled.createContainer}>
       {isFormSubmittin !== "success" ? (
         <Form
+          initialValues={{ ...defaultValue }}
           onSubmit={handlePresentCreds}
           render={({ handleSubmit, values, submitting }) => {
             return (
