@@ -12,6 +12,7 @@
       display: flex;
     }
   }
+
   .tHeader {
     padding: 2rem;
     width: 100%;
@@ -42,5 +43,13 @@
   }
   .dialogue {
     flex: unset;
+  }
+}
+.bodyContainer {
+  position: relative;
+  .copyButtonHolder {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }

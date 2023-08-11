@@ -7,6 +7,8 @@ import StyledWallet from "./Wallet.module.scss";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
 import { RECORDS_PER_PAGE } from "@miw/utils/constant";
+import { copyTextToClipboard } from "@miw/utils/helper";
+import { getAlert } from "@miw/hooks";
 
 type Props = {};
 export const WalletAccordianHeader = ({
@@ -24,7 +26,7 @@ export const WalletAccordianHeader = ({
     // const JSON= getWalletDetails(bpn)
     // const jsonString = JSON.stringify(didDocument, null, 2);
     e.stopPropagation();
-    window.open(`${import.meta.env.VITE_API_BASE}api/didDocuments/${bpn}`);
+    window.open(`${import.meta.env.VITE_API_BASE}${bpn}/did.json`);
     // if (newTab) {
     //   newTab.document.body.innerHTML = "<pre>" + jsonString + "</pre>";
     // } else {
@@ -43,11 +45,22 @@ export const WalletAccordianHeader = ({
 };
 
 export const WalleteDetails = ({ didJson }: { didJson: WalletProps }) => {
+  const { t } = useTranslation();
+  const handleCopy = () => {
+    copyTextToClipboard(JSON.stringify(didJson, null, 2)).then(() => {
+      getAlert("info", t("LABELS.COPIED"));
+    });
+  };
   return (
     <div className={StyledWallet.bodyContainer}>
       <pre className={StyledWallet.jsonContainer}>
         {JSON.stringify(didJson, null, 2)}
       </pre>
+      <div className={StyledWallet.copyButtonHolder}>
+        <Button variant="outlined" onClick={handleCopy}>
+          {t("LABELS.COPY_LABEL")}
+        </Button>
+      </div>
     </div>
   );
 };
@@ -57,7 +70,6 @@ const Wallet = (props: Props) => {
   const [walletList, setWalletList] = useState<WalletProps[]>(null);
   const [isCreateWalletOpen, setIsCreateWalletOpen] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
-  const [searchInput, setSearchInput] = useState("");
   const [isWalletLoading, setIsWalletLoading] = useState(false);
   const [currentSelectedPage, setCurrentSelectedPage] =
     useState<number>(currentPageNumber);
@@ -101,13 +113,13 @@ const Wallet = (props: Props) => {
       </div>
       <div className={StyledWallet.walleteBody}>
         <div className={StyledWallet.tHeader}>
-          <h3 className="thead">Credential ID</h3>
-          <h3 className="thead">Type</h3>
-          <h3 className="thead">Creadted Date</h3>
+          <h3 className="thead">Name</h3>
+          <h3 className="thead">Bpn</h3>
+          <h3 className="thead">Did</h3>
           <h3 className="thead"></h3>
         </div>
         {isWalletLoading ? (
-          <div className="generalLoadingBar">
+          <div className="tableLoading">
             <CircularProgress size="30px" />
           </div>
         ) : (
@@ -136,15 +148,15 @@ const Wallet = (props: Props) => {
             ) : (
               <h3>{t("LABELS.NO_DATA_FOUND")}</h3>
             )}
-            {totalCount > 5 && (
-              <div className={StyledWallet.paginationContainer}>
-                <Pagination
-                  rowCount={totalCount}
-                  onChangePage={(e) => handleChangePagination(e)}
-                  currentPage={currentSelectedPage + 1}
-                />
-              </div>
-            )}
+          </div>
+        )}
+        {totalCount > 5 && (
+          <div className={StyledWallet.paginationContainer}>
+            <Pagination
+              rowCount={totalCount}
+              onChangePage={(e) => handleChangePagination(e)}
+              currentPage={currentSelectedPage + 1}
+            />
           </div>
         )}
       </div>

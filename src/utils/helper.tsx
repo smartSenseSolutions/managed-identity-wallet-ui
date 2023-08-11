@@ -127,3 +127,11 @@ export const formatDate = (
 ) => {
   return format(new Date(inputDate), formatType);
 };
+export async function copyTextToClipboard(text: string | object) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}

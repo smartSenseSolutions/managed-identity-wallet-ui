@@ -83,7 +83,7 @@ const IssueGenericCreds = ({ onClose }: Props) => {
                 type="submit"
                 isLoading={isLoading}
               >
-                {t("WALLET.CREATE.CREATE_WALLET")}
+                {t("VC_MANAGEMENT.ISSUE_CREDENTIAL")}
               </Button>
             </form>
           );

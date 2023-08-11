@@ -17,3 +17,4 @@ export const REDIRECT_LOGIN = "/";
 export const HEADER_NAVIGATION_ITEM_ID = "header-navigation-item";
 export const SELECTED_ENTITY_LOCAL_STORAGE_KEY = "ent";
 export const RECORDS_PER_PAGE = 10;
+export const ARRAY_OF_TEN = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

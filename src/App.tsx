@@ -76,12 +76,17 @@ function App() {
       navigate(`${item.tabValue}`);
     }
   };
-  const selectedTab = MenuList.filter((menu) => {
-    let isFound =
-      currentLocation.includes(String(menu.tabValue)) &&
-      typeof menu.tabValue === "string";
-    return isFound;
-  })?.[0]?.tabValue;
+  // const selectedTab = [...MenuList].find((menu) => {
+  //   console.log(
+  //     currentLocation + "  \ntabValue:",
+  //     String(menu.tabValue.split("/")[1])
+  //   );
+  //   let isFound =
+  //     currentLocation.includes(String(menu.tabValue.split("/")[1])) &&
+  //     typeof menu.tabValue === "string";
+  //   return isFound;
+  // })?.tabValue;
+
   return (
     <Suspense fallback={"loading"}>
       <ErrorBoundary onError={(e) => {}} FallbackComponent={ErrorFallback}>
@@ -92,7 +97,7 @@ function App() {
             <Appbar
               appMenu={MenuList}
               onHeaderItemClick={onTabClick}
-              selectedTab={selectedTab}
+              selectedTab={currentLocation}
             />
 
             <AuthApp />

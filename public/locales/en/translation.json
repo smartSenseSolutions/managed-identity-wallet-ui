@@ -3,7 +3,9 @@
         "MIW": "MIW",
         "DELETE":"Delete",
         "NO_DATA_FOUND":"No data found",
-        "LOGOUT":"logout"
+        "LOGOUT":"logout",
+        "COPY_LABEL":"Copy",
+        "COPIED":"Copied"
     },
     "TABS":{
         "MY_WALLET":"My Wallet",
@@ -36,10 +38,22 @@
         "CREATE_PRESENTATION":"Create Presentation",
         "REVOKE":"Revoke",
         "CREDENTIAL_ISSUED_MSG":"Credential issued successfully",
-        "CREDENTIAL_ISSUE_ERR":"An error occured while generating credential"
+        "CREDENTIAL_ISSUE_ERR":"An error occured while generating credential",
+        "ISSUE_CREDENTIAL":"Issue Credential",
+        "TITLE":"List of credential issued by Root Wallet",
+        "CREDENTIAL_ID":"holder Identifier"
     },
     "MY_CREDS":{
-            "TITLE":"My Credential"
+            "TITLE":"My Credential",
+            "DELETE_FAILURE":"An error occured while deleting Credential",
+            "DELETE_SUCCESS":"Credential deleted successfully"
+    },
+    "DID_MGMT":{
+        "PERSONAL_DETAILS":"Personal Details",
+        "NAME":"Name",
+        "BPN":"bpn",
+        "DID":"did",
+        "DID_DOC":"DID document"
     }
 
 }
