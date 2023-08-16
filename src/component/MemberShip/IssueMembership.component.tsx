@@ -14,7 +14,7 @@ const IssueMembership = ({ onClose }: Props) => {
 
   const handleCreateWallet = (formValues) => {
     setIsLoading(true);
-    if (!!formValues.bpn) {
+    if (formValues.bpn) {
       const param = {
         bpn: formValues.bpn,
       };

@@ -1,5 +1,5 @@
+import React, { FocusEventHandler } from 'react';
 import Icons from '../../../Icons';
-import { FocusEventHandler } from 'react';
 import { components, createFilter } from 'react-select';
 import { StyledCreatableSelect, StyledSelect } from './CustomSelect.styled';
 
@@ -15,8 +15,8 @@ export type CustomSelectProps = {
     defaultValue?: DropdownItem;
     closeMenuOnSelect: boolean;
     value?: DropdownItem | undefined;
-    onFocus: any;
-    onChange: any;
+    onFocus: unknown;
+    onChange: unknown;
     onInputChange?: Function;
     maxMenuHeight?: number;
     maxMenuWidth?: number;

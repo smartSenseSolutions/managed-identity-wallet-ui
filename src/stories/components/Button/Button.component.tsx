@@ -21,7 +21,7 @@ declare module '@mui/material/Button' {
 }
 
 export interface ButtonPropTypes {
-    row?: any;
+    row?: unknown;
     children: React.ReactNode;
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     variant?: ButtonVariants;

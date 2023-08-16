@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import React,{ MouseEventHandler } from "react";
 import { IconButton } from "@mui/material";
 import Icons from "@miw/Icons";
 import Button from "../Button";
