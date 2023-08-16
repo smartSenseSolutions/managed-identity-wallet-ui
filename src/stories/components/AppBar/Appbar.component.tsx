@@ -28,7 +28,6 @@ type AppbarPropMenu = {
 };
 
 const Appbar = ({ appMenu, onHeaderItemClick, selectedTab }: AppbarPropMenu) => {
-    console.log(selectedTab);
     const auth = useKeycloak();
     const { t } = useTranslation();
     const handleLogOut = () => {

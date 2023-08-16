@@ -75,7 +75,7 @@ export const postIssueMembership = (param: { bpn: string }) => {
     return post(ENDPOINTS.postIssueMembership, param);
 };
 export const postIssueFramework = (param: {
-    holderIdentifier: string | undefined;
+    holderIdentifier: string;
     type: string;
     'contract-template': string;
     'contract-version': string;
