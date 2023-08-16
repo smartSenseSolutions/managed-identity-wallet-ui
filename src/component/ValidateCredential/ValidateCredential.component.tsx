@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, CustomSelect, Label } from "@miw/stories";
 import { postValidateCreds } from "@miw/APIs/VcManagement.api";
 import { Field, Form } from "react-final-form";
