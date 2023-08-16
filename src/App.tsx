@@ -4,6 +4,7 @@
 
 import { Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ErrorBoundary } from "react-error-boundary";
 import { useKeycloak } from "@react-keycloak/web";
 import AuthApp from "./AuthApp";
@@ -12,7 +13,6 @@ import { ROUTES } from "./utils/constant";
 import "./i18n";
 import "./App.scss";
 import { useUser } from "./hooks";
-import { useTranslation } from "react-i18next";
 import "react-toastify/dist/ReactToastify.css";
 import { StyledToastContainer } from "./stories/components/Alert/Alert.styled";
 
@@ -76,16 +76,16 @@ function App() {
       navigate(`${item.tabValue}`);
     }
   };
-  // const selectedTab = [...MenuList].find((menu) => {
-  //   console.log(
-  //     currentLocation + "  \ntabValue:",
-  //     String(menu.tabValue.split("/")[1])
-  //   );
-  //   let isFound =
-  //     currentLocation.includes(String(menu.tabValue.split("/")[1])) &&
-  //     typeof menu.tabValue === "string";
-  //   return isFound;
-  // })?.tabValue;
+  const selectedTab = [...MenuList].find((menu) => {
+    console.log(
+      currentLocation + "  \ntabValue:",
+      String(menu.tabValue.split("/")[1])
+    );
+    let isFound =
+      currentLocation.includes(String(menu.tabValue.split("/")[1])) &&
+      typeof menu.tabValue === "string";
+    return isFound;
+  })?.tabValue;
 
   return (
     <Suspense fallback={"loading"}>

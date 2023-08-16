@@ -19,7 +19,6 @@
     "paths": {
       "@miw/*": ["src/*"],
       "@stories/*": ["stories/*"]
-      // "@components/*": ["components/*"]
     }
   },
   "include": ["src"],
