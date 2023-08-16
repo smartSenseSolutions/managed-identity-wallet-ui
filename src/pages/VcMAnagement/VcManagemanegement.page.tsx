@@ -1,10 +1,9 @@
-import React, { Component, useEffect, useState } from "react";
-import { CircularProgress, Skeleton } from "@mui/material";
+import React, {  useEffect, useState } from "react";
+import {  Skeleton } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import {
   getWalletByRoot,
   postRevokeCreds,
-  postValidateCreds,
 } from "@miw/APIs/VcManagement.api";
 import {
   IssueDismantler,
@@ -18,7 +17,6 @@ import {
   Button,
   CustomAccordian,
   CustomInput,
-  CustomSelect,
   Dialog,
   Pagination,
   ThreeDotItemMenu,
@@ -239,9 +237,10 @@ const VcManagemanegement = (props: Props) => {
           <h3 className="thead"></h3>
         </div>
         {isCredentialLoading ? (
-          ARRAY_OF_TEN.map((item) => {
+          ARRAY_OF_TEN.map((item,) => {
             return (
               <Skeleton
+              key={item}
                 style={{ marginBottom: "1px" }}
                 height={"5.1rem"}
                 animation="wave"

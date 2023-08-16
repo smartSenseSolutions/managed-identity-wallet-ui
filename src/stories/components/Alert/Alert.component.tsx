@@ -1,9 +1,8 @@
-import Icons from "../../../Icons";
+import React from "react";
 import { Slide, toast, ToastContentProps, ToastPosition } from "react-toastify";
 import Button from "../Button";
 import {
   StyledToastMessageContent,
-  StyledToastMessageHeader,
 } from "./Alert.styled";
 
 type AlertType = "info" | "error" | "success" | "warning" | "default";

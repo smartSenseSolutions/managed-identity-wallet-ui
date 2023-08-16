@@ -41,7 +41,7 @@ function ChipsComponent({
             <Stack direction="row" spacing={1}>
                 <Chip
                     onClick={onLinkClick}
-                    classes={{ root: !!label ? 'customChipRoot' : 'chipWithoutLabel' }}
+                    classes={{ root: label ? 'customChipRoot' : 'chipWithoutLabel' }}
                     label={label}
                     variant={variant}
                     onDelete={(event) => {

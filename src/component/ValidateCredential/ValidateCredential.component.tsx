@@ -4,7 +4,7 @@ import { postValidateCreds } from "@miw/APIs/VcManagement.api";
 import { Field, Form } from "react-final-form";
 import Styled from "./ValidateCredential.module.scss";
 
-const ValidateCredential = ({ didDocument }) => {
+const ValidateCredential = ({ didDocument }:{didDocument:object}) => {
   // const [withCreds, setWithCreds] = useState();
   const credentialType = [
     { label: "False", value: "false" },

@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Grid from "../Grid";
 import CustomTextArea from "./CustomTextArea.component";
+import React from "react";
 
 export default {
   title: "Textarea",

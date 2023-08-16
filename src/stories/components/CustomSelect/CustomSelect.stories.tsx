@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Grid from '../Grid';
 import CustomSelect, { DropdownItem } from './CustomSelect.component';
@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof CustomSelect> = (args) => {
                 closeMenuOnSelect={true}
                 value={singleValue}
                 onFocus={undefined}
-                onChange={(item: any) => setSingleValue(item)}
+                onChange={(item: unknown) => setSingleValue(item)}
                 onInputChange={() => {}}
                 options={colourOptions}
                 placeholder={'Select Single Color'}
@@ -43,7 +43,7 @@ const Template: ComponentStory<typeof CustomSelect> = (args) => {
                 closeMenuOnSelect={false}
                 value={multiValue}
                 onFocus={undefined}
-                onChange={(item: any) => setMultiValue(item)}
+                onChange={(item: unknown) => setMultiValue(item)}
                 onInputChange={() => {}}
                 options={colourOptions}
                 isMulti={true}
