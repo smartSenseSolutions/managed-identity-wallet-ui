@@ -19,7 +19,6 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
     };
 
     const handleCallValidateCredential = (formValues) => {
-        console.log(formValues);
         const param = didDocument;
         postValidateCreds({ withCreds: formValues.withCreds?.value }, param).then((res) => {});
     };

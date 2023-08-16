@@ -62,11 +62,14 @@ export const getWalletByRoot = (templateParam: {
     return get(parseAPI(ENDPOINTS.getWalletByRoot, {}, queryParams));
 };
 
-export const postIssueGenericCredential = (templateParam: { holderDid: string }, param: object) => {
+export const postIssueGenericCredential = (templateParam: { holderDid: string; revocable: string }, param: object) => {
     const queryParams = {};
 
     if (templateParam.holderDid) {
         queryParams['holderDid'] = templateParam.holderDid;
+    }
+    if (templateParam.revocable) {
+        queryParams['revocable'] = templateParam.revocable;
     }
 
     return post(parseAPI(ENDPOINTS.postIssueWallet, {}, queryParams), param);

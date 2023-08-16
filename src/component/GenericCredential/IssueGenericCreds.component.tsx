@@ -1,4 +1,4 @@
-import { Button, CustomInput, CustomTextArea, Label } from "@miw/stories";
+import { Button, CustomInput, CustomSelect, CustomTextArea, Label } from "@miw/stories";
 import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import { useTranslation } from "react-i18next";
@@ -9,12 +9,25 @@ import { getAlert } from "@miw/hooks";
 type Props = { onClose: () => void };
 
 const IssueGenericCreds = ({ onClose }: Props) => {
+
+  const revocationOptions = [
+    { label: "False", value: "false" },
+    { label: "True", value: "true" },
+  ];
+
+  const defaultValue = {
+    withRevocation: {
+      label: "False",
+      value: "false",
+    },
+  };
+
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const handleCreateWallet = (formValues) => {
     setIsLoading(true);
     const param = formValues.json;
-    postIssueGenericCredential({ holderDid: formValues.bpn }, param)
+    postIssueGenericCredential({ holderDid: formValues.bpn,  revocable: formValues.revocable.value}, param)
       .then((res) => {
         getAlert("success", t("VC_MANAGEMENT.CREDENTIAL_ISSUED_MSG"));
         onClose();
@@ -31,6 +44,7 @@ const IssueGenericCreds = ({ onClose }: Props) => {
     <div className={Styled.createContainer}>
       <Form
         onSubmit={handleCreateWallet}
+        initialValues={{ ...defaultValue }}
         render={({ handleSubmit, values, submitting }) => {
           return (
             <form
@@ -72,6 +86,28 @@ const IssueGenericCreds = ({ onClose }: Props) => {
                         {...input}
                         id="json"
                         placeholder={"Enter Json Data"}
+                      />
+                    </div>
+                  </div>
+                )}
+              </Field>
+              <Field name={"revocable"}>
+                {({ input, meta }) => (
+                  <div className={"formControl"}>
+                    <Label isRequired htmlFor={"revocable"}>
+                    {t("REVOCATION.REVOCABLE")}
+                    </Label>
+                    <div className={Styled.inputSelect}>
+                      <CustomSelect
+                        {...input}
+                        closeMenuOnSelect={true}
+                        isSearchable={true}
+                        required
+                        insideDialog={true}
+                        isCreatable={false}
+                        id={"revocable"}
+                        options={revocationOptions}
+                        placeholder={"select"}
                       />
                     </div>
                   </div>
