@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "lint": "eslint 'src/**/*.{js,ts,tsx,jsx}' --quiet --fix",
-    "lint:show": "eslint 'src/**/*.{js,ts,tsx,jsx}' --quiet"
+    "lint:show": "eslint 'src/**/*.{js,ts,tsx,jsx}' --quiet",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -64,9 +65,14 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-storybook": "^0.6.11",
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "prettier": "^3.0.2",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-dts": "^1.7.3"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
