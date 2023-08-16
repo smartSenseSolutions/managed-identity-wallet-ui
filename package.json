@@ -73,6 +73,6 @@
     "vite-plugin-dts": "^1.7.3"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.{js,jsx,ts,tsx}": "yarn lint"
   }
 }

@@ -55,7 +55,7 @@ const CreartePresentation = ({ didDocument }: Props) => {
                         return (
                             <form onSubmit={handleSubmit} className={Styled.formSection} autoComplete="off" noValidate>
                                 <Field name={'withCreds'}>
-                                    {({ input }) => (
+                                    {({ input, meta }) => (
                                         <div className={'formControl'}>
                                             <Label isRequired htmlFor={'withCreds'}>
                                                 As JWT
