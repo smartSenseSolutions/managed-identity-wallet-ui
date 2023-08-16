@@ -28,6 +28,7 @@ function ErrorFallback({ error, resetErrorBoundary }: unknown) {
 }
 
 function App() {
+    console.log('first');
     const auth = useKeycloak();
     const { t } = useTranslation();
     const currentLocation = window.location.pathname;
@@ -76,7 +77,6 @@ function App() {
         }
     };
     const selectedTab = [...MenuList].find((menu) => {
-        console.log(currentLocation + '  \ntabValue:', String(menu.tabValue.split('/')[1]));
         const isFound =
             currentLocation.includes(String(menu.tabValue.split('/')[1])) && typeof menu.tabValue === 'string';
         return isFound;
@@ -89,7 +89,7 @@ function App() {
                     <div>Loading...</div>
                 ) : (
                     <>
-                        <Appbar appMenu={MenuList} onHeaderItemClick={onTabClick} selectedTab={currentLocation} />
+                        <Appbar appMenu={MenuList} onHeaderItemClick={onTabClick} selectedTab={selectedTab} />
 
                         <AuthApp />
                         <StyledToastContainer draggable={false} closeButton={false} pauseOnFocusLoss pauseOnHover />
