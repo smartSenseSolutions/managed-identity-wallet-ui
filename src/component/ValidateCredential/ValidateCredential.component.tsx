@@ -59,7 +59,7 @@ const ValidateCredential = ({ didDocument }:{didDocument:object}) => {
                   </div>
                 )}
               </Field>
-              <Button fullWidth onClick={handleCallValidateCredential}>
+              <Button fullWidth type="submit">
                 Validate
               </Button>
             </form>

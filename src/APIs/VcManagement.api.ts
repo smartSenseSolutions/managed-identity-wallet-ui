@@ -63,13 +63,16 @@ export const getWalletByRoot = (templateParam: {
 };
 
 export const postIssueGenericCredential = (
-  templateParam: { holderDid: string },
+  templateParam: { holderDid: string , revocable: string},
   param: object
 ) => {
   const queryParams = {};
 
   if (templateParam.holderDid) {
     queryParams["holderDid"] = templateParam.holderDid;
+  }
+  if (templateParam.revocable) {
+    queryParams["revocable"] = templateParam.revocable;
   }
 
   return post(parseAPI(ENDPOINTS.postIssueWallet, {}, queryParams), param);

@@ -82,7 +82,8 @@ const WalletAccordianHeader = ({
         <Button onClick={() => setIsOpenPresentDialoge(true)}>
           {t("VC_MANAGEMENT.CREATE_PRESENTATION")}
         </Button>
-        <Button onClick={handleRevokeCreds}>{t("VC_MANAGEMENT.REVOKE")}</Button>
+        
+        <Button onClick={handleRevokeCreds} disabled={!didDocument?.credentialStatus }>{t("VC_MANAGEMENT.REVOKE")}</Button>
       </div>
       <div
         className={StyledVcMgmt.dialogue}
