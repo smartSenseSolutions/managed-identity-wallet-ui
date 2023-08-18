@@ -42,6 +42,7 @@ const IssueGenericCreds = ({ onClose }: Props) => {
     return (
         <div className={Styled.createContainer}>
             <Form
+                keepDirtyOnReinitialize
                 onSubmit={handleCreateWallet}
                 initialValues={{ ...defaultValue }}
                 render={({ handleSubmit, values, submitting }) => {

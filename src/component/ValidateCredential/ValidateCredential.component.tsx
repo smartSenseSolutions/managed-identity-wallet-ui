@@ -42,6 +42,7 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
         <div className="dialogecontainer" onClick={(e) => e.stopPropagation()}>
             {isFormSubmitting !== 'success' ? (
                 <Form
+                    keepDirtyOnReinitialize
                     onSubmit={handleCallValidateCredential}
                     initialValues={{ ...defaultValue }}
                     render={({ handleSubmit }) => {

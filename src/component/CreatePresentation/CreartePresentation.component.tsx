@@ -75,6 +75,7 @@ const CreartePresentation = ({ didDocument, onClose }: Props) => {
             </div>
             {isFormSubmittin !== 'success' ? (
                 <Form
+                    keepDirtyOnReinitialize
                     initialValues={{ ...defaultValue }}
                     onSubmit={handlePresentCreds}
                     render={({ handleSubmit, values, submitting }) => {
