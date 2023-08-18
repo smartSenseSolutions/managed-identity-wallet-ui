@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Button, CustomAccordian, CustomInput, Dialog, Pagination } from '@miw/stories';
 import { WalletProps } from '@miw/models';
-import { deleteCredential, getCredentials } from '@miw/APIs/MyCredentials.api';
+import { getCredentials } from '@miw/APIs/MyCredentials.api';
 import { RECORDS_PER_PAGE } from '@miw/utils/constant';
 import { copyTextToClipboard, formatDate, getUTCOfsetToZero } from '@miw/utils/helper';
 import { getAlert } from '@miw/hooks';
@@ -20,27 +20,27 @@ type Props = {
 
 const WalletAccordianHeader = ({ title, type, issueDate, didDocument, postDeleteAPI }: Props) => {
     const { t } = useTranslation();
-    const [isLopading, setIsLopading] = useState(false);
+    // const [isLopading, setIsLopading] = useState(false);
     const [isOpenDialoge, setIsOpenDialoge] = useState(false);
     const [isOpenPresentDialoge, setIsOpenPresentDialoge] = useState(false);
     const handleValidateCredential = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setIsOpenDialoge(true);
     };
-    const handleDeleteCreds = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation();
-        setIsLopading(true);
-        deleteCredential({ id: encodeURIComponent(didDocument.id) })
-            .then((res) => {
-                getAlert('success', res ? res : t('MY_CREDS.DELETE_SUCCESS'));
-                postDeleteAPI();
-            })
-            .catch((err) => {
-                if (err.status !== 400) getAlert('error', err?.title ? err.title : t('MY_CREDS.DELETE_FAILURE'));
-            })
-            .finally(() => {
-                setIsLopading(false);
-            });
-    };
+    // const handleDeleteCreds = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    //     e.stopPropagation();
+    //     setIsLopading(true);
+    //     deleteCredential({ id: encodeURIComponent(didDocument.id) })
+    //         .then((res) => {
+    //             getAlert('success', res ? res : t('MY_CREDS.DELETE_SUCCESS'));
+    //             postDeleteAPI();
+    //         })
+    //         .catch((err) => {
+    //             if (err.status !== 400) getAlert('error', err?.title ? err.title : t('MY_CREDS.DELETE_FAILURE'));
+    //         })
+    //         .finally(() => {
+    //             setIsLopading(false);
+    //         });
+    // };
     return (
         <div className={StyledHeader.headerContainer}>
             <h3 className={StyledHeader.title}>{title}</h3>
@@ -49,9 +49,9 @@ const WalletAccordianHeader = ({ title, type, issueDate, didDocument, postDelete
             <div className={StyledHeader.buttonGroup} onClick={(e) => e.stopPropagation()}>
                 <Button onClick={(e) => handleValidateCredential(e)}>{t('VC_MANAGEMENT.VALIDATE')}</Button>
                 <Button onClick={() => setIsOpenPresentDialoge(true)}>{t('VC_MANAGEMENT.CREATE_PRESENTATION')}</Button>
-                <Button isLoading={isLopading} onClick={handleDeleteCreds}>
+                {/* <Button isLoading={isLopading} onClick={handleDeleteCreds}>
                     {t('LABELS.DELETE')}
-                </Button>
+                </Button> */}
             </div>
             <div className={StyledHeader.dialogue} onClick={(e) => e.stopPropagation()}>
                 <Dialog

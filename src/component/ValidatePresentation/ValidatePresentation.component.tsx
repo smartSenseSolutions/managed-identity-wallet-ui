@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Field, Form } from 'react-final-form';
 import { Button, CustomInput, CustomSelect, Label } from '@miw/stories';
 import { LoadingType } from '@miw/types/common';
-import { copyTextToClipboard } from '@miw/utils/helper';
-import { getAlert } from '@miw/hooks';
 import { postValidatePresentation } from '@miw/APIs/VcManagement.api';
 import Styled from './ValidatePresentation.module.scss';
 
@@ -19,8 +17,8 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
 
     const defaultValue = {
         asJwt: {
-            label: 'False',
-            value: 'false',
+            label: typeof didDocument !== 'object' ? 'True' : 'False',
+            value: typeof didDocument !== 'object' ? 'true' : 'false',
         },
         withCredentialExpiryDate: {
             label: 'False',
@@ -35,14 +33,19 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
             asJwt: formValues.asJwt?.value,
             withCredentialExpiryDate: formValues?.withCredentialExpiryDate.value,
         };
-        postValidatePresentation(queryParams, param).then((res) => {
-            setIsFormSubmitting('success');
-            const data = res;
-            if (data.vp) {
-                delete data.vp;
-            }
-            setVcData(data);
-        });
+        setIsFormSubmitting('loading');
+        postValidatePresentation(queryParams, param)
+            .then((res) => {
+                setIsFormSubmitting('success');
+                const data = res;
+                if (data.vp) {
+                    delete data.vp;
+                }
+                setVcData(data);
+            })
+            .catch(() => {
+                setIsFormSubmitting('failure');
+            });
     };
     return (
         <div className="dialogecontainer" onClick={(e) => e.stopPropagation()}>
@@ -53,46 +56,55 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
                     render={({ handleSubmit }) => {
                         return (
                             <form onSubmit={handleSubmit} className={Styled.formSection} autoComplete="off" noValidate>
-                                <Field name={'audience'}>
-                                    {({ input, meta }) => (
-                                        <div className={'formControl'}>
-                                            <Label htmlFor={'audience'}>{t('VALIDATION_PRESENTATION.AUDIANCE')}</Label>
-                                            <div className={Styled.inputSelect}>
-                                                <CustomInput
-                                                    {...input}
-                                                    fullWidth
-                                                    classname="audience"
-                                                    placeholder={t('WALLET.CREATE.BPN_PLACEHOLDER')}
-                                                    type="text"
-                                                    required
-                                                    id="audience"
-                                                    error={(meta.error && meta.touched) || false}
-                                                    helperText={meta.error && meta.touched && meta.error}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
-                                </Field>
-                                <Field name={'asJwt'}>
-                                    {({ input }) => (
-                                        <div className={'formControl'}>
-                                            <Label htmlFor={'asJwt'}>{t('VALIDATION_PRESENTATION.AS_JWT')}</Label>
-                                            <div className={Styled.inputSelect}>
-                                                <CustomSelect
-                                                    {...input}
-                                                    closeMenuOnSelect={true}
-                                                    isSearchable={true}
-                                                    required
-                                                    insideDialog={true}
-                                                    isCreatable={false}
-                                                    id={'asJwt'}
-                                                    options={credentialType}
-                                                    placeholder={'select'}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
-                                </Field>
+                                {typeof didDocument !== 'object' && (
+                                    <>
+                                        <Field name={'audience'}>
+                                            {({ input, meta }) => (
+                                                <div className={'formControl'}>
+                                                    <Label isRequired htmlFor={'audience'}>
+                                                        {t('VALIDATION_PRESENTATION.AUDIANCE')}
+                                                    </Label>
+                                                    <div className={Styled.inputSelect}>
+                                                        <CustomInput
+                                                            {...input}
+                                                            autoFocus
+                                                            fullWidth
+                                                            classname="audience"
+                                                            placeholder={t('WALLET.CREATE.BPN_PLACEHOLDER')}
+                                                            type="text"
+                                                            required
+                                                            id="audience"
+                                                            error={(meta.error && meta.touched) || false}
+                                                            helperText={meta.error && meta.touched && meta.error}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Field>
+                                        <Field name={'asJwt'}>
+                                            {({ input }) => (
+                                                <div className={'formControl'}>
+                                                    <Label htmlFor={'asJwt'}>
+                                                        {t('VALIDATION_PRESENTATION.AS_JWT')}
+                                                    </Label>
+                                                    <div className={Styled.inputSelect}>
+                                                        <CustomSelect
+                                                            {...input}
+                                                            closeMenuOnSelect={true}
+                                                            isSearchable={true}
+                                                            required
+                                                            insideDialog={true}
+                                                            isCreatable={false}
+                                                            id={'asJwt'}
+                                                            options={credentialType}
+                                                            placeholder={'select'}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Field>
+                                    </>
+                                )}
                                 <Field name={'withCredentialExpiryDate'}>
                                     {({ input }) => (
                                         <div className={'formControl'}>
@@ -115,7 +127,7 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
                                         </div>
                                     )}
                                 </Field>
-                                <Button fullWidth type="submit">
+                                <Button fullWidth type="submit" isLoading={isFormSubmitting === 'loading'}>
                                     {t('LABELS.VALIDATE')}
                                 </Button>
                             </form>

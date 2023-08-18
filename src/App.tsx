@@ -88,7 +88,12 @@ function App() {
                     <div>Loading...</div>
                 ) : (
                     <>
-                        <Appbar appMenu={MenuList} onHeaderItemClick={onTabClick} selectedTab={currentLocation} />
+                        <Appbar
+                            appMenu={MenuList}
+                            onHeaderItemClick={onTabClick}
+                            selectedTab={currentLocation}
+                            userProfile={userDetails}
+                        />
 
                         <AuthApp />
                         <StyledToastContainer draggable={false} closeButton={false} pauseOnFocusLoss pauseOnHover />

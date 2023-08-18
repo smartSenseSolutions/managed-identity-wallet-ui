@@ -125,6 +125,11 @@ export const StyledHeaderRight = styled.div`
     }
 `;
 
+export const StyledUserID = styled.p`
+    color: ${({ theme }) => theme.colors.secondary};
+    font-weight: 600;
+`;
+
 export const StyleUserProfile = styled.div`
     .userIcon {
         height: 4rem;

@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
             removeSelectedEnterpriseId();
             return Promise.reject({ show: false });
         } else if (error && error.status === 400) {
-            getAlert('error', error.title);
+            getAlert('apiError', error.title, 'top-right', false, error);
         }
 
         const parsedJson = returnParsedJson(getActualResponseFromAxiosRequest(error));
@@ -92,9 +92,9 @@ const get = async (
         })
         .catch((error) => {
             if (error && error.message && error.status !== 404 && !hideFailureAlert && !hideFailureAlertForAllCase) {
-                getAlert('error', error.title);
+                getAlert('apiError', error.title, 'top-right', false, error);
             } else if (error && error.status === 400) {
-                getAlert('error', error.title);
+                getAlert('apiError', error.title, 'top-right', false, error);
             }
             throw error;
         })
@@ -130,7 +130,7 @@ const post = async (
         })
         .catch((error) => {
             if (error && error.status === 400) {
-                getAlert('error', error.title);
+                getAlert('apiError', error.title, 'top-right', false, error);
             }
             throw error;
         })
@@ -162,7 +162,7 @@ const put = async (
         })
         .catch((error) => {
             if (error && error.status === 400) {
-                getAlert('error', error.title);
+                getAlert('apiError', error.title, 'top-right', false, error);
             }
             showErrorAlertMessage(error);
             throw error;
@@ -194,7 +194,7 @@ const deleteAPI = async (
         })
         .catch((error) => {
             if (error && error.status === 400) {
-                getAlert('error', error.title);
+                getAlert('apiError', error.title, 'top-right', false, error);
             }
             showErrorAlertMessage(error);
             throw error;

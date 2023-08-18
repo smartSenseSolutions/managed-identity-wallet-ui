@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Field, Form } from 'react-final-form';
 import { Button, CustomSelect, Label } from '@miw/stories';
 import { LoadingType } from '@miw/types/common';
-import { copyTextToClipboard } from '@miw/utils/helper';
-import { getAlert } from '@miw/hooks';
 import { postValidateCreds } from '@miw/APIs/VcManagement.api';
 import Styled from './ValidateCredential.module.scss';
 
@@ -26,14 +24,19 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
 
     const handleCallValidateCredential = (formValues) => {
         const param = didDocument;
-        postValidateCreds({ withCreds: formValues.withCreds?.value }, param).then((res) => {
-            setIsFormSubmitting('success');
-            const data = res;
-            if (data.vc) {
-                delete data.vc;
-            }
-            setVcData(data);
-        });
+        setIsFormSubmitting('loading');
+        postValidateCreds({ withCreds: formValues.withCreds?.value }, param)
+            .then((res) => {
+                setIsFormSubmitting('success');
+                const data = res;
+                if (data.vc) {
+                    delete data.vc;
+                }
+                setVcData(data);
+            })
+            .catch(() => {
+                setIsFormSubmitting('failure');
+            });
     };
     return (
         <div className="dialogecontainer" onClick={(e) => e.stopPropagation()}>
@@ -66,8 +69,8 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
                                         </div>
                                     )}
                                 </Field>
-                                <Button fullWidth type="submit">
-                                    Validate
+                                <Button fullWidth type="submit" isLoading={isFormSubmitting === 'loading'}>
+                                    {t('LABELS.VALIDATE')}
                                 </Button>
                             </form>
                         );

@@ -71,3 +71,10 @@ export const StyledToastMessageContent = styled.p`
     margin-top: 1.8rem;
     padding-right: 0.7rem;
 `;
+
+export const StyledButtonContainer = styled.div`
+    padding-top: 1em;
+    .MuiButton-sizeCompact {
+        padding: 0;
+    }
+`;

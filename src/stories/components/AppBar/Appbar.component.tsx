@@ -13,7 +13,9 @@ import {
     StyledHeaderRight,
     StyledBrandLogo,
     StyledListItem,
+    StyledUserID,
 } from './Appbar.styled';
+import { UserDetails } from '@miw/contexts/userInfo/UserInfo.reducer';
 
 type AppMenu = {
     tabIcon?: JSX.Element;
@@ -25,9 +27,10 @@ type AppbarPropMenu = {
     appMenu: AppMenu;
     selectedTab: string;
     onHeaderItemClick: (e: MouseEvent, item) => void;
+    userProfile: UserDetails;
 };
 
-const Appbar = ({ appMenu, onHeaderItemClick, selectedTab }: AppbarPropMenu) => {
+const Appbar = ({ appMenu, onHeaderItemClick, selectedTab, userProfile }: AppbarPropMenu) => {
     const auth = useKeycloak();
     const { t } = useTranslation();
     const handleLogOut = () => {
@@ -62,6 +65,7 @@ const Appbar = ({ appMenu, onHeaderItemClick, selectedTab }: AppbarPropMenu) => 
                     </ul>
                 </StyledHeaderLeft>
                 <StyledHeaderRight>
+                    <StyledUserID>{userProfile?.BPN}</StyledUserID>
                     <Button onClick={handleLogOut}>{t('LABELS.LOGOUT')}</Button>
                 </StyledHeaderRight>
             </StyledHeader>
