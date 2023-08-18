@@ -44,6 +44,7 @@ const IssueFramework = ({ onClose }: Props) => {
     return (
         <div className={Styled.createContainer}>
             <Form
+                keepDirtyOnReinitialize
                 onSubmit={handleCreateWallet}
                 render={({ handleSubmit, values, submitting }) => {
                     return (

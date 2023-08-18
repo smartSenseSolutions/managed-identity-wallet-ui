@@ -51,6 +51,7 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
         <div className="dialogecontainer" onClick={(e) => e.stopPropagation()}>
             {isFormSubmitting !== 'success' ? (
                 <Form
+                    keepDirtyOnReinitialize
                     onSubmit={handleCallValidatePresentation}
                     initialValues={{ ...defaultValue }}
                     render={({ handleSubmit }) => {
@@ -81,7 +82,7 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
                                                 </div>
                                             )}
                                         </Field>
-                                        <Field name={'asJwt'}>
+                                        {/* <Field name={'asJwt'}>
                                             {({ input }) => (
                                                 <div className={'formControl'}>
                                                     <Label htmlFor={'asJwt'}>
@@ -102,7 +103,7 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
                                                     </div>
                                                 </div>
                                             )}
-                                        </Field>
+                                        </Field> */}
                                     </>
                                 )}
                                 <Field name={'withCredentialExpiryDate'}>

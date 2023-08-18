@@ -1,69 +1,70 @@
 {
-    "LABELS": {
-        "MIW": "MIW",
-        "DELETE": "Delete",
-        "NO_DATA_FOUND": "No data found",
-        "LOGOUT": "logout",
-        "COPY_LABEL": "Copy",
-        "COPIED": "Copied",
-        "VALIDATE": "validate"
+  "LABELS": {
+    "MIW": "MIW",
+    "DELETE": "Delete",
+    "NO_DATA_FOUND": "No data found",
+    "LOGOUT": "logout",
+    "COPY_LABEL": "Copy",
+    "COPIED": "Copied",
+    "VALIDATE": "validate"
+  },
+  "TABS": {
+    "MY_WALLET": "My Wallet",
+    "WALLET": "Wallet",
+    "VC_MGMT": "VC Management",
+    "MY_CREDS": "My Credential"
+  },
+  "HEADER": {
+    "CRED_ID": "Credential ID",
+    "TYPE": "Type",
+    "CREATED_AT": "Creadted Date"
+  },
+  "WALLET": {
+    "CREATE": {
+      "NAME": "Name",
+      "BPN": "bpn",
+      "NAME_PLACEHOLDER": "Company ABC",
+      "BPN_PLACEHOLDER": "BPNL000000000001",
+      "CREATE_WALLET": "Create Wallet",
+      "SUCCESS": "Wallet created successfully"
     },
-    "TABS": {
-        "MY_WALLET": "My Wallet",
-        "WALLET": "Wallet",
-        "VC_MGMT": "VC Management",
-        "MY_CREDS": "My Credential"
-    },
-    "HEADER": {
-        "CRED_ID": "Credential ID",
-        "TYPE": "Type",
-        "CREATED_AT": "Creadted Date"
-    },
-    "WALLET": {
-        "CREATE": {
-            "NAME": "Name",
-            "BPN": "bpn",
-            "NAME_PLACEHOLDER": "Company ABC",
-            "BPN_PLACEHOLDER": "BPNL000000000001",
-            "CREATE_WALLET": "Create Wallet",
-            "SUCCESS": "Wallet created successfully"
-        },
-        "TITLE": "Wallets",
-        "CREATE_WALLET": "Create Wallet"
-    },
-    "VC_MANAGEMENT": {
-        "ISSUER": "Issue Credential",
-        "MEMBERSHIP": "Issue MemberShip",
-        "FRAMEWORK": "Issue Framework",
-        "DOSMANTLER": "Issue Dismantler",
-        "VALIDATE": "validate",
-        "CREATE_PRESENTATION": "Create Presentation",
-        "REVOKE": "Revoke",
-        "CREDENTIAL_ISSUED_MSG": "Credential issued successfully",
-        "CREDENTIAL_ISSUE_ERR": "An error occured while generating credential",
-        "ISSUE_CREDENTIAL": "Issue Credential",
-        "TITLE": "List of credential issued by Root Wallet",
-        "CREDENTIAL_ID": "holder Identifier"
-    },
-    "MY_CREDS": {
-        "TITLE": "My Credential",
-        "DELETE_FAILURE": "An error occured",
-        "DELETE_SUCCESS": "Credential deleted successfully"
-    },
-    "DID_MGMT": {
-        "PERSONAL_DETAILS": "Personal Details",
-        "NAME": "Name",
-        "BPN": "bpn",
-        "DID": "did",
-        "DID_DOC": "DID document"
-    },
-    "REVOCATION": {
-        "REVOCABLE": "revocable"
-    },
-    "VALIDATION_PRESENTATION": {
-        "TITLE": "Validate Presentation",
-        "AUDIANCE": "audience",
-        "AS_JWT": "as JWT",
-        "WITH_CRED_EXP": "withCredentialExpiryDate"
-    }
+    "TITLE": "Wallets",
+    "CREATE_WALLET": "Create Wallet"
+  },
+  "VC_MANAGEMENT": {
+    "ISSUER": "Issue Credential",
+    "MEMBERSHIP": "Issue MemberShip",
+    "FRAMEWORK": "Issue Framework",
+    "DOSMANTLER": "Issue Dismantler",
+    "VALIDATE": "validate",
+    "CREATE_PRESENTATION": "Create Presentation",
+    "REVOKE": "Revoke",
+    "CREDENTIAL_ISSUED_MSG": "Credential issued successfully",
+    "CREDENTIAL_ISSUE_ERR": "An error occured while generating credential",
+    "ISSUE_CREDENTIAL": "Issue Credential",
+    "TITLE": "List of credential issued by Root Wallet",
+    "CREDENTIAL_ID": "holder Identifier"
+  },
+  "MY_CREDS": {
+    "TITLE": "My Credential",
+    "DELETE_FAILURE": "An error occured",
+    "DELETE_SUCCESS": "Credential deleted successfully"
+  },
+  "DID_MGMT": {
+    "PERSONAL_DETAILS": "Personal Details",
+    "NAME": "Name",
+    "BPN": "bpn",
+    "DID": "did",
+    "DID_DOC": "DID document"
+  },
+  "REVOCATION": {
+    "REVOCABLE": "revocable",
+    "REVOKED_MSG": "Credential Revoked"
+  },
+  "VALIDATION_PRESENTATION": {
+    "TITLE": "Validate Presentation",
+    "AUDIANCE": "audience",
+    "AS_JWT": "as JWT",
+    "WITH_CRED_EXP": "withCredentialExpiryDate"
+  }
 }
