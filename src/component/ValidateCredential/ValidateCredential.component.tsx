@@ -56,7 +56,7 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
                                     {({ input }) => (
                                         <div className={'formControl'}>
                                             <Label isRequired htmlFor={'withCreds'}>
-                                                withCredentialExpiryDate
+                                            {t('VALIDATION_PRESENTATION.WITH_CRED_EXP')}
                                             </Label>
                                             <div className={Styled.inputSelect}>
                                                 <CustomSelect
@@ -78,7 +78,7 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
                                     {({ input }) => (
                                         <div className={'formControl'}>
                                             <Label isRequired htmlFor={'withRevocation'}>
-                                            withRevocation
+                                            {t('VALIDATION_PRESENTATION.WITH_CRED_REVOCATION')}
                                             </Label>
                                             <div className={Styled.inputSelect}>
                                                 <CustomSelect

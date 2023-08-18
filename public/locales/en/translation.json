@@ -10,7 +10,7 @@
   },
   "TABS": {
     "MY_WALLET": "My Wallet",
-    "WALLET": "Wallet",
+    "WALLET": "Wallets",
     "VC_MGMT": "VC Management",
     "MY_CREDS": "My Credential"
   },
@@ -43,7 +43,8 @@
     "CREDENTIAL_ISSUE_ERR": "An error occured while generating credential",
     "ISSUE_CREDENTIAL": "Issue Credential",
     "TITLE": "List of credential issued by Root Wallet",
-    "CREDENTIAL_ID": "holder Identifier"
+    "CREDENTIAL_ID": "holder Identifier",
+    "AS_JWT": "Create presenration as JWT"
   },
   "MY_CREDS": {
     "TITLE": "My Credential",
@@ -65,6 +66,7 @@
     "TITLE": "Validate Presentation",
     "AUDIANCE": "audience",
     "AS_JWT": "as JWT",
-    "WITH_CRED_EXP": "withCredentialExpiryDate"
+    "WITH_CRED_EXP": "Check credential expiry",
+    "WITH_CRED_REVOCATION": "Check credential revocation"
   }
 }
