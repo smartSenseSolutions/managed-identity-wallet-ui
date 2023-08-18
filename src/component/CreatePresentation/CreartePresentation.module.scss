@@ -1,11 +1,27 @@
-.presantationHolder {
-  //   max-width: 75%;
-  white-space: break-spaces;
-  overflow-wrap: break-word;
-  position: relative;
-  .copyButtonHolder {
-    position: absolute;
-    top: 0;
-    right: 2rem;
-  }
+.createContainer {
+    .presantationHolder {
+        // max-width: 75%;
+        white-space: break-spaces;
+        overflow-wrap: break-word;
+        position: relative;
+        overflow-y: scroll;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #6c6c6c;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        position: sticky;
+        top: 0;
+        .action {
+            display: flex;
+            gap: 1rem;
+            padding-right: 1rem;
+            &:last-child {
+                padding-right: unset;
+            }
+        }
+    }
 }

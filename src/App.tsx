@@ -28,7 +28,6 @@ function ErrorFallback({ error, resetErrorBoundary }: unknown) {
 }
 
 function App() {
-    console.log('first');
     const auth = useKeycloak();
     const { t } = useTranslation();
     const currentLocation = window.location.pathname;
@@ -76,11 +75,11 @@ function App() {
             navigate(`${item.tabValue}`);
         }
     };
-    const selectedTab = [...MenuList].find((menu) => {
-        const isFound =
-            currentLocation.includes(String(menu.tabValue.split('/')[1])) && typeof menu.tabValue === 'string';
-        return isFound;
-    })?.tabValue;
+    // const selectedTab = [...MenuList].find((menu) => {
+    //     const isFound =
+    //         currentLocation.includes(String(menu.tabValue.split('/')[1])) && typeof menu.tabValue === 'string';
+    //     return isFound;
+    // })?.tabValue;
 
     return (
         <Suspense fallback={'loading'}>
@@ -89,7 +88,7 @@ function App() {
                     <div>Loading...</div>
                 ) : (
                     <>
-                        <Appbar appMenu={MenuList} onHeaderItemClick={onTabClick} selectedTab={selectedTab} />
+                        <Appbar appMenu={MenuList} onHeaderItemClick={onTabClick} selectedTab={currentLocation} />
 
                         <AuthApp />
                         <StyledToastContainer draggable={false} closeButton={false} pauseOnFocusLoss pauseOnHover />

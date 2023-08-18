@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
-import { Button, CustomInput, CustomSelect, Label } from '@miw/stories';
+import { Button, CustomInput, CustomSelect, IconButton, Label } from '@miw/stories';
 import { createPresentation } from '@miw/APIs';
 import { LoadingType } from '@miw/types/common';
 import Styled from './CreartePresentation.module.scss';
-import { copyTextToClipboard } from '@miw/utils/helper';
+import Icons from '@miw/Icons';
 import { getAlert } from '@miw/hooks';
-type Props = { didDocument: object };
+type Props = { didDocument: object; onClose: () => void };
 
-const CreartePresentation = ({ didDocument }: Props) => {
+const CreartePresentation = ({ didDocument, onClose }: Props) => {
     const { t } = useTranslation();
     const [isFormSubmittin, setIsFormSubmittin] = useState<LoadingType>('init');
     const [presentData, setPresentData] = useState<object | string>();
@@ -40,13 +40,37 @@ const CreartePresentation = ({ didDocument }: Props) => {
     };
 
     const handleCopy = () => {
-        copyTextToClipboard(JSON.stringify(presentData, null, 2)).then(() => {
-            getAlert('info', t('LABELS.COPIED'));
-        });
+        navigator.clipboard
+            .writeText(typeof presentData === 'object' ? JSON.stringify(presentData, null, 1) : presentData)
+            .then(() => {
+                getAlert('info', t('LABELS.COPIED'));
+            });
+    };
+
+    const handleValidate = () => {
+        // TODO need to implement the API
     };
 
     return (
         <div className={Styled.createContainer}>
+            <div className={Styled.header}>
+                <h3 className={Styled.title}>Create Presentation</h3>
+                <div className={Styled.action}>
+                    {isFormSubmittin === 'success' && (
+                        <>
+                            <Button variant="outlined" onClick={handleValidate}>
+                                {t('VC_MANAGEMENT.VALIDATE')}
+                            </Button>
+                            <Button variant="outlined" onClick={handleCopy}>
+                                {t('LABELS.COPY_LABEL')}
+                            </Button>
+                        </>
+                    )}
+                    <IconButton onClick={onClose}>
+                        <Icons.CloseIcon />
+                    </IconButton>
+                </div>
+            </div>
             {isFormSubmittin !== 'success' ? (
                 <Form
                     initialValues={{ ...defaultValue }}
@@ -116,11 +140,6 @@ const CreartePresentation = ({ didDocument }: Props) => {
                 />
             ) : (
                 <pre className={Styled.presantationHolder}>
-                    <div className={Styled.copyButtonHolder}>
-                        <Button variant="outlined" onClick={handleCopy}>
-                            {t('LABELS.COPY_LABEL')}
-                        </Button>
-                    </div>
                     {typeof presentData === 'object' ? JSON.stringify(presentData, null, 1) : presentData}
                 </pre>
             )}

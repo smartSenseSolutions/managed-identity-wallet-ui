@@ -9,24 +9,11 @@ import {
     getActualResponseFromAxiosRequest,
     getAuthToken,
     redirectToLogin,
-    redirectToVerifyEmail,
     removeFromStore,
     removeSelectedEnterpriseId,
     returnParsedJson,
 } from './helper';
-// import { ACCESS_TOKEN_KEY } from "./constants";
-// import { getAlert } from "../hooks";
-// import {
-//   existKeyInStore,
-//   getActualResponseFromAxiosRequest,
-//   getAuthToken,
-//   redirectToLogin,
-//   removeFromStore,
-//   removeSelectedEnterpriseId,
-//   returnParsedJson,
-//   redirectToVerifyEmail,
-//   containerScrollToTop,
-// } from "./helper";
+import { getAlert } from '@miw/hooks';
 
 const defaultHeaders = {
     'Content-Type': 'application/json; charset=UTF-8',
@@ -62,15 +49,8 @@ axiosInstance.interceptors.response.use(
             //TODO: need to change from enterprizeID to according to data after discussion with backend
             removeSelectedEnterpriseId();
             return Promise.reject({ show: false });
-        } else if (
-            error &&
-            error.response &&
-            error.response.status === 403 &&
-            error.response.data &&
-            error.response.data.payload &&
-            error.response.data.payload.emailVerified === false
-        ) {
-            redirectToVerifyEmail();
+        } else if (error && error.status === 400) {
+            getAlert('error', error.title);
         }
 
         const parsedJson = returnParsedJson(getActualResponseFromAxiosRequest(error));
@@ -112,7 +92,9 @@ const get = async (
         })
         .catch((error) => {
             if (error && error.message && error.status !== 404 && !hideFailureAlert && !hideFailureAlertForAllCase) {
-                // getAlert("error", error.message);
+                getAlert('error', error.title);
+            } else if (error && error.status === 400) {
+                getAlert('error', error.title);
             }
             throw error;
         })
@@ -147,8 +129,8 @@ const post = async (
             return resp;
         })
         .catch((error) => {
-            if (error && error.message && showErrorAlert === true) {
-                // getAlert("error", error.message);
+            if (error && error.status === 400) {
+                getAlert('error', error.title);
             }
             throw error;
         })
@@ -179,6 +161,9 @@ const put = async (
             return resp;
         })
         .catch((error) => {
+            if (error && error.status === 400) {
+                getAlert('error', error.title);
+            }
             showErrorAlertMessage(error);
             throw error;
         })
@@ -208,6 +193,9 @@ const deleteAPI = async (
             return resp;
         })
         .catch((error) => {
+            if (error && error.status === 400) {
+                getAlert('error', error.title);
+            }
             showErrorAlertMessage(error);
             throw error;
         })
