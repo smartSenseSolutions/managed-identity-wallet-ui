@@ -89,7 +89,7 @@ export const postIssueDismantler = (param: { bpn: string; activityType: string; 
     return post(ENDPOINTS.postIssueDismantler, param);
 };
 
-export const postValidateCreds = (templateParam: { withCreds: string }, param: object) => {
+export const postValidateCreds = (templateParam: { withCreds: string , withRevocation: string}, param: object) => {
     return post(parseAPI(ENDPOINTS.postValidateCreds, templateParam), param);
 };
 

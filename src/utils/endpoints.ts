@@ -11,7 +11,7 @@ const ENDPOINTS = {
     postIssueMembership: `${API}credentials/issuer/membership`,
     postIssueFramework: `${API}credentials/issuer/framework`,
     postIssueDismantler: `${API}credentials/issuer/dismantler`,
-    postValidateCreds: `${API}credentials/validation?withCredentialExpiryDate=:withCreds`,
+    postValidateCreds: `${API}credentials/validation?withCredentialExpiryDate=:withCreds&withRevocation=:withRevocation`,
     getMyCreds: `${API}wallets/:identifier`,
     getWalletDetails: `${API}didDocuments/:identifier`,
     postCreatePresantation: `${API}presentations`,

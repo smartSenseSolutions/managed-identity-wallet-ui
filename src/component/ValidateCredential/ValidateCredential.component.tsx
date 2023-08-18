@@ -20,12 +20,16 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
             label: 'False',
             value: 'false',
         },
+        withRevocation: {
+            label: 'True',
+            value: 'true',
+        }
     };
 
     const handleCallValidateCredential = (formValues) => {
         const param = didDocument;
         setIsFormSubmitting('loading');
-        postValidateCreds({ withCreds: formValues.withCreds?.value }, param)
+        postValidateCreds({ withCreds: formValues.withCreds?.value, withRevocation: formValues.withRevocation?.value }, param)
             .then((res) => {
                 setIsFormSubmitting('success');
                 const data = res;
@@ -69,6 +73,30 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
                                         </div>
                                     )}
                                 </Field>
+                                <Field name={'withRevocation'}>
+                                    {({ input }) => (
+                                        <div className={'formControl'}>
+                                            <Label isRequired htmlFor={'withRevocation'}>
+                                            withRevocation
+                                            </Label>
+                                            <div className={Styled.inputSelect}>
+                                                <CustomSelect
+                                                    {...input}
+                                                    closeMenuOnSelect={true}
+                                                    isSearchable={true}
+                                                    required
+                                                    insideDialog={true}
+                                                    isCreatable={false}
+                                                    id={'credentialType'}
+                                                    options={credentialType}
+                                                    placeholder={'select'}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </Field>
+
+
                                 <Button fullWidth type="submit" isLoading={isFormSubmitting === 'loading'}>
                                     {t('LABELS.VALIDATE')}
                                 </Button>
