@@ -35,7 +35,7 @@ const WalletAccordianHeader = ({ title, type, issueDate, didDocument, postDelete
                 postDeleteAPI();
             })
             .catch((err) => {
-                getAlert('error', err?.detail ? err.detail : t('MY_CREDS.DELETE_FAILURE'));
+                if (err.status !== 400) getAlert('error', err?.title ? err.title : t('MY_CREDS.DELETE_FAILURE'));
             })
             .finally(() => {
                 setIsLopading(false);

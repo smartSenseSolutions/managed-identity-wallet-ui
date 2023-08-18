@@ -44,7 +44,7 @@ const WalletAccordianHeader = ({
                 getAlert('success', 'Credential Revoked');
             })
             .catch((err) => {
-                getAlert('error', 'There is an error occured');
+                if (err.status !== 400) getAlert('error', 'There is an error occured');
             });
     };
 

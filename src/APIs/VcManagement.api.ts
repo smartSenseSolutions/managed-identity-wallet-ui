@@ -92,6 +92,28 @@ export const postIssueDismantler = (param: { bpn: string; activityType: string; 
 export const postValidateCreds = (templateParam: { withCreds: string }, param: object) => {
     return post(parseAPI(ENDPOINTS.postValidateCreds, templateParam), param);
 };
+
+export const postValidatePresentation = (
+    templateParam: {
+        audience: string;
+        asJwt: string;
+        withCredentialExpiryDate: string;
+    },
+    param: object,
+) => {
+    const queryParams = {};
+    if (templateParam.audience) {
+        queryParams['audience'] = templateParam.audience;
+    }
+    if (templateParam.asJwt) {
+        queryParams['asJwt'] = templateParam.asJwt;
+    }
+    if (templateParam.withCredentialExpiryDate) {
+        queryParams['withCredentialExpiryDate'] = templateParam.withCredentialExpiryDate;
+    }
+    return post(parseAPI(ENDPOINTS.postValidatePresentation, {}, queryParams), param);
+};
+
 export const createPresentation = (
     templateParam: {
         withCreds: string;

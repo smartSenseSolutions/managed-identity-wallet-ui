@@ -24,17 +24,15 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
         },
     };
 
-    const handleCopy = () => {
-        copyTextToClipboard(JSON.stringify(vcData, null, 2)).then(() => {
-            getAlert('info', t('LABELS.COPIED'));
-        });
-    };
     const handleCallValidateCredential = (formValues) => {
         const param = didDocument;
-        // TODO: need to verify this api response with frontend variable
         postValidateCreds({ withCreds: formValues.withCreds?.value }, param).then((res) => {
             setIsFormSubmitting('success');
-            setVcData(res?.vc);
+            const data = res;
+            if (data.vc) {
+                delete data.vc;
+            }
+            setVcData(data);
         });
     };
     return (
@@ -76,14 +74,7 @@ const ValidateCredential = ({ didDocument }: { didDocument: object }) => {
                     }}
                 />
             ) : (
-                <pre className={Styled.presantationHolder}>
-                    <div className={Styled.copyButtonHolder}>
-                        <Button variant="outlined" onClick={handleCopy}>
-                            {t('LABELS.COPY_LABEL')}
-                        </Button>
-                    </div>
-                    {JSON.stringify(vcData, null, 2)}
-                </pre>
+                <pre className={Styled.presantationHolder}>{JSON.stringify(vcData, null, 2)}</pre>
             )}
         </div>
     );

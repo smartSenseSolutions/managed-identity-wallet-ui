@@ -5,7 +5,8 @@
         "NO_DATA_FOUND": "No data found",
         "LOGOUT": "logout",
         "COPY_LABEL": "Copy",
-        "COPIED": "Copied"
+        "COPIED": "Copied",
+        "VALIDATE": "validate"
     },
     "TABS": {
         "MY_WALLET": "My Wallet",
@@ -24,7 +25,8 @@
             "BPN": "bpn",
             "NAME_PLACEHOLDER": "Company ABC",
             "BPN_PLACEHOLDER": "BPNL000000000001",
-            "CREATE_WALLET": "Create Wallet"
+            "CREATE_WALLET": "Create Wallet",
+            "SUCCESS": "Wallet created successfully"
         },
         "TITLE": "Wallets",
         "CREATE_WALLET": "Create Wallet"
@@ -45,7 +47,7 @@
     },
     "MY_CREDS": {
         "TITLE": "My Credential",
-        "DELETE_FAILURE": "An error occured while deleting Credential",
+        "DELETE_FAILURE": "An error occured",
         "DELETE_SUCCESS": "Credential deleted successfully"
     },
     "DID_MGMT": {
@@ -57,5 +59,11 @@
     },
     "REVOCATION": {
         "REVOCABLE": "revocable"
+    },
+    "VALIDATION_PRESENTATION": {
+        "TITLE": "Validate Presentation",
+        "AUDIANCE": "audience",
+        "AS_JWT": "as JWT",
+        "WITH_CRED_EXP": "withCredentialExpiryDate"
     }
 }

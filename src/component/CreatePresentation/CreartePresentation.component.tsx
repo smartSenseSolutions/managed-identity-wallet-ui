@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
-import { Button, CustomInput, CustomSelect, IconButton, Label } from '@miw/stories';
+import { Button, CustomInput, CustomSelect, Dialog, IconButton, Label } from '@miw/stories';
 import { createPresentation } from '@miw/APIs';
 import { LoadingType } from '@miw/types/common';
-import Styled from './CreartePresentation.module.scss';
 import Icons from '@miw/Icons';
 import { getAlert } from '@miw/hooks';
+import ValidatePresentation from '../ValidatePresentation';
+import Styled from './CreartePresentation.module.scss';
 type Props = { didDocument: object; onClose: () => void };
 
 const CreartePresentation = ({ didDocument, onClose }: Props) => {
     const { t } = useTranslation();
     const [isFormSubmittin, setIsFormSubmittin] = useState<LoadingType>('init');
+    const [isOpenDialoge, setIsOpenDialoge] = useState(false);
     const [presentData, setPresentData] = useState<object | string>();
     const credsType = [
         { label: 'False', value: 'false' },
@@ -48,7 +50,7 @@ const CreartePresentation = ({ didDocument, onClose }: Props) => {
     };
 
     const handleValidate = () => {
-        // TODO need to implement the API
+        setIsOpenDialoge(true);
     };
 
     return (
@@ -143,6 +145,16 @@ const CreartePresentation = ({ didDocument, onClose }: Props) => {
                     {typeof presentData === 'object' ? JSON.stringify(presentData, null, 1) : presentData}
                 </pre>
             )}
+
+            <Dialog
+                isOpen={isOpenDialoge}
+                showFooter={false}
+                header={t('VALIDATION_PRESENTATION.TITLE')}
+                key={'Validate'}
+                content={<ValidatePresentation didDocument={presentData} />}
+                isShowCloseIcon
+                onClose={() => setIsOpenDialoge(false)}
+            />
         </div>
     );
 };
