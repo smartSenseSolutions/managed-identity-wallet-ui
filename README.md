@@ -1,22 +1,22 @@
 # [Eclipse Tractus-x Managed Identity Wallet](https://github.com/eclipse-tractusx/managed-identity-wallet) UI application
 
-This is UI application to access APIs of [Eclipse Tractus-x Managed Identity Wallet](https://github.com/eclipse-tractusx/managed-identity-wallet)
+This is a UI application to access APIs of [Eclipse Tractus-x Managed Identity Wallet](https://github.com/eclipse-tractusx/managed-identity-wallet)
 
 ## Prerequisites
 
 1. Node with version >= v16.16
 2. Yarn (Package Manager) >=1.22
-3. Managed identity wallet must be running
+3. A managed identity wallet must be running
 4. Keycloak must be running and configured correctly
-5. MIW and UI application must be using same keycloak
+5. MIW and UI applications must be using the same keycloak
 6. Allowed web origin must be added in keycloak public client
-7. CORS must be enabled in managed identity wallet application
+7. CORS must be enabled in the managed identity wallet application
 
-## Run in local
+## Run in Local
 
 ### Run keycloak
 
-1. Go to dev-assets folder and run docker compose file, this will run keycloak and import `miw_test` realm with needed configuration
+1. Go to dev-assets folder and run docker compose file, this will run keycloak and import `miw_test` realm with the needed configuration
 2. Test keycloak on [http://localhost:28080](http://localhost:28080)
 3. There will be 2 user created as below:
 
@@ -26,7 +26,7 @@ This is UI application to access APIs of [Eclipse Tractus-x Managed Identity Wal
 
       bpn: BPNL000000000000
 
-      this user act as base wallet
+      This user acts as the base wallet
 
    2. Username: user1
 
@@ -38,7 +38,7 @@ This is UI application to access APIs of [Eclipse Tractus-x Managed Identity Wal
 
 ### Run keycloak
 
-1. Enable CORSS in MIW application by adding below code in `SecurityConfig.java`
+1. Enable CORSS in MIW application by adding the below code in `SecurityConfig.java`
 
 ```
     @Bean
@@ -57,18 +57,22 @@ This is UI application to access APIs of [Eclipse Tractus-x Managed Identity Wal
     }
 ```
 
-2. Set keycoak realted setting application.yaml.
-3. Start aplication
+2. Set keycoak related setting application.yaml.
+3. Start application
 
 ### Run UI application
 
 1. Update values in .env.local is needed
-2. start application using `yarn start`
+2. Start the application using `yarn start`
 
 ## Sample Demo
-<video src='docs/MIW_ui_demo.webm'/>
 
-![Demo](docs/MIW_ui_demo.webm)
+
+
+https://github.com/smartSenseSolutions/managed-identity-wallet-ui/assets/45592624/2fceab92-951a-4333-ad25-676ce7692d81
+
+
+
 
 ## License
 
