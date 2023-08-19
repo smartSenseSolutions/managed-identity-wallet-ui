@@ -10,16 +10,50 @@
       color: $secondary;
     }
   }
+  .listContainer {
+    max-height: calc(100vh - 30rem);
+    overflow: scroll;
+    background-color: $white;
+    border-radius: 0.8rem;
+  }
   .paginationContainer {
     width: fit-content;
     margin-top: 2rem;
     margin-inline: auto;
   }
+
+  .tHeader {
+    padding: 2rem;
+    width: 100%;
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+    & > * {
+      flex: 1;
+    }
+    & > :last-child {
+      flex: unset;
+      width: 12rem;
+    }
+  }
 }
 .headerContainer {
   display: flex;
   justify-content: space-between;
-  min-width: 30%;
+  align-items: center;
+  width: calc(100% - 3rem);
+  gap: 2rem;
+  & > * {
+    flex: 1;
+  }
+  & > :last-child {
+    flex: unset;
+  }
+  .buttonGroup {
+    flex: unset;
+    display: flex;
+    gap: 1rem;
+  }
   .title {
     text-transform: capitalize;
     color: $secondary;
@@ -32,5 +66,11 @@
 
 .bodyContainer {
   color: $secondary40;
+  position: relative;
   //   background-color: $primary10;
+  .copyButtonHolder {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }

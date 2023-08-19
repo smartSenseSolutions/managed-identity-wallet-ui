@@ -1,0 +1,55 @@
+@import "@miw/styles/abstracts/abstracts";
+
+.container {
+  padding: 5rem 0;
+  .header {
+    padding: 0 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .headerRight {
+      display: flex;
+    }
+  }
+
+  .tHeader {
+    padding: 2rem;
+    width: 100%;
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+    & > * {
+      padding-right: 1rem;
+      flex: 1;
+    }
+    // & > :last-child {
+    //   flex: unset;
+    // }
+  }
+}
+
+.headerContainer {
+  display: flex;
+  width: calc(100% - 3rem);
+
+  & > * {
+    flex: 1;
+  }
+  .buttonGroup {
+    flex: unset;
+    display: flex;
+    gap: 1rem;
+  }
+  .dialogue {
+    flex: unset;
+  }
+}
+.bodyContainer {
+  position: relative;
+  .copyButtonHolder {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

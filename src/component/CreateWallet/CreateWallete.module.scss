@@ -1,0 +1,51 @@
+@import "@miw/styles/abstracts/abstracts";
+.createContainer {
+  width: 30rem;
+  margin: 0 auto;
+  .formSection {
+    .formControl {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2.5rem;
+
+      &:last-of-type {
+        align-items: flex-start;
+        margin-bottom: 2.5rem;
+
+        label {
+          margin-top: 1.1rem;
+        }
+      }
+
+      label {
+        // width: 22.5%;
+
+        // @include respond("Laptop") {
+        //   width: 25%;
+        // }
+      }
+
+      .inputSelect {
+        // width: 35%;
+
+        // @include respond("Laptop") {
+        //   width: 75%;
+        // }
+      }
+
+      @media (max-width: 767px) {
+        flex-direction: column;
+        align-items: baseline;
+
+        label {
+          margin-bottom: 4px;
+        }
+
+        label,
+        .inputSelect {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

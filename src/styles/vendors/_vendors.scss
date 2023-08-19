@@ -1,0 +1,89 @@
+@import "../abstracts/variables";
+
+.react-select {
+  &__control {
+    background-color: $white !important;
+    border-color: $disabledInputGray !important;
+    color: $fontColorPrimary;
+    border-width: 0.2rem !important;
+    min-height: 36px;
+
+    &:hover {
+      border-color: $secondary;
+      box-shadow: 0 0 0 1px $secondary;
+    }
+
+    &--is-focused {
+      background-color: $secondary;
+      border-color: $secondary;
+      box-shadow: 0 0 0 1px $secondary;
+    }
+
+    &--is-disabled {
+      background-color: $disabledInputGray !important;
+
+      .react-select__indicators {
+        opacity: 0.3;
+      }
+    }
+  }
+
+  &__multi-value {
+    background-color: $white;
+
+    &__label {
+      max-width: 20rem;
+    }
+
+    &--is-disabled {
+      .react-select__multi-value__remove {
+        display: none;
+      }
+    }
+  }
+
+  &__indicator-separator {
+    width: 0px;
+  }
+
+  &__indicator {
+    color: $iconDarkGray;
+  }
+
+  &__menu {
+    background-color: $white !important;
+    border-color: $secondary;
+    box-shadow: 0 0 0 1px $secondary !important;
+    padding: 12px 10px 12px 12px;
+
+    &-list {
+      padding-right: 12px;
+    }
+
+    &-portal {
+      z-index: 10000 !important;
+    }
+  }
+
+  &__option {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 4px !important;
+
+    &--is {
+      &-selected {
+        color: $black !important;
+        background-color: $disabledInputGray !important;
+      }
+    }
+
+    &--is-focused {
+      background-color: $secondary;
+      color: $white;
+    }
+
+    &:active {
+      background-color: $secondary !important;
+    }
+  }
+}

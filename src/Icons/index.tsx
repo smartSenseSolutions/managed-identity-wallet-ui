@@ -1,4 +1,4 @@
 import CloseIcon from "./Close.icon";
 import DownIcon from "./DownIcon.icon";
-DownIcon;
-export default { CloseIcon, DownIcon };
+import ThreeDotIcon from "./ThreeDot.icon";
+export default { CloseIcon, DownIcon, ThreeDotIcon };

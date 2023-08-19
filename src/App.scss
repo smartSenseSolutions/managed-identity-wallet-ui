@@ -10,6 +10,13 @@
   align-items: center;
   justify-content: center;
 }
+.tableLoading {
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .appSection {
   max-width: 120rem;
   margin-inline: auto;
@@ -38,8 +45,10 @@
     filter: blur(250px);
     position: absolute;
     left: auto;
+    z-index: -1;
     top: auto;
     right: 0;
+    height: 50%;
     width: 25%;
     bottom: 10rem;
     height: 40%;
@@ -54,8 +63,17 @@
     position: absolute;
     left: 0;
     top: 10%;
+    z-index: -1;
+    height: 50%;
+
     right: auto;
     width: 25%;
     height: 40%;
   }
+}
+.formControl {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2rem;
 }
