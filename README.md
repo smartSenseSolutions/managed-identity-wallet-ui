@@ -66,6 +66,7 @@ This is UI application to access APIs of [Eclipse Tractus-x Managed Identity Wal
 2. start application using `yarn start`
 
 ## Sample Demo
+<video src='docs/MIW_ui_demo.webm'/>
 
 ![Demo](docs/MIW_ui_demo.webm)
 
