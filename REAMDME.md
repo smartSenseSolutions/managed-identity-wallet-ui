@@ -1,49 +1,73 @@
-# React Frontend Project
+# [Eclipse Tractus-x Managed Identity Wallet](https://github.com/eclipse-tractusx/managed-identity-wallet) UI application
+
+This is UI application to access APIs of [Eclipse Tractus-x Managed Identity Wallet](https://github.com/eclipse-tractusx/managed-identity-wallet)
 
 ## Prerequisites
 
 1. Node with version >= v16.16
 2. Yarn (Package Manager) >=1.22
+3. Managed identity wallet must be running
+4. Keycloak must be running and configured correctly
+5. MIW and UI application must be using same keycloak
+6. Allowed web origin must be added in keycloak public client
+7. CORS must be enabled in managed identity wallet application
 
-## Set Up Keycloak using Docker Compose
+## Run in local
 
-1. Clone the repository that contains the Docker Compose file for Keycloak:
+### Run keycloak
 
-2. Navigate to the directory containing the Docker Compose file:
+1. Go to dev-assets folder and run docker compose file, this will run keycloak and import `miw_test` realm with needed configuration
+2. Test keycloak on [http://localhost:28080](http://localhost:28080)
+3. There will be 2 user created as below:
 
-3. Start the Keycloak instance using Docker Compose:
+   1. Username: catena-x
 
-    docker-compose up -d
+      password: password
 
-Configure realms, clients, and users in the Keycloak admin console for your React app.
+      bpn: BPNL000000000000
 
-## Project Setup
+      this user act as base wallet
 
-1. Clone the repository of your React app (if you haven't already):
-   git clone https://github.com/smartSenseSolutions/managed-identity-wallet-ui.git
+   2. Username: user1
 
-2. Navigate to the React app directory:
-   cd miw
+      password: password
 
-3. Open the `.env.local` file and configure Keycloak settings:
-   VITE_API_BASE="http://localhost:8087/"
-   VITE_KEYCLOAK_CLIENT_ID="miw_public"
-   VITE_AUTH_SERVER="http://localhost:28080/"
-   VITE_ROOT_BPN="BPNL000000000000"
+      bpn : BPNL000000000001
 
-4. Build and run the React app:
+      this user act as normal user(any business partner, you can create wallet using this BPN)
 
-### Local build & run
+### Run keycloak
 
-    yarn
-    yarn build
-    yarn start
+1. Enable CORSS in MIW application by adding below code in `SecurityConfig.java`
 
-<!-- ### Local docker build & run & publish
+```
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3004"));   //changes as per your port and host name
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(
+                List.of("X-Requested-With", "X-HTTP-Method-Override", "Content-Type", "Authorization", "Accept",
+                        "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"));
+        configuration.setAllowCredentials(true);
+        //configuration.addAllowedHeader("Authorization");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+```
 
-    yarn build:docker
-    yarn publish:docker
-    yarn start:docker -->
+2. Set keycoak realted setting application.yaml.
+3. Start aplication
+
+### Run UI application
+
+1. Update values in .env.local is needed
+2. start application using `yarn start`
+
+## Sample Demo
+
+[Demo](docs/MIW_ui_demo.webm)
 
 ## License
 
