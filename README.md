@@ -69,7 +69,10 @@ This is a UI application to access APIs of [Eclipse Tractus-x Managed Identity W
 
 
 
-https://github.com/smartSenseSolutions/managed-identity-wallet-ui/assets/45592624/2fceab92-951a-4333-ad25-676ce7692d81
+
+https://github.com/smartSenseSolutions/managed-identity-wallet-ui/assets/45592624/b8fcdae5-fa15-49f2-a7d7-8bd1c600a9a8
+
+
 
 
 
