@@ -191,6 +191,7 @@ const VcManagemanegement = (props: Props) => {
             <h3 className="thead">{t('VC_MANAGEMENT.CREDENTIAL_ID')}</h3>
             <CustomInput
               value={searchBPN}
+              classname={StyledVcMgmt.input}
               placeholder="Search credential...."
               onChange={(e) => setSearchBPN(e)}
               id={'credentialId'}
@@ -199,6 +200,7 @@ const VcManagemanegement = (props: Props) => {
           <div>
             <h3 className="thead">Type</h3>
             <CustomInput
+              classname={StyledVcMgmt.input}
               value={searchType}
               placeholder="search Type...."
               onChange={(e) => setSearchType(e)}

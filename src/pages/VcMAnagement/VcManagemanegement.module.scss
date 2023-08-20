@@ -1,4 +1,4 @@
-@import "@miw/styles/abstracts/abstracts";
+@import '@miw/styles/abstracts/abstracts';
 
 .container {
   padding: 5rem 0;
@@ -14,7 +14,8 @@
   }
 
   .tHeader {
-    padding: 2rem;
+    padding: 2rem 2rem 1rem;
+    border-bottom: 2px solid $scrollBar;
     width: 100%;
     background-color: $white;
     display: flex;
@@ -26,6 +27,9 @@
     // & > :last-child {
     //   flex: unset;
     // }
+    .input {
+      padding-top: 1rem;
+    }
   }
 }
 

@@ -1,6 +1,6 @@
-@import "@miw/styles/abstracts/abstracts";
+@import '@miw/styles/abstracts/abstracts';
 .createContainer {
-  width: 30rem;
+  width: 50rem;
   margin: 0 auto;
   .formSection {
     .formControl {
@@ -46,6 +46,9 @@
           width: 100%;
         }
       }
+    }
+    button {
+      margin-top: 2rem;
     }
   }
 }
