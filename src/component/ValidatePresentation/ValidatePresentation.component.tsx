@@ -21,9 +21,12 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
             value: typeof didDocument !== 'object' ? 'true' : 'false',
         },
         withCredentialExpiryDate: {
-            label: 'False',
-            value: 'false',
-        },
+            label: 'True',
+            value: 'true',
+        },withCredentialRevocation:{
+            label: 'True',
+            value: 'true',
+        }
     };
 
     const handleCallValidatePresentation = (formValues) => {
@@ -32,6 +35,7 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
             audience: formValues?.audience,
             asJwt: formValues.asJwt?.value,
             withCredentialExpiryDate: formValues?.withCredentialExpiryDate.value,
+            withCredentialRevocation: formValues?.withCredentialRevocation.value
         };
         setIsFormSubmitting('loading');
         postValidatePresentation(queryParams, param)
@@ -128,6 +132,30 @@ const ValidatePresentation = ({ didDocument }: { didDocument: object | string })
                                         </div>
                                     )}
                                 </Field>
+
+                                <Field name={'withCredentialRevocation'}>
+                                    {({ input }) => (
+                                        <div className={'formControl'}>
+                                            <Label htmlFor={'withCredentialRevocation'}>
+                                                {t('VALIDATION_PRESENTATION.WITH_CRED_REVOCATION')}
+                                            </Label>
+                                            <div className={Styled.inputSelect}>
+                                                <CustomSelect
+                                                    {...input}
+                                                    closeMenuOnSelect={true}
+                                                    isSearchable={true}
+                                                    required
+                                                    insideDialog={true}
+                                                    isCreatable={false}
+                                                    id={'withCredentialRevocation'}
+                                                    options={credentialType}
+                                                    placeholder={'select'}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </Field>
+
                                 <Button fullWidth type="submit" isLoading={isFormSubmitting === 'loading'}>
                                     {t('LABELS.VALIDATE')}
                                 </Button>

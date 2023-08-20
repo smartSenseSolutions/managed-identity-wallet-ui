@@ -98,6 +98,7 @@ export const postValidatePresentation = (
         audience: string;
         asJwt: string;
         withCredentialExpiryDate: string;
+        withCredentialRevocation: string
     },
     param: object,
 ) => {
@@ -111,6 +112,10 @@ export const postValidatePresentation = (
     if (templateParam.withCredentialExpiryDate) {
         queryParams['withCredentialExpiryDate'] = templateParam.withCredentialExpiryDate;
     }
+
+    if (templateParam.withCredentialRevocation) {
+        queryParams['withCredentialRevocation'] = templateParam.withCredentialRevocation;
+    }
     return post(parseAPI(ENDPOINTS.postValidatePresentation, {}, queryParams), param);
 };
 
@@ -118,6 +123,8 @@ export const createPresentation = (
     templateParam: {
         withCreds: string;
         audience: string;
+        withCredentialRevocation: string
+        withCredentialExpiryDate: string;
     },
     param: object,
 ) => {
@@ -127,6 +134,14 @@ export const createPresentation = (
     }
     if (templateParam.withCreds && templateParam.audience) {
         queryParams['audience'] = templateParam.audience;
+    }
+
+    if (templateParam.withCredentialRevocation) {
+        queryParams['withCredentialRevocation'] = templateParam.withCredentialRevocation.value;
+    }
+
+    if (templateParam.withCredentialExpiryDate) {
+        queryParams['withCredentialExpiryDate'] = templateParam.withCredentialExpiryDate.value;
     }
     return post(parseAPI(ENDPOINTS.postCreatePresantation, {}, queryParams), param);
 };

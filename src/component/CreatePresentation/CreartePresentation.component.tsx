@@ -21,7 +21,14 @@ const CreartePresentation = ({ didDocument, onClose }: Props) => {
     ];
     const defaultValue = {
         withCreds: credsType[0],
+        withCredentialExpiryDate: credsType[1],
+        withCredentialRevocation: credsType[1]
+
     };
+
+    //check if VC is revocble
+    const revocable ="";
+
     const handlePresentCreds = (formValues) => {
         setIsFormSubmittin('loading');
         const param = {
@@ -30,6 +37,8 @@ const CreartePresentation = ({ didDocument, onClose }: Props) => {
         const templateParams = {
             withCreds: formValues.withCreds.value,
             audience: formValues.audience,
+            withCredentialRevocation: formValues.withCredentialRevocation,
+            withCredentialExpiryDate: formValues.withCredentialExpiryDate
         };
         createPresentation(templateParams, param)
             .then((res) => {
@@ -81,11 +90,59 @@ const CreartePresentation = ({ didDocument, onClose }: Props) => {
                     render={({ handleSubmit, values, submitting }) => {
                         return (
                             <form onSubmit={handleSubmit} className={Styled.formSection} autoComplete="off" noValidate>
+                                <Field name={'withCredentialExpiryDate'}>
+                                    {({ input, meta }) => (
+                                        <div className={'formControl'}>
+                                            <Label isRequired htmlFor={'withCredentialExpiryDate'}>
+                                            {t('VALIDATION_PRESENTATION.WITH_CRED_EXP')}
+                                            </Label>
+                                            <div className={Styled.inputSelect}>
+                                                <CustomSelect
+                                                    {...input}
+                                                    defaultValue={{ label: 'False', value: 'false' }}
+                                                    closeMenuOnSelect={true}
+                                                    isSearchable={true}
+                                                    required
+                                                    insideDialog={true}
+                                                    isCreatable={false}
+                                                    id={'withCredentialExpiryDate'}
+                                                    options={credsType}
+                                                    placeholder={'select'}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </Field>
+
+                                <Field name={'withCredentialRevocation'}>
+                                    {({ input, meta }) => (
+                                        <div className={'formControl'}>
+                                            <Label isRequired htmlFor={'withCredentialRevocation'}>
+                                            {t('VALIDATION_PRESENTATION.WITH_CRED_REVOCATION')}
+                                            </Label>
+                                            <div className={Styled.inputSelect}>
+                                                <CustomSelect
+                                                    {...input}
+                                                    defaultValue={{ label: 'False', value: 'false' }}
+                                                    closeMenuOnSelect={true}
+                                                    isSearchable={true}
+                                                    required
+                                                    insideDialog={true}
+                                                    isCreatable={false}
+                                                    id={'withCredentialRevocation'}
+                                                    options={credsType}
+                                                    placeholder={'select'}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </Field>
+
                                 <Field name={'withCreds'}>
                                     {({ input, meta }) => (
                                         <div className={'formControl'}>
                                             <Label isRequired htmlFor={'withCreds'}>
-                                                As JWT
+                                                {t('VC_MANAGEMENT.AS_JWT')}
                                             </Label>
                                             <div className={Styled.inputSelect}>
                                                 <CustomSelect
