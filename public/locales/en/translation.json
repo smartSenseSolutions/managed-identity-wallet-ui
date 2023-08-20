@@ -15,9 +15,9 @@
     "MY_CREDS": "My Credential"
   },
   "HEADER": {
-    "CRED_ID": "Credential ID",
+    "CRED_ID": "Holder Identifier",
     "TYPE": "Type",
-    "CREATED_AT": "Creadted Date"
+    "CREATED_AT": "Created Date"
   },
   "WALLET": {
     "CREATE": {
@@ -28,7 +28,7 @@
       "CREATE_WALLET": "Create Wallet",
       "SUCCESS": "Wallet created successfully"
     },
-    "TITLE": "Wallets",
+    "TITLE": "Wallets created by base wallet",
     "CREATE_WALLET": "Create Wallet"
   },
   "VC_MANAGEMENT": {
