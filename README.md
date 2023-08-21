@@ -62,7 +62,7 @@ This is a UI application to access APIs of [Eclipse Tractus-x Managed Identity W
 
 ### Run UI application
 
-1. Update values in .env.local is needed
+1. Update values in .env.local as per needed
 2. Start the application using `yarn start`
 
 ## Sample Demo
