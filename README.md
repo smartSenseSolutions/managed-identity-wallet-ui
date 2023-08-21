@@ -36,7 +36,7 @@ This is a UI application to access APIs of [Eclipse Tractus-x Managed Identity W
 
       this user act as normal user(any business partner, you can create wallet using this BPN)
 
-### Run keycloak
+### Run MIW API application
 
 1. Enable CORSS in MIW application by adding the below code in `SecurityConfig.java`
 
