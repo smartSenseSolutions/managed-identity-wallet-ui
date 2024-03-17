@@ -21,7 +21,7 @@ RUN yarn build
 
 
 # production environment
-FROM nginx:stable-alpine
+FROM nginx:1.24-alpine3.17
 COPY --from=build /app/dist/ /usr/share/nginx/port80
 
 # add your nginx configurations
